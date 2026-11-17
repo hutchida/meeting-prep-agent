@@ -25,3 +25,8 @@
   - Master: the recorded set covers the three normal runs and the Brightmoor news outage; Halden with `fail_source: news` also replayed in my check, but the README only claims the first four.
   - Cost in the README is the proxy-reported cost, which is lower than tokens times the derived per-million rates (for example about US$0.047 against US$0.039 for Halden Pay). I did not investigate why and said so in the README.
   - `data/README.md` has a stale line about empty recordings (not my file).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e16c39a4cffeq4pJjNw6Sm2YWp)
+- Model: github-copilot/claude-sonnet-5.5; wall 7.6 min
+- Tokens: input 82 (uncached) / output 35,028 / reasoning 7,472 / cache read 4,676,278 / cache write 166,682
+- Cost: US$0.8928 (harness-reported)
