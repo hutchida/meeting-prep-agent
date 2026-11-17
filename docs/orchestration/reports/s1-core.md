@@ -36,3 +36,8 @@
   - `FaultInjectingDataSource` wraps the data seen by the sub-agents only; meeting resolution and the Verifier read the unwrapped source (so `FAIL_SOURCE=all` still produces a briefing header). If the API wraps the data source itself before calling `run_briefing`, resolution can fail and the briefing says the calendar could not be reached.
   - `Stats.steps` counts LLM calls (agents, writer, verifier check), not tool calls.
   - Contract observations (no change made): `PlanEvent.meeting_title/meeting_start` are optional in the schema but required by `assemble_pack` (as noted in g0c); budget `time` is in the `budget_hit` enum but never emitted (timeouts are `subagent_failed(timeout)`).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e1704956cffeTHjGWo7zblr2Ig)
+- Model: github-copilot/claude-sonnet-5.5; wall 36.4 min
+- Tokens: input 2,157 (uncached) / output 125,098 / reasoning 78,396 / cache read 27,729,493 / cache write 327,717
+- Cost: US$4.8279 (harness-reported)
