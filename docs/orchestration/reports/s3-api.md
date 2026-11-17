@@ -26,3 +26,8 @@
   - `/health` reports the configured tracing mode, or `off` once a run has shown the tracer fell back to the no-op one.
   - The real `build_llm_client`, `build_data_source` and `run_briefing` (S1/S2) are only exercised through fakes here; an integration smoke test after merge is worth doing (`make dev-api`, then `curl -N -X POST localhost:8000/briefings -H 'content-type: application/json' -d '{"message":"..."}'`).
   - The Langfuse server image tag `langfuse/langfuse:2` floats within 2.x (2.95.11 tested).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e17045a47ffeG7QycdT22IZfjo)
+- Model: github-copilot/claude-sonnet-5.5; wall 17.1 min
+- Tokens: input 118 (uncached) / output 56,888 / reasoning 22,378 / cache read 5,610,506 / cache write 146,544
+- Cost: US$1.3539 (harness-reported)
