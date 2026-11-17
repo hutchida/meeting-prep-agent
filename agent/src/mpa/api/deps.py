@@ -88,7 +88,7 @@ class DepsProvider:
             settings = self._require_settings()
             data = self._build_data()
             try:
-                from mpa.llm import build_llm_client  # type: ignore[attr-defined]
+                from mpa.llm import build_llm_client
                 from mpa.tracing import build_tracer
 
                 llm: Any = build_llm_client(settings)
