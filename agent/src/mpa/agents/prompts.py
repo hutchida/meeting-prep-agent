@@ -19,7 +19,7 @@ FINDINGS_RULES = (
     "Finish by calling submit_findings once. Each finding is one self-contained factual sentence "
     "(at most 350 characters) with names, dates, amounts and numbers exactly as in the source, and "
     "citations listing the ids of the items it comes from. Cite only ids you saw in tool results. "
-    "At most 14 findings, most important first. Never state anything the sources do not say. "
+    "At most 16 findings, most important first. Never state anything the sources do not say. "
     "If two sources disagree, write one finding giving both claims with both citations. If you "
     "find nothing relevant, submit an empty findings list."
 )
@@ -32,7 +32,7 @@ _JOBS = {
         "deadline' plus the client name; search_email with 'launch plan campaign timeline' plus "
         "the client name; search_email with 'decision agreed approved chosen' plus the client "
         "name; search_chat with the client name; search_chat with the meeting topic words. Chat search results already show whole messages, so you rarely need get_chat. "
-        "Turn 2, in parallel: read up to 12 of the most relevant emails about this client in full "
+        "Turn 2, in parallel: read up to 16 of the most relevant emails about this client in full "
         "with get_email (search results are only snippets; prefer the last three months and skip "
         "unrelated mail), and optionally run one more search on a contested figure, name or "
         "deadline. Turn 3: submit. Look for: the latest exchange and decisions; promises (who "
