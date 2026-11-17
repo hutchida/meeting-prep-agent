@@ -223,7 +223,6 @@ async def _pipeline(
         llm=deps.llm,
         budget=budget,
         emit=emit,
-        today=settings.demo_now.date(),
     ).verify(with_meeting_line(written.sections, findings))
     verify_span.set(total=vr.total, kept=vr.kept)
     verify_span.end()

@@ -44,7 +44,10 @@ def _salvage(seen: dict[tuple[str, str], SeenItem]) -> list[FactSentence | NoteS
     for item in ordered:
         if item.type not in ("email", "chat", "doc", "news") or not (item.text or item.title):
             continue
-        text = clip(f"{item.title}: {item.text}" if item.title else item.text, 300)
+        if item.type == "doc" and item.title:
+            text = clip(f"Document: {item.title}", 300)
+        else:
+            text = clip(f"{item.title}: {item.text}" if item.title else item.text, 300)
         out.append(
             FactSentence.model_validate(
                 {"text": text, "citations": [{"type": item.type, "id": item.id}]}

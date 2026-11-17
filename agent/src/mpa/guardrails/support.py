@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from datetime import date, datetime
+from datetime import datetime
 
 SUPPORT_THRESHOLD = 0.5
 MIN_TOKENS_FOR_RATIO = 3
@@ -165,14 +165,9 @@ def content_tokens(text: str) -> set[str]:
     }
 
 
-def support(sentence: str, source_text: str, today: date | None = None) -> Support:
-    """Does `source_text` (the text of the cited items) support `sentence`?
-
-    A reference to `today` (the run's "now") is true by construction and needs no source.
-    """
+def support(sentence: str, source_text: str) -> Support:
+    """Does `source_text` (the text of the cited items) support `sentence`?"""
     s_dates, rest = _date_keys(sentence)
-    if today is not None:
-        s_dates.discard((today.month, today.day))
     s_nums, rest = _numbers(rest)
     src_all = source_text + " " + _derived(source_text)
     src_dates, src_rest = _date_keys(src_all)
