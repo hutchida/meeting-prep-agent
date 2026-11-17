@@ -1,6 +1,7 @@
 """Pydantic mirror of the contract in packages/contract (models.py is generated)."""
 
 from mpa.contract import models
+from mpa.contract.assemble import PackAssemblyError, assemble_pack, check_event_order
 from mpa.contract.citations import CitationRef, citation_token, parse_citations
 from mpa.contract.interfaces import (
     CitationType,
@@ -62,6 +63,7 @@ __all__ = [
     "NewsItem",
     "NoopTracer",
     "NullSpan",
+    "PackAssemblyError",
     "RunDeps",
     "SearchHit",
     "Settings",
@@ -73,7 +75,9 @@ __all__ = [
     "ToolSpec",
     "Tracer",
     "Usage",
+    "assemble_pack",
     "assert_within_limit",
+    "check_event_order",
     "citation_token",
     "json_bytes",
     "models",

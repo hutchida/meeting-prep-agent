@@ -6,6 +6,7 @@ export * from "./items";
 export * from "./tools";
 export * from "./briefing";
 export * from "./events";
+export * from "./assemble";
 export * from "./evals";
 export * from "./limits";
 export * from "./schemas";

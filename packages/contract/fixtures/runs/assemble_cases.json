@@ -1,0 +1,566 @@
+{
+  "description": "Shared by tests/assemble.test.ts and agent/tests/test_contract_assemble.py. Ops are applied to the event list of `stream` (sorted by seq) before assembling/checking. where={type,agent,tool,seq}; path is dotted with numeric list indexes.",
+  "assemble": [
+    {
+      "name": "reversed input",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "reverse"
+        }
+      ],
+      "expect": {
+        "equals_pack": true
+      }
+    },
+    {
+      "name": "rotated input",
+      "stream": "run.brightmoor.news_down",
+      "ops": [
+        {
+          "op": "rotate",
+          "by": 17
+        }
+      ],
+      "expect": {
+        "equals_pack": true
+      }
+    },
+    {
+      "name": "halden reversed",
+      "stream": "run.halden.budget_hit",
+      "ops": [
+        {
+          "op": "reverse"
+        }
+      ],
+      "expect": {
+        "equals_pack": true
+      }
+    },
+    {
+      "name": "no verifier_result derives counts",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "verifier_result"
+          }
+        }
+      ],
+      "expect": {
+        "checks": {
+          "verifier": {
+            "sentences_total": 21,
+            "sentences_kept": 21,
+            "sentences_dropped": 0
+          },
+          "partial": false
+        }
+      }
+    },
+    {
+      "name": "no run_done is partial with derived stats",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "run_done"
+          }
+        }
+      ],
+      "expect": {
+        "checks": {
+          "partial": true,
+          "gaps": [],
+          "stats": {
+            "steps": 15,
+            "tokens_in": 0,
+            "tokens_out": 0,
+            "cost_usd": 0,
+            "duration_ms": 10420
+          }
+        }
+      }
+    },
+    {
+      "name": "no run_done and an unfinished agent gives a gap",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "run_done"
+          }
+        },
+        {
+          "op": "drop",
+          "where": {
+            "type": "subagent_done",
+            "agent": "documents"
+          }
+        }
+      ],
+      "expect": {
+        "checks": {
+          "partial": true,
+          "gaps": [
+            {
+              "source": "docs",
+              "reason": "error",
+              "detail": "run ended before documents finished"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "truncated stream fills missing sections",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "keep_first",
+          "count": 44
+        }
+      ],
+      "expect": {
+        "checks": {
+          "partial": true,
+          "sections.2.empty": false,
+          "sections.3.empty": true,
+          "sections.3.title": "Where we left off",
+          "sections.3.sentences": [],
+          "sections.6.id": "talking_points_and_risks",
+          "verifier.sentences_total": 22,
+          "stats.duration_ms": 9940
+        }
+      }
+    },
+    {
+      "name": "run_done partial flag alone makes the pack partial",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "run_done"
+          },
+          "path": "partial",
+          "value": true
+        }
+      ],
+      "expect": {
+        "checks": {
+          "partial": true,
+          "gaps": []
+        }
+      }
+    },
+    {
+      "name": "duplicate gaps are removed",
+      "stream": "run.brightmoor.news_down",
+      "ops": [
+        {
+          "op": "clone",
+          "where": {
+            "type": "subagent_failed"
+          },
+          "new_seq": 1000
+        }
+      ],
+      "expect": {
+        "checks": {
+          "gaps": [
+            {
+              "source": "news",
+              "reason": "fault_injected",
+              "detail": "news source unavailable (injected fault)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "budget_hit gaps name unfinished agents",
+      "stream": "run.halden.budget_hit",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "subagent_failed",
+            "agent": "documents"
+          }
+        }
+      ],
+      "expect": {
+        "checks": {
+          "partial": true,
+          "gaps": [
+            {
+              "source": "docs",
+              "reason": "budget",
+              "detail": "tokens budget hit before documents finished"
+            },
+            {
+              "source": "chat",
+              "reason": "budget",
+              "detail": "chat history only partly searched: run token budget reached"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "complete run with a missing section",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "draft",
+            "seq": 43
+          }
+        }
+      ],
+      "expect": {
+        "error": "sections are missing: recent_news"
+      }
+    },
+    {
+      "name": "plan without meeting title",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "delete",
+          "where": {
+            "type": "plan"
+          },
+          "path": "meeting_title"
+        }
+      ],
+      "expect": {
+        "error": "meeting_title"
+      }
+    },
+    {
+      "name": "plan without meeting start",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "delete",
+          "where": {
+            "type": "plan"
+          },
+          "path": "meeting_start"
+        }
+      ],
+      "expect": {
+        "error": "meeting_start"
+      }
+    },
+    {
+      "name": "missing run_started",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "run_started"
+          }
+        }
+      ],
+      "expect": {
+        "error": "missing run_started"
+      }
+    },
+    {
+      "name": "missing plan",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "plan"
+          }
+        }
+      ],
+      "expect": {
+        "error": "missing plan"
+      }
+    },
+    {
+      "name": "duplicate seq",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "clone",
+          "where": {
+            "type": "run_done"
+          },
+          "new_seq": 48
+        }
+      ],
+      "expect": {
+        "error": "duplicate seq"
+      }
+    },
+    {
+      "name": "events from two runs",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "run_done"
+          },
+          "path": "run_id",
+          "value": "other"
+        }
+      ],
+      "expect": {
+        "error": "more than one run"
+      }
+    },
+    {
+      "name": "uncited fact sentence is rejected",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "draft",
+            "seq": 41
+          },
+          "path": "sections.0.sentences.0.citations",
+          "value": []
+        }
+      ],
+      "expect": {
+        "error": "assembled pack is invalid"
+      }
+    },
+    {
+      "name": "no events",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "keep_first",
+          "count": 0
+        }
+      ],
+      "expect": {
+        "error": "no events"
+      }
+    }
+  ],
+  "order": [
+    {
+      "name": "drafts out of order",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "move",
+          "where": {
+            "seq": 42
+          },
+          "to_index": 44
+        }
+      ],
+      "errors_contain": [
+        "seq not strictly increasing",
+        "draft 1 must be client_snapshot"
+      ]
+    },
+    {
+      "name": "early complete",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "draft",
+            "seq": 41
+          },
+          "path": "complete",
+          "value": true
+        }
+      ],
+      "errors_contain": [
+        "draft 0: only the last draft is complete"
+      ]
+    },
+    {
+      "name": "last draft not complete",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "draft",
+            "seq": 47
+          },
+          "path": "complete",
+          "value": false
+        }
+      ],
+      "errors_contain": [
+        "draft 6: only the last draft is complete"
+      ]
+    },
+    {
+      "name": "verifier after drafts",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "move",
+          "where": {
+            "type": "verifier_result"
+          },
+          "to_index": 47
+        }
+      ],
+      "errors_contain": [
+        "verifier_result must come before the first draft"
+      ]
+    },
+    {
+      "name": "no run_done",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "run_done"
+          }
+        }
+      ],
+      "errors_contain": [
+        "run_done must be the last event",
+        "exactly one run_done required"
+      ]
+    },
+    {
+      "name": "six drafts",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "seq": 47
+          }
+        }
+      ],
+      "errors_contain": [
+        "exactly 7 draft events required, found 6"
+      ]
+    },
+    {
+      "name": "agent never finishes",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "subagent_done",
+            "agent": "documents"
+          }
+        }
+      ],
+      "errors_contain": [
+        "documents never finished"
+      ]
+    },
+    {
+      "name": "tool event outside agent window",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "drop",
+          "where": {
+            "type": "subagent_started",
+            "agent": "news"
+          }
+        }
+      ],
+      "errors_contain": [
+        "outside its started..done window"
+      ]
+    },
+    {
+      "name": "tool_result without tool_call",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "tool_result",
+            "agent": "news",
+            "tool": "search_news"
+          },
+          "path": "call_id",
+          "value": "nope"
+        }
+      ],
+      "errors_contain": [
+        "tool_result nope has no matching tool_call"
+      ]
+    },
+    {
+      "name": "two budget hits",
+      "stream": "run.halden.budget_hit",
+      "ops": [
+        {
+          "op": "clone",
+          "where": {
+            "type": "budget_hit"
+          },
+          "new_seq": 1000
+        }
+      ],
+      "errors_contain": [
+        "at most one budget_hit allowed"
+      ]
+    },
+    {
+      "name": "two verifier results",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "clone",
+          "where": {
+            "type": "verifier_result"
+          },
+          "new_seq": 1000
+        }
+      ],
+      "errors_contain": [
+        "exactly one verifier_result required"
+      ]
+    },
+    {
+      "name": "draft with two sections",
+      "stream": "run.brightmoor.normal",
+      "ops": [
+        {
+          "op": "set",
+          "where": {
+            "type": "draft",
+            "seq": 41
+          },
+          "path": "sections.1",
+          "value": {
+            "id": "client_snapshot",
+            "title": "Client snapshot",
+            "sentences": [],
+            "empty": true
+          }
+        }
+      ],
+      "errors_contain": [
+        "draft 0 must carry exactly one section"
+      ]
+    }
+  ]
+}

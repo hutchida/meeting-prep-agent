@@ -1,0 +1,254 @@
+{
+  "run_id": "run_20260309_0910",
+  "client": "Halden Pay",
+  "meeting": {
+    "cal_id": "M1",
+    "title": "Halden Pay - onboarding redesign checkpoint",
+    "start": "2026-03-11T14:00:00Z"
+  },
+  "partial": true,
+  "gaps": [
+    {
+      "source": "docs",
+      "reason": "budget",
+      "detail": "token budget of 80000 exhausted before documents finished"
+    },
+    {
+      "source": "chat",
+      "reason": "budget",
+      "detail": "chat history only partly searched: run token budget reached"
+    }
+  ],
+  "verifier": {
+    "sentences_total": 17,
+    "sentences_kept": 16,
+    "sentences_dropped": 1
+  },
+  "stats": {
+    "steps": 16,
+    "tokens_in": 79120,
+    "tokens_out": 1292,
+    "cost_usd": 0.0434,
+    "duration_ms": 8570
+  },
+  "model": "vertex-ai-gemini-3-flash-preview",
+  "sections": [
+    {
+      "id": "meeting_at_a_glance",
+      "title": "Meeting at a glance",
+      "sentences": [
+        {
+          "text": "Wednesday 11 March 2026, 14:00-15:00 UTC: Halden Pay onboarding redesign checkpoint covering timeline, risk workstream and regulator deadline.",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M1"
+            }
+          ]
+        },
+        {
+          "text": "Attending: Sam Reyes and Priya Nair (Northwind), Marcus Ellery and Ingrid Solheim (Halden Pay).",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M1"
+            },
+            {
+              "type": "contact",
+              "id": "P2"
+            },
+            {
+              "type": "contact",
+              "id": "P5"
+            },
+            {
+              "type": "contact",
+              "id": "P6"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "client_snapshot",
+      "title": "Client snapshot",
+      "sentences": [
+        {
+          "text": "Northwind is redesigning Halden Pay's merchant onboarding flow.",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M1"
+            }
+          ]
+        },
+        {
+          "text": "Halden Pay chose KYC vendor VeriTrace over IdentiQ because it verifies 38% faster.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E37"
+            }
+          ]
+        },
+        {
+          "text": "Documents could not be searched within the run budget; fee and SOW details are not included.",
+          "citations": [],
+          "kind": "note"
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "recent_news",
+      "title": "Recent news",
+      "sentences": [
+        {
+          "text": "Halden Pay launched instant payouts for Irish merchants on 24 February.",
+          "citations": [
+            {
+              "type": "news",
+              "id": "N22"
+            },
+            {
+              "type": "email",
+              "id": "E60"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "where_we_left_off",
+      "title": "Where we left off",
+      "sentences": [
+        {
+          "text": "On 20 February Marcus confirmed that go-live for the new onboarding flow is locked for 14 April.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E47"
+            }
+          ]
+        },
+        {
+          "text": "On 26 February Kofi said engineering sees 28 April as the realistic ship date.",
+          "citations": [
+            {
+              "type": "chat",
+              "id": "C22"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "open_items",
+      "title": "Open items",
+      "sentences": [
+        {
+          "text": "Ingrid promised the updated KYC risk-scoring matrix by 27 February; on 6 March she said it was not yet sent because of audit preparation.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E46"
+            },
+            {
+              "type": "chat",
+              "id": "C28"
+            }
+          ]
+        },
+        {
+          "text": "The Payments Oversight Authority safeguarding attestation is due on 31 March 2026.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E49"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "attendees",
+      "title": "Attendees",
+      "sentences": [
+        {
+          "text": "Marcus Ellery, Chief Financial Officer, owns the budget and wants dates fixed and costs capped.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P5"
+            }
+          ]
+        },
+        {
+          "text": "Ingrid Solheim, Head of Risk, owns KYC and risk scoring and is stretched thin by audit preparation.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P6"
+            }
+          ]
+        },
+        {
+          "text": "Priya Nair, Engagement Manager, leads the Halden Pay engagement for Northwind.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P2"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "talking_points_and_risks",
+      "title": "Talking points and risks",
+      "sentences": [
+        {
+          "text": "Go-live conflict: Marcus says 14 April is locked while engineering says 28 April; agree a single date.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E47"
+            },
+            {
+              "type": "chat",
+              "id": "C22"
+            }
+          ]
+        },
+        {
+          "text": "Risk: the overdue risk-scoring matrix could squeeze the 31 March regulatory attestation.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E46"
+            },
+            {
+              "type": "email",
+              "id": "E49"
+            }
+          ]
+        },
+        {
+          "text": "Ask whether instant payouts in Ireland require changes to the onboarding flow.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E60"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    }
+  ]
+}

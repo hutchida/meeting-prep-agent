@@ -24,6 +24,9 @@ export const PlanEvent = z
     type: z.literal("plan"),
     client: z.string().min(1).max(100),
     meeting_id: CalId,
+    // Optional in the schema for additivity, but always sent; assemblePack needs both.
+    meeting_title: z.string().min(1).max(200).optional(),
+    meeting_start: IsoDateTime.optional(),
     tasks: z.array(z.strictObject({ agent, goal: z.string().max(300) }).meta({ id: "PlanTask" })).max(8),
   })
   .meta({ id: "PlanEvent" });
@@ -96,8 +99,9 @@ export const SubagentDoneEvent = z
   .meta({ id: "SubagentDoneEvent" });
 
 /**
- * Sections drafted so far (1 to 7). A whole BriefingPack can be 40 KB, far above the 8 KB event
- * limit, so the finished pack is fetched separately rather than streamed in one event.
+ * One verified section per event, in canonical order (7 events, only the last has `complete`).
+ * A whole BriefingPack can be 40 KB, far above the 8 KB event limit, so clients rebuild it with
+ * `assemblePack` (see EVENTS.md).
  */
 export const DraftEvent = z
   .strictObject({
