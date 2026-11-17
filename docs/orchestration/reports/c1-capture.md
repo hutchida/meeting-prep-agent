@@ -1,0 +1,22 @@
+# Merge report: c1-capture
+- Model(s): github-copilot/claude-sonnet-5.5 (opencode)
+- Wall time start→ready: 2026-11-17 10:09:46 UTC → 2026-11-17 10:27 UTC (about 18 minutes); active time: unavailable
+- Tokens in/out: unavailable
+- Cost: unavailable
+- Bottlenecks: `gifenc` is CJS with a default export only, so named ESM imports failed under tsx and its interop differs under vitest (handled with a resolver in `src/gif.ts`). gifenc's quantizer is very slow on high-entropy noise (a 300x300 random-RGB test frame hung for minutes); the test noise is now 8-colour, and real UI frames and a full-gradient 1280x800 frame take under 1 s. Chromium for Playwright 1.65 was already in the shared `~/Library/Caches/ms-playwright`, so no download was needed. No contract gaps.
+- Checks run + results:
+  - `pnpm check` → green (lint, typecheck, vitest incl. 6 browser tests, contract tests, 246 pytest passed + 1 skipped), about 24 s
+  - `PLAYWRIGHT_BROWSERS_PATH=/nonexistent pnpm --filter @mpa/capture test` → 29 passed, 6 browser tests skipped with the install message (offline / no-Chromium path)
+  - Browser self-test: `pnpm --filter @mpa/capture run capture -- demo --fixture --out <tmp>` → OK; 42 steps, run time 5.7 s (7.4 s wall incl. startup), 6 PNGs (`demo-01-home` … `demo-06-outage-briefing`), `demo.gif` 11 frames, 960x600, 177 KiB; marks prompt-sent→briefing-ready 302 ms
+- What was built:
+  - `src/steps.ts`: typed step DSL (goto, click, fill, press, toggle, waitForText/TestId/NoTestId, waitFor, wait, screenshot, expectVisible/Text/Count/DistinctAttr, mark, expectMarkWithin, note), targets `{testId|text|role+name|css}` with `nth`, validation
+  - `src/capture.ts`: `runCapture` (Playwright Chromium, frame per step, named PNGs `<name>-<NN>-<label>.png`, failed-state PNG, total/per-step timeouts, marks excluding frame-capture time, redacted failure messages)
+  - `src/gif.ts`: pure-JS GIF (gifenc + pngjs), downscale to <= 960 px, 4 MB cap by reducing colours, width then frames
+  - `src/cli.ts`: `capture -- <script|name> [--base --out --no-gif --headed --live --max-briefing-ms --fixture]`, step table, exit 0/1
+  - `scripts/demo.ts`: demo steps 1–5 on the agreed test ids (`maxBriefingMs` 10 s replay / 90 s live, whole run limit 60 s replay)
+  - `src/fixture.ts`: local fixture server mimicking the test-id contract (used by tests and `--fixture`)
+  - 35 vitest tests (steps, targets, GIF, naming, redaction, script loading, browser runs), README, `install-browsers` script
+- Known gaps / follow-ups:
+  - The demo has not run against the real web app; I1 must implement the test ids exactly. Step 5 re-sends the prompt through `chat-input` + `chat-send` (not the starter button) and reads the last `section-*` element, so it works whether the UI replaces or appends briefings.
+  - `run-stats` is not asserted by the demo (only visible in screenshots).
+  - Marks are measured from the Playwright client, so they include client-side polling latency (about 100 ms).
