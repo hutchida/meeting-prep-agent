@@ -1,6 +1,6 @@
 # Merge report: c1-capture
 - Model(s): github-copilot/claude-sonnet-5.5 (opencode)
-- Wall time start→ready: 2026-11-17 10:09:46 UTC → 2026-11-17 10:27 UTC (about 18 minutes); active time: unavailable
+- Wall time start→ready: 2026-11-17 10:09:46 UTC → 2026-11-17 10:23:30 UTC (about 14 minutes); active time: unavailable
 - Tokens in/out: unavailable
 - Cost: unavailable
 - Bottlenecks: `gifenc` is CJS with a default export only, so named ESM imports failed under tsx and its interop differs under vitest (handled with a resolver in `src/gif.ts`). gifenc's quantizer is very slow on high-entropy noise (a 300x300 random-RGB test frame hung for minutes); the test noise is now 8-colour, and real UI frames and a full-gradient 1280x800 frame take under 1 s. Chromium for Playwright 1.65 was already in the shared `~/Library/Caches/ms-playwright`, so no download was needed. No contract gaps.
