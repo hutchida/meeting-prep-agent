@@ -175,7 +175,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1161,
+  "latency_ms": 1104,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -183,36 +183,29 @@
      "arguments": {
       "id": "N1"
      },
-     "id": "call_3533178193032493972__thought__AY89a19OdeKsdfNe6lA4IJE0rAz9W9rWlHDxW/fjySbUCE4shIjalpYjRgMuqq17HZmwcz+5b2v0SlPiRymHcaN18A9NQKxUITjyJnAfULlUsHIsZK3mSeOs+qjQUSGgLEtwkSxLL7hcfoEn2HH3B8jBiIwFBM3a/RhuFxp/DN0c7ySO",
+     "id": "call_14658763441866880817__thought__AY89a1/PoLJCfNt18Umbi+cDCyif6t8OaBYn/owFnd1H0Se3AFFTLlEZ2iPCFj2vn7iSATCkr6JPMsGOA/JNB6M6kJ+UNWulZgR1a2gUZG1KIYl4hny5qbUMKVIcOPrrayGBHOKumvI1gOS/46iPlcfdK719dyCvoMnWwPWaou+X0Q6M",
      "name": "get_news"
     },
     {
      "arguments": {
       "id": "N26"
      },
-     "id": "call_3533178193032492413",
+     "id": "call_14658763441866882382",
      "name": "get_news"
     },
     {
      "arguments": {
       "id": "N10"
      },
-     "id": "call_3533178193032494950",
-     "name": "get_news"
-    },
-    {
-     "arguments": {
-      "id": "N20"
-     },
-     "id": "call_3533178193032493391",
+     "id": "call_14658763441866879851",
      "name": "get_news"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 71,
-   "cost_usd": 0.0012155,
+   "completion_tokens": 53,
+   "cost_usd": 0.0011615,
    "prompt_tokens": 2005
   }
  }

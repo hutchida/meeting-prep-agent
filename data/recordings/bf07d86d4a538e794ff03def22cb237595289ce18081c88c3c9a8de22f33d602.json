@@ -22,7 +22,7 @@
      },
      {
       "arguments": {
-       "query": "\"Kettle & Crumb\" retail bakery"
+       "query": "\"Kettle & Crumb\" bakery retail"
       },
       "id": "news_2",
       "name": "search_news"
@@ -175,7 +175,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1596,
+  "latency_ms": 1354,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -183,14 +183,14 @@
      "arguments": {
       "id": "N19"
      },
-     "id": "call_13959861516142303070__thought__AY89a1/1KJlhUr91wWj1KjbcF62zMByGs1wueeqIRknYa1UkSrpP++L4qjaJ8ZbDiPDuFPTj19mZxUsfWCJ2Xwc+YcQtTaPPvj/lgFXGyr95sKwOjDtBLT2fKHLuRjxvw+7v8rMQ7ag6I8ojU8wqsf51kkmaAEOncudU4E2G9Y+5v7j2",
+     "id": "call_4267517789139966913__thought__AY89a19piN3mwrqRLNLn0zzngk1KFa7vSH9XOJ8BK5VFf18snhi8at51oUwt0pcsudJOFeaISIFK/LUZrM9jAwPF5OFGfXVaU0sHpC1dBwGVZkkM6Jt/B9n1kr2vEd/lhre/klU71kBxkEX5ED0H11/HAJ43pS2h6DB70ryYs5JAm8Yn",
      "name": "get_news"
     },
     {
      "arguments": {
       "id": "N15"
      },
-     "id": "call_13959861516142301933",
+     "id": "call_4267517789139964226",
      "name": "get_news"
     }
    ]

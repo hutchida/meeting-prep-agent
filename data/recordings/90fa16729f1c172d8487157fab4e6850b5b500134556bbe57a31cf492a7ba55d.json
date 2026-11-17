@@ -22,7 +22,7 @@
      },
      {
       "arguments": {
-       "query": "\"Kettle & Crumb\" retail bakery"
+       "query": "\"Kettle & Crumb\" bakery retail"
       },
       "id": "news_2",
       "name": "search_news"
@@ -206,7 +206,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1959,
+  "latency_ms": 2597,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -216,42 +216,42 @@
        {
         "citations": [
          {
-          "id": "N15",
-          "type": "news"
-         }
-        ],
-        "text": "On 9 February 2026, it was reported that the oat-and-honey crumble bar from Kettle & Crumb secured the top position in the monthly supermarket new-product chart."
-       },
-       {
-        "citations": [
-         {
-          "id": "N15",
-          "type": "news"
-         }
-        ],
-        "text": "As of 9 February 2026, Kettle & Crumb plans to expand distribution across additional regional territories following the strong debut of its crumble bar."
-       },
-       {
-        "citations": [
-         {
           "id": "N19",
           "type": "news"
          }
         ],
-        "text": "On 20 February 2026, Kettle & Crumb was officially named the Regional Snack Brand of the Year at an annual industry gala."
+        "text": "On 20 February 2026, Kettle & Crumb was named the Regional Snack Brand of the Year at an annual industry gala, with judges praising its commitment to local sourcing and innovative flavour profiles."
+       },
+       {
+        "citations": [
+         {
+          "id": "N15",
+          "type": "news"
+         }
+        ],
+        "text": "On 9 February 2026, it was reported that Kettle & Crumb's oat-and-honey crumble bar secured the top position in the monthly supermarket new-product chart, exceeding initial projections for the quarter."
+       },
+       {
+        "citations": [
+         {
+          "id": "N15",
+          "type": "news"
+         }
+        ],
+        "text": "Following the strong debut of its crumble bar, Kettle & Crumb plans to expand distribution across additional regional territories as of 9 February 2026."
        }
       ],
       "gaps": []
      },
-     "id": "call_8074677345669131608__thought__AY89a1/05qCOnTQiXub0ojXzeyMSKBQpCZV6jLypFHeYYOPgJB52qVmEZYTxhlAUJTKWcnw1X26pcE4ZP7QJtP69AwgwkxxFuT+KGAW1EtQqBUDjpIlXOLb0Wq8sZZkHm212vQssMAp3BXW3ZJm///pWdN83e0XtCnte2j6T0rDNexjf",
+     "id": "call_740275117104402073__thought__AY89a1+g3ohD+T4FGQvtjRXWIGAsiPc7vbfzs1SNMr5pXFiKik3iY9TDY1l4nx8Ag6sSgFLN5GJj4abRhIOAr1xkHeI0FsG38EWUrZoASViE0AnSlk+Tv0B7fA8icwbUOkRIZSzqVq4ClzfTRZs7pOokzjxy2r+alQsWENeo5uaiTEbi",
      "name": "submit_findings"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 186,
-   "cost_usd": 0.0017315,
+   "completion_tokens": 205,
+   "cost_usd": 0.0017884999999999997,
    "prompt_tokens": 2347
   }
  }

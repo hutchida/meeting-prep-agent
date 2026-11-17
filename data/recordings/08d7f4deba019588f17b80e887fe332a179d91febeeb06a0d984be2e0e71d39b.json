@@ -165,7 +165,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1909,
+  "latency_ms": 1661,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -173,35 +173,35 @@
      "arguments": {
       "id": "P1"
      },
-     "id": "call_18216245069363537653__thought__AY89a1+eySDBTzfB5JMvZRGPcU9FtD+wCbt/6cvvLROS/zHCmee4GSTSSGYcdH5z83TqZiTfva4l5cRm/PrDMByj+FJdkG/0ZmWaNkZW58Lsne5T8yPTxJXnm6QE3U7owVFrWFP36GFI1yeBisB4PLLzzNhruZn6zZKEYw/t+Ud0GrPC",
+     "id": "call_8416254440873995531__thought__AY89a1/O/G+5Spvrn3aw3A4tzA3xz/8Pnm57IrdUnV46J9oR+8sqDnB2TrmeLimkQaJE8+uoP0jVHV8KzrNvEt7nebrp6vRyQkXT2dM+0U/Fc1xPPtklIJZSRY+xjUNKLm1eLeBCQBlhKTdTekEHp3RX5uFTVLcZa9ADwmB2f2T/U3PL",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P3"
      },
-     "id": "call_18216245069363538758",
+     "id": "call_8416254440873995154",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P11"
      },
-     "id": "call_18216245069363539863",
+     "id": "call_8416254440873994777",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P12"
      },
-     "id": "call_18216245069363536872",
+     "id": "call_8416254440873994400",
      "name": "get_contact"
     },
     {
      "arguments": {
       "query": "Kettle & Crumb"
      },
-     "id": "call_18216245069363537977",
+     "id": "call_8416254440873994023",
      "name": "get_calendar"
     }
    ]

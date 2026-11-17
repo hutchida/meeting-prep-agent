@@ -201,7 +201,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1333,
+  "latency_ms": 2421,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -209,36 +209,50 @@
      "arguments": {
       "id": "D1"
      },
-     "id": "call_16126823190306671726__thought__AY89a1/IMWu0kO4vq4IdF7+qezUgaCbXbO/nUAB0SNNbv2o0aaoH8Fzk6v/fnI208afraxdGYN14o8UKTsFTB6uXBDSn9iQU3AkusSl/Fv02jLkju8qYN5mnQRSePZA+W8mC22z2ABad17fceugfjPDykvShxR0uVelPLR40KZqx3QC1",
+     "id": "call_14394610602976527579__thought__AY89a1/91/o2XqU3HNdC51JZRFAScB1P7u5/QgRpWw5JK0BECIsw1cG5SsfptXbBJFPqnH3mHkZRL/9fJZj36WCwyAm1vg1GHGLNihTOszPAWMX1ZpTF1PHgwpn8PkDTDXb3xSOvB7dpLdszuUcCtgL8T6PmOaBvBezeFIL3rR1hIxyf",
      "name": "get_doc"
     },
     {
      "arguments": {
       "id": "D5"
      },
-     "id": "call_16126823190306670717",
+     "id": "call_14394610602976526354",
      "name": "get_doc"
     },
     {
      "arguments": {
       "id": "D10"
      },
-     "id": "call_16126823190306669708",
+     "id": "call_14394610602976529225",
      "name": "get_doc"
     },
     {
      "arguments": {
       "id": "D14"
      },
-     "id": "call_16126823190306668699",
+     "id": "call_14394610602976528000",
+     "name": "get_doc"
+    },
+    {
+     "arguments": {
+      "id": "D17"
+     },
+     "id": "call_14394610602976526775",
+     "name": "get_doc"
+    },
+    {
+     "arguments": {
+      "id": "D21"
+     },
+     "id": "call_14394610602976529646",
      "name": "get_doc"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 70,
-   "cost_usd": 0.0018595,
+   "completion_tokens": 106,
+   "cost_usd": 0.0019675,
    "prompt_tokens": 3299
   }
  }

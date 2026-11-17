@@ -64,13 +64,6 @@
       },
       "id": "news_5",
       "name": "get_news"
-     },
-     {
-      "arguments": {
-       "id": "N20"
-      },
-      "id": "news_6",
-      "name": "get_news"
      }
     ]
    },
@@ -91,12 +84,6 @@
     "name": "get_news",
     "role": "tool",
     "tool_call_id": "news_5"
-   },
-   {
-    "content": "<untrusted_data tool=\"get_news\">\n{\"items\":[{\"type\":\"news\",\"id\":\"N20\",\"title\":\"Australian developer Brightmoor Renewables Pty Ltd enters administration\",\"source\":\"Energy Wire\",\"published\":\"2026-02-20T10:30:00Z\",\"url\":\"https://example.test/news/australian-developer-brightmoor-renewables-pty-ltd-enters-ad-n20\",\"body\":\"The Australian energy sector faced a significant setback this morning as Brightmoor Renewables Pty Ltd officially entered voluntary administration. The Sydney-based solar developer appointed insolvency practitioners following a period of sustained liquidity challenges. A spokesperson for the firm, Alistair Vance, confirmed that the move was necessary to protect remaining assets. It is important to note that Brightmoor Renewables Pty Ltd is an independent entity and has no legal or financial connection to any other international organisations or consultancies operating under a similar name.\",\"about\":\"Brightmoor Renewables Pty Ltd\"}],\"total_matches\":1,\"truncated\":false}\n</untrusted_data>",
-    "name": "get_news",
-    "role": "tool",
-    "tool_call_id": "news_6"
    }
   ],
   "model": "vertex-ai-gemini-3-flash-preview",
@@ -232,7 +219,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2220,
+  "latency_ms": 2092,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -264,7 +251,7 @@
           "type": "news"
          }
         ],
-        "text": "On 30 January 2026, Energy Wire reported that the local planning authority granted consent for the development of the Fenmoor wind farm following environmental assessments and community consultations."
+        "text": "On 30 January 2026, it was reported that the local planning authority granted consent for the development of the Fenmoor wind farm following environmental assessments and community consultations."
        },
        {
         "citations": [
@@ -278,7 +265,7 @@
       ],
       "gaps": []
      },
-     "id": "call_6808993801141042556__thought__AY89a1+mnhL3zqg3zPe331s9akML1t4Ld9ZBY7uGd0jRO5zT7I7FrgtitvDniooceEg7rIGZfLnVpGxZrq5QK+mKDoaHipVLquVMKec+J8dCLpgxYKCustxEBkkXZjoAKHoWLwKLHJKloemg6bDFeE0x6lep4SlvrWMt+USIBiDJ6CMm",
+     "id": "call_14485838227554344318__thought__AY89a185hPws8g/mRJpdUQHdlRhr9RTsfgRFhI7ViPeyMBft57G+ROR5ziTNbWOszawpchfzTLNHxQ/6qCmVGhU/c7hYtL93B+S9kSmHfQfriGsZs+dmEW57LhTEHgjAmfvEePME+J3lq2v0Gj18NhYUvwvPZgvk27OmQscbtTnjvpC6",
      "name": "submit_findings"
     }
    ]
@@ -286,8 +273,8 @@
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
    "completion_tokens": 251,
-   "cost_usd": 0.0022575,
-   "prompt_tokens": 3009
+   "cost_usd": 0.0021339999999999996,
+   "prompt_tokens": 2762
   }
  }
 }

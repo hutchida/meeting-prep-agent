@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1662,
+  "latency_ms": 2577,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,36 +152,36 @@
      "arguments": {
       "query": "Halden Pay"
      },
-     "id": "call_8839708419587552051__thought__AY89a1/ujaVeRD1/go5mkaDp/eRa3G54Y6723F7VHEDaIjWjlc1mSD4BT23VV2CjcpJdolwfcUGDNhmliYgQZYTWUGVvX9lazanAvRrpCe/Q3zgsoptvaEzKdH70InCtufPlz+zUQBQMJaiZssMhDVVs8PL2gHEJEUjmQD6w7xV3Ow3n",
+     "id": "call_4341706827306305445__thought__AY89a194F2dDY2YLPrActWOS1U0DbcutbOx3xFugjZdR2AyciM0RWIOnbycpYpEDYEtdBwijv0r9db9ZL4oLKfZOcm1zJBDPugSm9al/evTnW4C9iT7mfFEUtNgqUTzOv3dbSDhyRHmgDZjeoK1AJYFx/hH9G3mc9FtI2a3nO3vZD0fo",
      "name": "search_docs"
     },
     {
      "arguments": {
-      "query": "Halden Pay onboarding redesign checkpoint timeline risk regulator deadline"
+      "query": "Halden Pay onboarding redesign checkpoint"
      },
-     "id": "call_8839708419587552890",
+     "id": "call_4341706827306304332",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Halden Pay fee payment instalment invoice schedule"
      },
-     "id": "call_8839708419587553729",
+     "id": "call_4341706827306307315",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Halden Pay decision minutes action items steering"
      },
-     "id": "call_8839708419587554568",
+     "id": "call_4341706827306306202",
      "name": "search_docs"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 89,
-   "cost_usd": 0.0007794999999999999,
+   "completion_tokens": 85,
+   "cost_usd": 0.0007675,
    "prompt_tokens": 1025
   }
  }

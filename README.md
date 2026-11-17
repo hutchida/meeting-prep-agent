@@ -5,7 +5,7 @@ A hand-built multi-agent system that prepares a cited briefing pack for your nex
 [![licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
 <!-- TODO: CI badge once the repo has a remote: ![ci](https://github.com/<owner>/meeting-prep-agent/actions/workflows/ci.yml/badge.svg) (workflow: .github/workflows/ci.yml) -->
 
-<!-- MEDIA:demo-gif -->
+![Two-minute demo: starter prompt, parallel agent timeline, cited briefing, source panel, news outage](docs/media/demo.gif)
 
 ## What it is
 
@@ -192,9 +192,17 @@ Offline replay serves recorded responses in about 1 to 2 seconds per briefing; t
 
 ## Demo
 
-<!-- MEDIA:demo-gif -->
+![Demo (offline replay)](docs/media/demo.gif)
 
-<!-- MEDIA:screenshots -->
+| Step | Screenshot |
+| --- | --- |
+| 1. Chat screen with three starter prompts | ![home](docs/media/demo-01-home.png) |
+| 2. Plan and four sub-agents running in parallel | ![timeline](docs/media/demo-02-timeline.png) |
+| 3. Cited briefing, seven sections | ![briefing](docs/media/demo-03-briefing.png) |
+| 4. Click a citation: source side panel | ![source panel](docs/media/demo-04-source-panel.png) |
+| 5. "Simulate news outage": retries, failure, partial briefing | ![outage timeline](docs/media/demo-05-outage-timeline.png) ![outage briefing](docs/media/demo-06-outage-briefing.png) |
+
+The same run against the live model (no replay) is in [docs/media/live/](docs/media/live/demo.gif).
 
 The five-step demo path (open the UI, run a starter prompt, watch the parallel timeline, open a citation in the source panel, then repeat with "Simulate news outage") is in [docs/demo.md](docs/demo.md).
 

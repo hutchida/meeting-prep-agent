@@ -75,6 +75,8 @@ export default function demo(ctx: ScriptContext): ScriptDefinition {
     click({ testId: "source-panel-close" }, { name: "4. close source panel" }),
     waitForNoTestId("source-panel", { name: "4. source panel closed" }),
 
+    goto("/", { name: "5. start a fresh chat" }),
+    waitForTestId("starter-brightmoor", { name: "5. fresh chat is ready" }),
     toggle({ testId: "toggle-news-outage" }, true, { name: "5. simulate news outage" }),
     fill({ testId: "chat-input" }, PROMPT, { name: "5. type the same prompt" }),
     click({ testId: "chat-send" }, { name: "5. send prompt again" }),

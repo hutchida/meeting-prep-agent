@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 3417,
+  "latency_ms": 2471,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,14 +152,14 @@
      "arguments": {
       "query": "Halden Pay"
      },
-     "id": "call_11612867464602939360__thought__AY89a18l110MncODjQXp0VSHT6pn1w50Ci+jVC6iHz+wQ+4lxiUF1Z/JuaCfNLYi1m+J5mTDm86jU1piM3xGK0F84rPTGYN1Q1UHJYP/y/OIhwd8icNSPNVADGDXv17qwy2RMgfGvRouEki2igfnXdahDrF5Eyf5wqdP8bft7XZ4SPWz",
+     "id": "call_13684701643257396501__thought__AY89a18cnYcBRFWJgmWc8YrHNtTDM4JSiDWUccFK4IIzfR0+JlwqivnGllZy/lsYTWE6fkoVTAKsEGCJqU4xQuUoFqxJcnY4OqZyst5/RB+levDFBL+7JLPh924in70DKBMDtkS7Jq09kawRIR53+Tsko4EOkN0Jn565PGM62AOdR10W",
      "name": "search_news"
     },
     {
      "arguments": {
       "query": "Halden Pay fintech payments"
      },
-     "id": "call_11612867464602937013",
+     "id": "call_13684701643257393572",
      "name": "search_news"
     }
    ]

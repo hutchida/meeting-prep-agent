@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1673,
+  "latency_ms": 1562,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,28 +152,28 @@
      "arguments": {
       "query": "Kettle & Crumb"
      },
-     "id": "call_793175758406585482__thought__AY89a19ku/Psshfahi0jCVpcuyHrcE0Ng+6dh36L34CicGUUBvp5Jd5HI+WM/bBcV9iu3iVlzmtkd8PNjo8awWE2UEGZlsuw/x84GuN/JwARm76cY6NP0+Bo2NgPR92xJA7OTp+wbW4VnH3rCGJuY/KgZeWTWwHjLwfCpeS7nlpSOAOw",
+     "id": "call_17544996131591425857__thought__AY89a19GAQF3oMSyos0crBYt+KL0lrY9yLNyyFIIRKZDdUKifMU1TfdBCWH+gFKbB2lEwXxKyw0qzP7HFYsN0cPxTMcjMWXtuuIufwrDZGWcU1TGO3/aQVwWVO4J8sVoetMS72PDTtq7A6eHWcLmnGVdIT0zSt5YhIdYfOW+fmsXv/ik",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Kettle & Crumb Q2 retail plan Greenfield Stores listing submission"
      },
-     "id": "call_793175758406585053",
+     "id": "call_17544996131591423488",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Kettle & Crumb fee payment instalment invoice schedule"
      },
-     "id": "call_793175758406584624",
+     "id": "call_17544996131591425215",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Kettle & Crumb decision minutes action items steering"
      },
-     "id": "call_793175758406584195",
+     "id": "call_17544996131591422846",
      "name": "search_docs"
     }
    ]

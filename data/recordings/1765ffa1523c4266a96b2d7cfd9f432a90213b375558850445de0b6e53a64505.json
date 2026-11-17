@@ -97,6 +97,20 @@
       },
       "id": "docu_8",
       "name": "get_doc"
+     },
+     {
+      "arguments": {
+       "id": "D17"
+      },
+      "id": "docu_9",
+      "name": "get_doc"
+     },
+     {
+      "arguments": {
+       "id": "D21"
+      },
+      "id": "docu_10",
+      "name": "get_doc"
      }
     ]
    },
@@ -123,6 +137,18 @@
     "name": "get_doc",
     "role": "tool",
     "tool_call_id": "docu_8"
+   },
+   {
+    "content": "<untrusted_data tool=\"get_doc\">\n{\"items\":[{\"type\":\"doc\",\"id\":\"D17\",\"title\":\"Q2 trade promotion plan - Rohan's working notes\",\"kind\":\"notes\",\"author\":\"Rohan Desai\",\"date\":\"2026-02-17T16:30:00Z\",\"body\":\"Q2 TRADE PROMOTION PLAN - ROHAN'S WORKING NOTES\\nAuthor: Rohan Desai\\nDate: Tuesday 17 February 2026\\nClient: Kettle & Crumb\\nProject: Retail Channel Strategy\\n\\n1. OVERVIEW\\nThese notes outline the preliminary allocation for the Q2 trade promotion cycle. The primary objective is to drive volume across the new biscuit range while maintaining premium positioning for the snack bars. The total trade-promotion budget for this period is set at £95,000. This figure must cover all retailer-specific discounts, end-cap placements, and digital catalogue features across the four primary accounts.\\n\\n2. RETAILER ALLOCATION\\nThe budget will be weighted towards high-volume grocery partners to ensure maximum visibility during the spring bank holiday period.\\n\\nA. TIER ONE GROCER (45%): Focus on the core biscuit range. The strategy involves a mix of multi-buy offers and prominent aisle-end displays. This account requires the largest portion of the spend to secure prime positioning during peak footfall weeks.\\n\\nB. PREMIUM ORGANIC CHAIN (25%): Focus on the snack bar portfolio. Promotion types here will lean towards 'save 1/3' mechanics rather than volume-based multi-buys to protect brand equity.\\n\\nC. CONVENIENCE CHANNEL (20%): Targeted at the 'on-the-go' consumer. Budget is allocated for till-point placement and inclusion in meal-deal bundles where margin allows.\\n\\nD. INDEPENDENT SPECIALIST (10%): Sampling events and point-of-sale materials to support the artisanal brand story.\\n\\n3. PROMOTION TYPE BREAKDOWN\\nThe £95,000 will be split across three main tactical areas:\\n\\nI. PRICE PROMOTIONS: Direct discounts and multi-buy mechanics. This remains the largest driver of volume but requires careful monitoring to avoid devaluing the Kettle & Crumb brand.\\n\\nII. VISIBILITY AND PLACEMENT: Fees for gondola ends, shelf-talkers, and secondary placements. Essential for the new biscuit launch to ensure trial.\\n\\nIII. DIGITAL AND LOYALTY: Targeted app-based coupons and featured spots in retailer newsletters.\\n\\n4. NEXT STEPS\\nReview these allocations against the latest sell-through data from Q1. Finalise the specific SKU list for the Tier One Grocer promotion by Friday. Ensure all promotional mechanics are aligned with the broader retail channel strategy agreed upon in January.\"}],\"total_matches\":1,\"truncated\":false}\n</untrusted_data>",
+    "name": "get_doc",
+    "role": "tool",
+    "tool_call_id": "docu_9"
+   },
+   {
+    "content": "<untrusted_data tool=\"get_doc\">\n{\"items\":[{\"type\":\"doc\",\"id\":\"D21\",\"title\":\"Store visit observations\",\"kind\":\"notes\",\"author\":\"Sam Reyes\",\"date\":\"2026-03-04T15:00:00Z\",\"body\":\"STORE VISIT OBSERVATIONS\\nAuthor: Sam Reyes\\nDate: Wednesday 04 March 2026\\n\\n1. SHELF PLACEMENT\\nThe Kettle & Crumb product range is currently positioned on the middle-to-lower shelves within the premium biscuit aisle. While eye-level real estate is dominated by legacy brands, the current placement benefits from proximity to high-traffic organic sections. However, the vertical stacking of the snack bars makes the branding difficult to distinguish from a distance. There is a noticeable gap between the sweet biscuits and the savoury crackers where our client’s hybrid products are situated, potentially causing customer confusion regarding the intended usage occasion.\\n\\n2. NEIGHBOURING BRANDS\\nThe immediate shelf neighbours include several artisanal competitors and established international labels. To the left, a major competitor is running a significant promotional push, which visually overshadows the Kettle & Crumb packaging. To the right, the store’s own-brand premium line uses a similar colour palette, which may lead to brand dilution or accidental substitution by price-conscious shoppers. The snack bar segment is particularly crowded, with several new entrants focusing on high-protein claims.\\n\\n3. SIGNAGE AND VISUALS\\nPoint-of-sale signage for the brand is minimal. There are no shelf talkers or wobblers to highlight the unique ingredient profile of the latest range. The category header signage directs customers towards general snacks, but there is no specific call-out for the gluten-free or sustainable sourcing credentials that Kettle & Crumb prioritises. Lighting in this specific aisle is slightly dimmer than the fresh produce section, affecting the vibrancy of the packaging.\"}],\"total_matches\":1,\"truncated\":false}\n</untrusted_data>",
+    "name": "get_doc",
+    "role": "tool",
+    "tool_call_id": "docu_10"
    }
   ],
   "model": "vertex-ai-gemini-3-flash-preview",
@@ -258,31 +284,143 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1190,
+  "latency_ms": 5756,
   "message": {
    "role": "assistant",
    "tool_calls": [
     {
      "arguments": {
-      "id": "D17"
+      "findings": [
+       {
+        "citations": [
+         {
+          "id": "D5",
+          "type": "doc"
+         }
+        ],
+        "text": "As of 12 January 2026, Kettle & Crumb agreed to a monthly retainer of £12,000 for the three-month duration of the retail channel strategy project, totaling a professional fee of £36,000."
+       },
+       {
+        "citations": [
+         {
+          "id": "D5",
+          "type": "doc"
+         }
+        ],
+        "text": "On 12 January 2026, the payment terms specified that invoices would be issued at the start of each month of service, with all fees being exclusive of VAT and pre-approved out-of-pocket expenses."
+       },
+       {
+        "citations": [
+         {
+          "id": "D5",
+          "type": "doc"
+         }
+        ],
+        "text": "The scope of services defined on 12 January 2026 includes a detailed analysis of the consumer snack landscape and strategic guidance on positioning products within competitive retail environments."
+       },
+       {
+        "citations": [
+         {
+          "id": "D5",
+          "type": "doc"
+         }
+        ],
+        "text": "Deliverables for the engagement include a retail channel strategy roadmap, a dynamic retailer margin model for pricing and discounts, and a structured promotions plan calendar."
+       },
+       {
+        "citations": [
+         {
+          "id": "D1",
+          "type": "doc"
+         }
+        ],
+        "text": "In a proposal dated 10 December 2025, the primary objective of the engagement is to win a listing with Greenfield Stores, the leading premium supermarket chain."
+       },
+       {
+        "citations": [
+         {
+          "id": "D17",
+          "type": "doc"
+         }
+        ],
+        "text": "On 17 February 2026, Rohan Desai set the total trade-promotion budget for the Q2 cycle at £95,000 to cover retailer-specific discounts, end-cap placements, and digital features."
+       },
+       {
+        "citations": [
+         {
+          "id": "D17",
+          "type": "doc"
+         }
+        ],
+        "text": "As of 17 February 2026, the Q2 promotion budget is allocated as 45% to a Tier One Grocer, 25% to a Premium Organic Chain, 20% to the Convenience Channel, and 10% to Independent Specialists."
+       },
+       {
+        "citations": [
+         {
+          "id": "D5",
+          "type": "doc"
+         }
+        ],
+        "text": "On 12 January 2026, the project duration was fixed at three months, commencing immediately upon the formal signing of the Statement of Work."
+       },
+       {
+        "citations": [
+         {
+          "id": "D17",
+          "type": "doc"
+         }
+        ],
+        "text": "Commitment: On 17 February 2026, Rohan Desai noted the need to finalise the specific SKU list for the Tier One Grocer promotion by Friday."
+       },
+       {
+        "citations": [
+         {
+          "id": "D10",
+          "type": "doc"
+         }
+        ],
+        "text": "On 20 January 2026, it was reported that a formal request for raw transaction logs from the last quarter was submitted to the Retail Operations team to identify basket correlation patterns."
+       },
+       {
+        "citations": [
+         {
+          "id": "D21",
+          "type": "doc"
+         }
+        ],
+        "text": "On 4 March 2026, store observations noted that Kettle & Crumb products are positioned on middle-to-lower shelves, and vertical stacking of snack bars makes branding difficult to distinguish."
+       },
+       {
+        "citations": [
+         {
+          "id": "D21",
+          "type": "doc"
+         }
+        ],
+        "text": "On 4 March 2026, a risk was identified that a store's own-brand premium line uses a similar colour palette to Kettle & Crumb, which may lead to brand dilution or accidental substitution."
+       },
+       {
+        "citations": [
+         {
+          "id": "D10",
+          "type": "doc"
+         }
+        ],
+        "text": "On 20 January 2026, Tomás Beltrán noted a slight delay in receiving the loyalty card demographic breakdown, which the client lead was chasing internally."
+       }
+      ],
+      "gaps": []
      },
-     "id": "call_2282945832622676268__thought__AY89a1++o91zy98njdbuxwVKlaX0eF66DcBV3/TlP4p4iqjv9erUQAUMVY5OybiE4nlhPOkoukE6u9+LoXG2YZsgPY1VQWn0sGUG9bDrkzvYh1FTW9uzPe1dmunzEukNqJPQ7Tf64ytaWCZMdXJ/f/7+dyYEdSTxt5x8Zz9YQuzpJIVv",
-     "name": "get_doc"
-    },
-    {
-     "arguments": {
-      "id": "D21"
-     },
-     "id": "call_2282945832622674231",
-     "name": "get_doc"
+     "id": "call_17391975751909380005__thought__AY89a1+18iKb2e32hAoWvfbo295+oPu0nNZAhq91oqzHCgCjbRUNSPjQBrawtRdlluUtmRGkcDZho8O/XH/ZAXjwGenObZla82JMbJq7VkruoNtNaNDP1VfEA+pq+xWKVOXunDyhqte2zeqdda9JDTkweF+b6rG28cz/1QQkKwmQSPT1",
+     "name": "submit_findings"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 36,
-   "cost_usd": 0.0027359999999999997,
-   "prompt_tokens": 5256
+   "completion_tokens": 834,
+   "cost_usd": 0.0056775,
+   "prompt_tokens": 6351
   }
  }
 }

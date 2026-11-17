@@ -180,7 +180,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2302,
+  "latency_ms": 3048,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -188,92 +188,92 @@
      "arguments": {
       "query": "Kettle & Crumb"
      },
-     "id": "call_8946600682402919694__thought__AY89a1+BMENKh1fZGZJEPQdFof06u/eovD0+NJjk+sua2WlPj6pG+vS0c6cDQIennqB5eWjy15laK6tZ46ro000oHS8xeY9hUkYveeXXs2kAnonp/Ub9EM0cwNmEcYLsDeA8jD+47RxjpaQrHU8K/IBdc2XB9y8PPP+RQyGnS0ErCKQY",
+     "id": "call_809110622821501455__thought__AY89a19tSeoJZsW1kt1qEPjhyYIP2SY4b4ie84+ARr9hmt15QHh9Lp0ITriJ0CokypemIwGCO3PLH7q8B9cRtsp4S4yeWWVPIASzRGU9VhITo9NL5UaP8aYnMrqxUOjTMWcqo8qV40d3asmWW9MYQgd9WBDECCwV6+IOKJLqlLoVOLEg",
      "name": "search_email"
     },
     {
      "arguments": {
-      "query": "Q2 retail plan promotions budget Greenfield Stores listing submission"
+      "query": "Q2 retail plan promotions budget Greenfield Stores"
      },
-     "id": "call_8946600682402919485",
+     "id": "call_809110622821499046",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "budget price fee cost deadline Kettle & Crumb"
      },
-     "id": "call_8946600682402919276",
+     "id": "call_809110622821500733",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "launch plan campaign timeline Kettle & Crumb"
      },
-     "id": "call_8946600682402919067",
+     "id": "call_809110622821502420",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "decision agreed approved chosen Kettle & Crumb"
      },
-     "id": "call_8946600682402918858",
+     "id": "call_809110622821500011",
      "name": "search_email"
     },
     {
      "arguments": {
-      "query": "promise confident deliver send over deadline waiting chase outstanding overdue delayed Kettle & Crumb"
+      "query": "promise confident deliver send over deadline waiting chase outstanding overdue delayed"
      },
-     "id": "call_8946600682402918649",
+     "id": "call_809110622821501698",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "Bea Whitcombe"
      },
-     "id": "call_8946600682402918440",
+     "id": "call_809110622821499289",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "Rohan Desai"
      },
-     "id": "call_8946600682402922327",
+     "id": "call_809110622821500976",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "Kettle & Crumb"
      },
-     "id": "call_8946600682402922118",
+     "id": "call_809110622821502663",
      "name": "search_chat"
     },
     {
      "arguments": {
-      "query": "Q2 retail plan promotions budget Greenfield Stores listing submission"
+      "query": "Q2 retail plan promotions budget Greenfield Stores"
      },
-     "id": "call_8946600682402921909",
+     "id": "call_809110622821500254",
      "name": "search_chat"
     },
     {
      "arguments": {
       "query": "waiting chase update ready landed delayed"
      },
-     "id": "call_8946600682402921700",
+     "id": "call_809110622821501941",
      "name": "search_chat"
     },
     {
      "arguments": {
       "query": "date deadline delay slip moved realistic timeline"
      },
-     "id": "call_8946600682402921491",
+     "id": "call_809110622821499532",
      "name": "search_chat"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 269,
-   "cost_usd": 0.0015465,
+   "completion_tokens": 261,
+   "cost_usd": 0.0015225,
    "prompt_tokens": 1479
   }
  }
