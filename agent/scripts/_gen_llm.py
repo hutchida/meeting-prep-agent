@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import re
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -18,7 +19,7 @@ from typing import Any
 import httpx
 
 SEED = 20260309
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 MAX_TOKENS = 3000
 
 
@@ -33,6 +34,7 @@ def request_hash(messages: list[dict[str, str]]) -> str:
         "temperature": 0,
         "seed": SEED,
         "max_tokens": MAX_TOKENS,
+        "reasoning_effort": "minimal",
     }
     blob = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
@@ -52,6 +54,7 @@ class LLMCache:
                 entry = json.loads(line)
                 self.entries[entry["hash"]] = entry
         self._client: httpx.Client | None = None
+        self._lock = threading.Lock()
 
     def _http(self) -> tuple[httpx.Client, str, str]:
         base = os.environ.get("LITELLM_BASE_URL", "").rstrip("/")
@@ -67,9 +70,11 @@ class LLMCache:
 
     def complete(self, messages: list[dict[str, str]]) -> str:
         digest = request_hash(messages)
-        if digest in self.entries:
+        with self._lock:
+            cached = self.entries.get(digest)
+        if cached is not None:
             self.hits += 1
-            return str(self.entries[digest]["content"])
+            return str(cached["content"])
         if self.offline:
             raise CacheMiss(f"offline cache miss for request {digest[:12]}")
         client, _base, model = self._http()
@@ -79,6 +84,7 @@ class LLMCache:
             "temperature": 0,
             "seed": SEED,
             "max_tokens": MAX_TOKENS,
+            "reasoning_effort": "minimal",
         }
         last = ""
         for attempt in range(4):
@@ -87,6 +93,9 @@ class LLMCache:
                 if resp.status_code == 200:
                     break
                 last = f"HTTP {resp.status_code}"
+                if resp.status_code == 400 and "reasoning_effort" in body:
+                    del body["reasoning_effort"]
+                    continue
             except httpx.HTTPError as exc:
                 last = type(exc).__name__
             time.sleep(2**attempt)
@@ -94,23 +103,24 @@ class LLMCache:
             raise RuntimeError(f"LLM request failed: {last}")
         data = resp.json()
         content = (data["choices"][0]["message"].get("content") or "").strip()
-        if not content:
-            raise RuntimeError("LLM returned empty content")
+        if not content or data["choices"][0].get("finish_reason") == "length":
+            raise RuntimeError("LLM returned empty or truncated content")
         try:
             self.cost_usd += float(resp.headers.get("x-litellm-response-cost", "0"))
         except ValueError:
             pass
-        self.misses += 1
-        self.dirty = True
         usage = data.get("usage", {})
-        self.entries[digest] = {
-            "hash": digest,
-            "model": model,
-            "content": content,
-            "tokens_in": usage.get("prompt_tokens"),
-            "tokens_out": usage.get("completion_tokens"),
-        }
-        self.save()
+        with self._lock:
+            self.misses += 1
+            self.dirty = True
+            self.entries[digest] = {
+                "hash": digest,
+                "model": model,
+                "content": content,
+                "tokens_in": usage.get("prompt_tokens"),
+                "tokens_out": usage.get("completion_tokens"),
+            }
+            self.save()
         return content
 
     def save(self) -> None:
@@ -118,7 +128,8 @@ class LLMCache:
             return
         self.path.parent.mkdir(parents=True, exist_ok=True)
         lines = [
-            json.dumps(self.entries[h], sort_keys=True, ensure_ascii=False) for h in sorted(self.entries)
+            json.dumps(self.entries[h], sort_keys=True, ensure_ascii=False)
+            for h in sorted(self.entries)
         ]
         self.path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         self.dirty = False
@@ -133,5 +144,7 @@ def sanitize(text: str) -> str:
     text = _URL.sub(
         lambda m: m.group(0) if "example.test" in m.group(0) else "https://example.test/link", text
     )
-    text = _ADDR.sub(lambda m: m.group(0) if m.group(0).endswith(".test") else "someone@example.test", text)
+    text = _ADDR.sub(
+        lambda m: m.group(0) if m.group(0).endswith(".test") else "someone@example.test", text
+    )
     return text.replace("\r\n", "\n").strip()
