@@ -1,0 +1,34 @@
+# Merge report: s2-data
+- Model(s): Claude Sonnet 5.5 (OpenCode harness, GitHub Copilot provider); no LLM calls made by the code
+- Wall time start→ready: 2026-11-17 10:09 UTC → 10:14 UTC (about 5 minutes by the sandbox clock; the clock looks coarse); active time: unavailable
+- Tokens in/out: unavailable
+- Cost: unavailable
+- Bottlenecks: none. Contract and interfaces were sufficient; no contract gaps. The sandbox clock advanced much less than the real work took, so the wall time above is probably understated.
+- Checks run + results:
+  - `pnpm check` → green (304 passed, 1 skipped, offline, ~3.3 s of pytest)
+  - `uv run pytest tests/test_data_source*.py` → 58 passed in ~0.4 s
+  - `uv run ruff check`, `ruff format --check`, `mypy --strict src tests scripts` → clean
+  - Pre-commit secret grep on the staged diff → only a false positive ("risk-scoring" contains "sk-"); no secrets
+- What was built:
+  - `agent/src/mpa/data/fake.py`: `FakeDataSource(data_dir)` with all 12 `DataSource` methods (async, `KeyError` on unknown ids, `limit` clamped to 0..10, hits validated as `SearchHit`, snippet ≤ 240 chars around the densest cluster of query terms, title ≤ 200).
+  - `text.py` (tokeniser, snippet), `index.py` (`rank_bm25.BM25Okapi` wrapper), `loader.py` (strict JSONL loader), `graph.py` (`GraphDataSource` stub with the Graph mapping), `__init__.py` (`build_data_source`, exports).
+  - Tests: `agent/tests/test_data_source.py` (protocol, lookups, `get_source`, limits, 4 KB cap, calendar, determinism, graph stub, loader errors) and `agent/tests/test_data_source_retrieval.py` (33 PLOT-based queries, Enron noise, look-alike news, performance).
+- Design notes:
+  - Tokeniser: NFKD accent folding (so "tomas" matches "Tomás"), lowercase, punctuation stripped, numbers kept (`62,000` → `62000`, `0.92` kept), small stopword list (plus `example` and `test`, which occur in every address), light plural stemming (`ies`→`y`, trailing `s`). Query terms are de-duplicated.
+  - One BM25 index per type (email, chat, docs, news, contacts, calendar), built lazily on first search and cached. Field weighting by repeating tokens: email subject ×3 (sender, recipients' local parts ×1), doc title ×3, news title ×3 and `about` ×2, contact name ×3, chat channel ×2.
+  - Ties are broken by position in the file (ids are numbered by date), so results are deterministic.
+  - Enron noise: BM25 alone already kept Enron out of the top 10 for every client-name query tested (zero Enron hits for "Halden Pay", "Brightmoor Renewables", "Kettle & Crumb", "Brightmoor renewal budget"), and all 33 expected-id queries pass with or without a discount. For generic queries ("budget", "payments", "report") Enron items legitimately match. I added a fixed deterministic discount (`ENRON_WEIGHT = 0.5`, applied to `origin == "enron"` scores) as insurance. It reduced Enron in the top 5 across 19 probe queries from 34 to 24 hits, but it is not needed for the client queries.
+  - Look-alike news: BM25 alone put the Brightmoor look-alike N20 ("Brightmoor Renewables Pty Ltd") and Kettle's N8 ("Kettle Crumb Bakeries Inc.") within about 1% of the client's own items for the plain client-name query, since the title text really does contain the same words. I added a deterministic "entity match" boost (×1.5, `ENTITY_BOOST` in `index.py`): a news item whose `about` tokens are all contained in the query beats one that only contains those words inside a longer name. After it, for "Halden Pay", "Brightmoor Renewables" and "Kettle & Crumb" every own item ranks above every trap (tested).
+  - `get_calendar`: events overlapping `[start, end)` (naive datetimes are treated as UTC); `query` matches title, description and attendee names by any term, ordered by number of matched terms then start time; with no query the result is chronological. DEMO_NOW week returns M1, M2, M3 (Halden Pay, Brightmoor Renewables, Kettle & Crumb).
+  - Loader: eager at construction (fails fast). Errors are `DataFormatError(ValueError)` like `chats.jsonl:5: invalid JSON (... at column N)` or `news.jsonl:3: does not match NewsItem (url: string_pattern_mismatch)`. Messages carry only the relative file name and line number, never the input value or the absolute path. Duplicate ids and missing files are also reported. It is deliberately not a `DataSourceError` (retrying a corrupt file cannot help).
+- Measured (committed dataset, 417 emails, laptop, Python 3.12):
+  - Load and validate all six files: ~5 ms.
+  - Lazy index build (included in the first search of each type): email ~36 ms, docs ~4 ms, news ~1.4 ms, chat ~0.5 ms, contacts ~0.2 ms; all five ≈ 42 ms total (budget < 1 s).
+  - Warm search: median 0.4 ms for email, 0.5 ms for docs, ≤ 0.1 ms for the rest; max 0.7 ms (budget < 50 ms). The slowest single call is the first email search, ~36 ms including the index build, still under 50 ms.
+- Ambiguities found:
+  - A bare "Brightmoor" query (for example "Brightmoor renewal budget") ranks N10 (own), N20 (Pty Ltd trap) and N13 (Capital Partners trap) ahead of N1 and N26 (own), because the query does not name the client in full. The text really is ambiguous, so I did not special-case it; the news agent should query with the full client name.
+  - "Kettle & Crumb" vs "Kettle & Co.": the `&` is dropped by tokenisation, so N24 (Kettle & Co.) matches on "kettle" only and ranks last of the four hits, below the client's own items.
+- Known gaps / follow-ups:
+  - The stemmer is intentionally crude (strips a trailing `s`); "renewal" and "renewable" do not conflate.
+  - Search results do not support date filters or sorting by recency; callers can post-filter via `get_email`.
+  - `GraphDataSource` is a documented stub only.
