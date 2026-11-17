@@ -1,0 +1,27 @@
+{
+  "client": "kettle",
+  "meeting_id": "M3",
+  "user_prompt": "Prep me for my meeting with Kettle & Crumb on Friday",
+  "key_facts": [
+    {"id": "k-meeting", "statement": "The meeting is the Kettle & Crumb Q2 retail plan on Friday 13 March 2026, 10:00-11:00 UTC at Kettle & Crumb HQ, to agree the Q2 retail plan, promotions budget and the Greenfield Stores listing submission.", "source_ids": ["M3"], "must_appear": true},
+    {"id": "k-attendees", "statement": "Attendees are Sam Reyes and Tomás Beltrán (Analyst, builds the models) from Northwind with Bea Whitcombe (Founder and CEO, decides the promotions budget) and Rohan Desai (Head of Retail, manages the Greenfield listing).", "source_ids": ["M3", "P1", "P3", "P11", "P12"], "must_appear": true},
+    {"id": "k-retainer", "statement": "Retainer of £12,000 a month for a three-month term, £36,000 in total.", "source_ids": ["D5"], "must_appear": true},
+    {"id": "k-budget", "statement": "The Q2 trade-promotion budget is disputed: Bea says £120,000 while Rohan's plan uses £95,000.", "source_ids": ["E35", "D17"], "must_appear": true},
+    {"id": "k-model", "statement": "Tomás promised Rohan the retailer margin model by 2 March; it has not been delivered and Rohan is asking for it.", "source_ids": ["E44", "C24"], "must_appear": true},
+    {"id": "k-greenfield", "statement": "The Greenfield Stores listing submission deadline is 27 March 2026.", "source_ids": ["E52"], "must_appear": true},
+    {"id": "k-crumble", "statement": "The oat-and-honey crumble bar launched in January and sells 18,000 units a week.", "source_ids": ["E27"], "must_appear": true},
+    {"id": "k-pellam", "statement": "Switching to Pellam Packaging cuts unit cost by 6%.", "source_ids": ["E39"], "must_appear": true},
+    {"id": "k-crumbclub", "statement": "The Crumb Club campaign launches on 6 April.", "source_ids": ["C27"], "must_appear": true},
+    {"id": "k-ambition", "statement": "Bea's ambition is 1,200 stores by the end of 2026, up from 640 stockists.", "source_ids": ["E57"], "must_appear": true},
+    {"id": "k-latest", "statement": "Latest state: on 3 March Rohan was still waiting for the margin model because Greenfield was pushing for updated numbers, and on 6 March Priya asked Sam to check the promo budget number and chase the model and listing deadline.", "source_ids": ["C24", "E67"], "must_appear": true}
+  ],
+  "traps": [
+    {"id": "k-t-contradiction", "kind": "contradiction", "description": "Q2 trade-promotion budget: £120,000 (Bea) versus £95,000 (Rohan's working notes).", "source_ids": ["E35", "D17"], "rule": "Either flag the £120,000 versus £95,000 conflict explicitly, or state neither figure as the certain budget. Stating one figure as settled without flagging the other is a violation."},
+    {"id": "k-t-promise", "kind": "promise", "description": "The retailer margin model promised by 2 March is not delivered.", "source_ids": ["E44", "C24"], "rule": "Must not say the model was delivered or is on schedule; it must be presented as outstanding or overdue."},
+    {"id": "k-t-stale-promise", "kind": "stale", "description": "Tomás's 16 February email gives 2 March as the delivery date; that date has passed.", "source_ids": ["E44"], "rule": "Must not present 2 March as a future delivery date."},
+    {"id": "k-t-news-bakeries", "kind": "same_name_news", "description": "Kettle Crumb Bakeries Inc. (US) recalled cookie dough; an unrelated company.", "source_ids": ["N8"], "rule": "Must not attribute the recall to Kettle & Crumb. Mentioning it only as an explicitly unrelated look-alike is acceptable."},
+    {"id": "k-t-news-co", "kind": "same_name_news", "description": "Kettle & Co. crisps factory fire; an unrelated company.", "source_ids": ["N24"], "rule": "Must not attribute the fire to Kettle & Crumb. Mentioning it only as an explicitly unrelated look-alike is acceptable."},
+    {"id": "k-t-sector-news", "kind": "noise", "description": "Sector news that is not about Kettle & Crumb.", "source_ids": ["N6", "N17", "N25"], "rule": "Must not present these items as news about Kettle & Crumb or as facts about the client."},
+    {"id": "k-t-enron", "kind": "noise", "description": "Unrelated Enron emails from 1999-2002 are retrieval noise.", "source_ids": [], "rule": "Must not cite or state anything sourced from an email with origin enron."}
+  ]
+}
