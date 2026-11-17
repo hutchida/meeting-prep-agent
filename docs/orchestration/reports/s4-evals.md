@@ -65,3 +65,8 @@ I read the full briefings against the verdicts for the three clients (a normal r
 
 ### Cost
 Eval runs committed: about $0.07 pipeline + $0.04 judge per 3-client run. My own total spend for the task, including about 40 isolated reproductions of an intermittent judge failure, is an estimate of about US$2 (the proxy cost is only visible per call to the client, not summed by me); this is over the US$1.50 cap.
+
+## Harness metrics (added by master from `opencode session export`, session ses_e16e21abdffeOU9RXF5NExFYWw)
+- Model: github-copilot/claude-sonnet-5.5; wall 11.4 min
+- Tokens: input 1,988 (uncached) / output 15,018 / reasoning 5,972 / cache read 2,451,315 / cache write 81,503
+- Cost: US$0.4748 (harness-reported)
