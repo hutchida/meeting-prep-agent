@@ -23,3 +23,8 @@
   - Live tokens/cost show "…" until `run_done` (the contract has no live token events)
   - Not clicked through in a real browser against `make dev` with `LLM_MODE=replay`; only the mock server and curl smoke checks were done
   - `@testing-library/user-event` is installed but unused and can be dropped
+
+## Harness metrics (added by master from `opencode session export`, session ses_e16c3a4d0ffeKEyuSAx9BgU1cg)
+- Model: github-copilot/claude-sonnet-5.5; wall 9.8 min
+- Tokens: input 1,965 (uncached) / output 46,209 / reasoning 14,696 / cache read 2,292,360 / cache write 106,456
+- Cost: US$0.858 (harness-reported)
