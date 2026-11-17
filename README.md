@@ -74,6 +74,7 @@ Prerequisites:
 ```sh
 make setup      # pnpm install + cd agent && uv sync
 make dev        # API on :8000 and web UI on :3000 (stop with Ctrl-C)
+make demo       # offline replay demo with a production web build (see docs/demo.md)
 make test       # same as `make check` = `pnpm check`: lint, typecheck, vitest, pytest. Offline, no API key
 make eval       # live eval of the 3 clients against the gold briefings; needs LITELLM_* in .env; overwrites evals/results/latest.*
 make data       # regenerate the fake dataset (cached offline; see data/README.md)

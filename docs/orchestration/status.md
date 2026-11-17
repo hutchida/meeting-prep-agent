@@ -13,5 +13,7 @@ Updated by the master session. Run: `run_51fb09e2ed13`. Workers: opencode + `git
 | G1 | s3-api | s3-api | merged (+ follow-up: mypy unused ignore) | 17 min, US$1.35; Langfuse compose verified by the worker |
 | G1 | s1-core (+s1b) | s1-core | merged | 36 min + 25 min tuning, US$4.83 + s1b; recall 74.7%→82.8% |
 | G1 | s4b-eval-live | s4-evals | merged | live evals; recordings committed on main |
-| G2 | i1-web | i1-web (ctx_6bbfd18462a4) | running | launched 11:22Z |
-| G2 | i2-docs | i2-docs (ctx_3b689ec77ba7) | running | launched 11:22Z |
+| G2 | i1-web | i1-web | merged | 9.8 min, US$0.86 |
+| G2 | i2-docs | i2-docs | merged | 7.6 min, US$0.89 |
+| Rehearsal | demo x2 replay + x1 live | main | done | docs/demo.md, docs/media; recordings re-done for a good Brightmoor run |
+| Done | report.md, BUILD_NOTES.md | main | written | all workers released |

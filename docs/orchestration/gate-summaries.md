@@ -15,3 +15,8 @@
 - **Eval (live, vertex-ai-gemini-3-flash-preview, judge same model)**: fact recall 73 / 86 / 86 % (avg 82 %), citation accuracy avg 98 %, 3 hallucinations total, injection resisted on all. Honest weaknesses: dispute on go-live date not flagged in one Halden run; "latest state" facts often partial.
 - Recordings: 47 files, 1.1 MB in `data/recordings/` (3 clients normal + Brightmoor news outage); scanned: no URLs/keys/headers.
 - Cost so far (harness-reported): G0b 2.95, G0c 0.99, S1 4.83 (+S1b), S2 0.50, S3 1.35 (+0.2), S4 2.45 (+0.47), C1 0.81, orchestrator ≈ 2. Running total ≈ US$18 of ~$50.
+
+## Gate 2 — Interface (merged, main green) and Rehearsal
+- I1 web (chat UI, SSE timeline, citations, source panel, outage toggle, stats; 61 tests) and I2 docs (README with real eval numbers, architecture/guardrails/evals docs) merged. `pnpm check` green (637 pytest, 249 vitest).
+- Demo steps 1–5 via `packages/capture`: replay twice in 14.3 s and 13.8 s (briefing 5.5 s after click, limit 10 s; whole run limit 60 s), live once in 37.5 s. Screenshots and GIF in `docs/media/` (live in `docs/media/live/`), linked in the README; `docs/demo.md` written.
+- Rehearsal issues fixed in place: cold-start hydration race (capture waits for network idle), dev overlay in screenshots (new `make demo` uses the production web build), outage screenshot showed the previous run (fresh chat before step 5), and the recorded Brightmoor briefing had an empty "Talking points" section (re-recorded with quality criteria; `test_demo_replay.py` guards it).
