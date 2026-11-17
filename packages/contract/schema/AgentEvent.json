@@ -1,0 +1,1287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/AgentEvent",
+  "$defs": {
+    "AgentEvent": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RunStartedEvent"
+        },
+        {
+          "$ref": "#/$defs/PlanEvent"
+        },
+        {
+          "$ref": "#/$defs/SubagentStartedEvent"
+        },
+        {
+          "$ref": "#/$defs/ToolCallEvent"
+        },
+        {
+          "$ref": "#/$defs/ToolResultEvent"
+        },
+        {
+          "$ref": "#/$defs/RetryEvent"
+        },
+        {
+          "$ref": "#/$defs/SubagentFailedEvent"
+        },
+        {
+          "$ref": "#/$defs/SubagentDoneEvent"
+        },
+        {
+          "$ref": "#/$defs/DraftEvent"
+        },
+        {
+          "$ref": "#/$defs/VerifierResultEvent"
+        },
+        {
+          "$ref": "#/$defs/BudgetHitEvent"
+        },
+        {
+          "$ref": "#/$defs/RunDoneEvent"
+        }
+      ]
+    },
+    "RunStartedEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "run_started"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "message",
+        "model"
+      ],
+      "additionalProperties": false
+    },
+    "PlanEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "plan"
+        },
+        "client": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "meeting_id": {
+          "type": "string",
+          "pattern": "^M[0-9]{1,9}$"
+        },
+        "tasks": {
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlanTask"
+          }
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "client",
+        "meeting_id",
+        "tasks"
+      ],
+      "additionalProperties": false
+    },
+    "PlanTask": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "goal": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "agent",
+        "goal"
+      ],
+      "additionalProperties": false
+    },
+    "SubagentStartedEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "subagent_started"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "goal": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "goal"
+      ],
+      "additionalProperties": false
+    },
+    "ToolCallEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "tool_call"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "call_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "args": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "call_id",
+        "tool",
+        "args"
+      ],
+      "additionalProperties": false
+    },
+    "ToolResultEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "tool_result"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "call_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "item_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ids": {
+          "maxItems": 10,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[ECDNPM][0-9]{1,9}$"
+          }
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "call_id",
+        "tool",
+        "ok",
+        "item_count",
+        "ids",
+        "summary",
+        "duration_ms"
+      ],
+      "additionalProperties": false
+    },
+    "RetryEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "retry"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "backoff_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "error": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "attempt",
+        "backoff_ms",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "SubagentFailedEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "subagent_failed"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "timeout",
+            "fault_injected",
+            "budget",
+            "error"
+          ]
+        },
+        "error": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "reason",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "SubagentDoneEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "subagent_done"
+        },
+        "agent": {
+          "type": "string",
+          "enum": [
+            "correspondence",
+            "documents",
+            "news",
+            "attendees"
+          ]
+        },
+        "findings_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "gaps": {
+          "maxItems": 12,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Gap"
+          }
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "agent",
+        "findings_count",
+        "gaps",
+        "duration_ms"
+      ],
+      "additionalProperties": false
+    },
+    "Gap": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "email",
+            "chat",
+            "docs",
+            "news",
+            "calendar",
+            "contacts"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "timeout",
+            "fault_injected",
+            "budget",
+            "error"
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "source",
+        "reason",
+        "detail"
+      ],
+      "additionalProperties": false,
+      "description": "A part of the briefing that is missing, and why."
+    },
+    "DraftEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "draft"
+        },
+        "sections": {
+          "minItems": 1,
+          "maxItems": 7,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BriefingSection"
+          }
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "sections",
+        "complete"
+      ],
+      "additionalProperties": false
+    },
+    "BriefingSection": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MeetingAtAGlanceSection"
+        },
+        {
+          "$ref": "#/$defs/ClientSnapshotSection"
+        },
+        {
+          "$ref": "#/$defs/RecentNewsSection"
+        },
+        {
+          "$ref": "#/$defs/WhereWeLeftOffSection"
+        },
+        {
+          "$ref": "#/$defs/OpenItemsSection"
+        },
+        {
+          "$ref": "#/$defs/AttendeesSection"
+        },
+        {
+          "$ref": "#/$defs/TalkingPointsAndRisksSection"
+        }
+      ]
+    },
+    "MeetingAtAGlanceSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "meeting_at_a_glance"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "Sentence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FactSentence"
+        },
+        {
+          "$ref": "#/$defs/NoteSentence"
+        }
+      ]
+    },
+    "FactSentence": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "citations": {
+          "minItems": 1,
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Citation"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "const": "fact"
+        }
+      },
+      "required": [
+        "text",
+        "citations"
+      ],
+      "additionalProperties": false
+    },
+    "Citation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CitationEmail"
+        },
+        {
+          "$ref": "#/$defs/CitationChat"
+        },
+        {
+          "$ref": "#/$defs/CitationDoc"
+        },
+        {
+          "$ref": "#/$defs/CitationNews"
+        },
+        {
+          "$ref": "#/$defs/CitationContact"
+        },
+        {
+          "$ref": "#/$defs/CitationCal"
+        }
+      ]
+    },
+    "CitationEmail": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "email"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^E[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationChat": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "chat"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^C[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationDoc": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "doc"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^D[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationNews": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "news"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^N[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationContact": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "contact"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^P[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationCal": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "cal"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^M[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "NoteSentence": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "citations": {
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Citation"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "const": "note"
+        }
+      },
+      "required": [
+        "text",
+        "citations",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "ClientSnapshotSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "client_snapshot"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "RecentNewsSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "recent_news"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "WhereWeLeftOffSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "where_we_left_off"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "OpenItemsSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "open_items"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "AttendeesSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "attendees"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "TalkingPointsAndRisksSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "talking_points_and_risks"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "VerifierResultEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "verifier_result"
+        },
+        "verifier": {
+          "$ref": "#/$defs/VerifierCounts"
+        },
+        "dropped": {
+          "maxItems": 10,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DroppedSentence"
+          }
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "verifier",
+        "dropped"
+      ],
+      "additionalProperties": false
+    },
+    "VerifierCounts": {
+      "type": "object",
+      "properties": {
+        "sentences_total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sentences_kept": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sentences_dropped": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "sentences_total",
+        "sentences_kept",
+        "sentences_dropped"
+      ],
+      "additionalProperties": false
+    },
+    "DroppedSentence": {
+      "type": "object",
+      "properties": {
+        "section_id": {
+          "type": "string",
+          "enum": [
+            "meeting_at_a_glance",
+            "client_snapshot",
+            "recent_news",
+            "where_we_left_off",
+            "open_items",
+            "attendees",
+            "talking_points_and_risks"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "no_citation",
+            "invalid_citation",
+            "unsupported",
+            "injection"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "section_id",
+        "reason",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "BudgetHitEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "budget_hit"
+        },
+        "budget": {
+          "type": "string",
+          "enum": [
+            "steps",
+            "tokens",
+            "cost",
+            "time"
+          ]
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "used": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "budget",
+        "limit",
+        "used"
+      ],
+      "additionalProperties": false
+    },
+    "RunDoneEvent": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ts": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "type": {
+          "type": "string",
+          "const": "run_done"
+        },
+        "partial": {
+          "type": "boolean"
+        },
+        "stats": {
+          "$ref": "#/$defs/Stats"
+        }
+      },
+      "required": [
+        "run_id",
+        "seq",
+        "ts",
+        "type",
+        "partial",
+        "stats"
+      ],
+      "additionalProperties": false
+    },
+    "Stats": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "tokens_in": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "tokens_out": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cost_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "steps",
+        "tokens_in",
+        "tokens_out",
+        "cost_usd",
+        "duration_ms"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

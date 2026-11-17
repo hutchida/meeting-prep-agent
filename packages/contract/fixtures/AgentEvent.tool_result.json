@@ -1,0 +1,17 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 4,
+  "ts": "2026-03-09T09:00:04.100Z",
+  "type": "tool_result",
+  "agent": "news",
+  "call_id": "call_1",
+  "tool": "search_news",
+  "ok": true,
+  "item_count": 2,
+  "ids": [
+    "N4",
+    "N7"
+  ],
+  "summary": "2 news items: N4, N7",
+  "duration_ms": 212
+}

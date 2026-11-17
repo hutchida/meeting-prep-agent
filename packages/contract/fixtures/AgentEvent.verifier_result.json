@@ -1,0 +1,18 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 9,
+  "ts": "2026-03-09T09:00:09.100Z",
+  "type": "verifier_result",
+  "verifier": {
+    "sentences_total": 13,
+    "sentences_kept": 12,
+    "sentences_dropped": 1
+  },
+  "dropped": [
+    {
+      "section_id": "open_items",
+      "reason": "invalid_citation",
+      "text": "The contract renewal is signed. [email:E999]"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "agent": "correspondence",
+  "findings": [
+    {
+      "text": "Maya said the 74/MWh PPA floor is above finance's approved 71/MWh.",
+      "citations": [
+        {
+          "type": "email",
+          "id": "E214"
+        }
+      ]
+    },
+    {
+      "text": "Sam plans to nudge Maya about the grid-connection study on Monday.",
+      "citations": [
+        {
+          "type": "chat",
+          "id": "C37"
+        }
+      ]
+    }
+  ],
+  "gaps": []
+}

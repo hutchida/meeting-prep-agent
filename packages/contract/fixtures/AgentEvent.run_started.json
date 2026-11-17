@@ -1,0 +1,8 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 0,
+  "ts": "2026-03-09T09:00:00.100Z",
+  "type": "run_started",
+  "message": "Prep me for my Thursday meeting with Brightmoor Renewables",
+  "model": "vertex-ai-gemini-3-flash-preview"
+}

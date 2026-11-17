@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "type": "email",
+      "id": "E214",
+      "title": "Re: PPA term sheet - revised pricing",
+      "snippet": "...the 74/MWh floor is still above what finance signed off on (they said 71)...",
+      "score": 7.42
+    },
+    {
+      "type": "doc",
+      "id": "D9",
+      "title": "Brightmoor - Statement of Work v2",
+      "snippet": "Fixed fee of GBP 48,000, invoiced in two instalments.",
+      "score": 3.1
+    }
+  ],
+  "total_matches": 2,
+  "truncated": false
+}

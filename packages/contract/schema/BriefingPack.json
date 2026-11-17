@@ -1,0 +1,621 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/BriefingPack",
+  "$defs": {
+    "BriefingPack": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "client": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "meeting": {
+          "$ref": "#/$defs/MeetingRef"
+        },
+        "partial": {
+          "type": "boolean"
+        },
+        "gaps": {
+          "maxItems": 12,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Gap"
+          }
+        },
+        "verifier": {
+          "$ref": "#/$defs/VerifierCounts"
+        },
+        "stats": {
+          "$ref": "#/$defs/Stats"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "sections": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/MeetingAtAGlanceSection"
+            },
+            {
+              "$ref": "#/$defs/ClientSnapshotSection"
+            },
+            {
+              "$ref": "#/$defs/RecentNewsSection"
+            },
+            {
+              "$ref": "#/$defs/WhereWeLeftOffSection"
+            },
+            {
+              "$ref": "#/$defs/OpenItemsSection"
+            },
+            {
+              "$ref": "#/$defs/AttendeesSection"
+            },
+            {
+              "$ref": "#/$defs/TalkingPointsAndRisksSection"
+            }
+          ],
+          "items": false,
+          "minItems": 7,
+          "maxItems": 7
+        }
+      },
+      "required": [
+        "run_id",
+        "client",
+        "meeting",
+        "partial",
+        "gaps",
+        "verifier",
+        "stats",
+        "model",
+        "sections"
+      ],
+      "additionalProperties": false
+    },
+    "MeetingRef": {
+      "type": "object",
+      "properties": {
+        "cal_id": {
+          "type": "string",
+          "pattern": "^M[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "start": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        }
+      },
+      "required": [
+        "cal_id",
+        "title",
+        "start"
+      ],
+      "additionalProperties": false
+    },
+    "Gap": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "email",
+            "chat",
+            "docs",
+            "news",
+            "calendar",
+            "contacts"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "timeout",
+            "fault_injected",
+            "budget",
+            "error"
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "source",
+        "reason",
+        "detail"
+      ],
+      "additionalProperties": false,
+      "description": "A part of the briefing that is missing, and why."
+    },
+    "VerifierCounts": {
+      "type": "object",
+      "properties": {
+        "sentences_total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sentences_kept": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sentences_dropped": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "sentences_total",
+        "sentences_kept",
+        "sentences_dropped"
+      ],
+      "additionalProperties": false
+    },
+    "Stats": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "tokens_in": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "tokens_out": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "cost_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "steps",
+        "tokens_in",
+        "tokens_out",
+        "cost_usd",
+        "duration_ms"
+      ],
+      "additionalProperties": false
+    },
+    "MeetingAtAGlanceSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "meeting_at_a_glance"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "Sentence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FactSentence"
+        },
+        {
+          "$ref": "#/$defs/NoteSentence"
+        }
+      ]
+    },
+    "FactSentence": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "citations": {
+          "minItems": 1,
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Citation"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "const": "fact"
+        }
+      },
+      "required": [
+        "text",
+        "citations"
+      ],
+      "additionalProperties": false
+    },
+    "Citation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CitationEmail"
+        },
+        {
+          "$ref": "#/$defs/CitationChat"
+        },
+        {
+          "$ref": "#/$defs/CitationDoc"
+        },
+        {
+          "$ref": "#/$defs/CitationNews"
+        },
+        {
+          "$ref": "#/$defs/CitationContact"
+        },
+        {
+          "$ref": "#/$defs/CitationCal"
+        }
+      ]
+    },
+    "CitationEmail": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "email"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^E[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationChat": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "chat"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^C[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationDoc": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "doc"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^D[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationNews": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "news"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^N[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationContact": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "contact"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^P[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "CitationCal": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "cal"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^M[0-9]{1,9}$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "NoteSentence": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "citations": {
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Citation"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "const": "note"
+        }
+      },
+      "required": [
+        "text",
+        "citations",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "ClientSnapshotSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "client_snapshot"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "RecentNewsSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "recent_news"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "WhereWeLeftOffSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "where_we_left_off"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "OpenItemsSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "open_items"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "AttendeesSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "attendees"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    },
+    "TalkingPointsAndRisksSection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "talking_points_and_risks"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "sentences": {
+          "maxItems": 16,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Sentence"
+          }
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sentences",
+        "empty"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

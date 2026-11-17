@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/SearchHit",
+  "$defs": {
+    "SearchHit": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SearchHitEmail"
+        },
+        {
+          "$ref": "#/$defs/SearchHitChat"
+        },
+        {
+          "$ref": "#/$defs/SearchHitDoc"
+        },
+        {
+          "$ref": "#/$defs/SearchHitNews"
+        },
+        {
+          "$ref": "#/$defs/SearchHitContact"
+        },
+        {
+          "$ref": "#/$defs/SearchHitCal"
+        }
+      ]
+    },
+    "SearchHitEmail": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "email"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^E[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "SearchHitChat": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "chat"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^C[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "SearchHitDoc": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "doc"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^D[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "SearchHitNews": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "news"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^N[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "SearchHitContact": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "contact"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^P[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "SearchHitCal": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "cal"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^M[0-9]{1,9}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "snippet": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "snippet",
+        "score"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

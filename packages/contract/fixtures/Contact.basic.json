@@ -1,0 +1,10 @@
+{
+  "type": "contact",
+  "id": "P5",
+  "name": "Maya Okafor",
+  "email": "maya.okafor@brightmoor.example.test",
+  "organization": "Brightmoor Renewables",
+  "role": "Head of Commercial",
+  "notes": "Prefers short bullet updates; decision maker on pricing.",
+  "is_user": false
+}

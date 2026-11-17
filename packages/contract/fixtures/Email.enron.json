@@ -1,0 +1,14 @@
+{
+  "type": "email",
+  "id": "E1042",
+  "thread_id": "T-enron-7c1e",
+  "sender": "phillip.allen@enron.com",
+  "to": [
+    "tim.belden@enron.com"
+  ],
+  "cc": [],
+  "date": "2001-05-14T07:31:00Z",
+  "subject": "West power desk positions",
+  "origin": "enron",
+  "body": "Tim, here are the numbers for the west desk. Call me at [redacted] if you want to go through them before the meeting.\n\nPhillip"
+}

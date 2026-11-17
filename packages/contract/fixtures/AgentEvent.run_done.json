@@ -1,0 +1,14 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 11,
+  "ts": "2026-03-09T09:00:11.100Z",
+  "type": "run_done",
+  "partial": true,
+  "stats": {
+    "steps": 14,
+    "tokens_in": 21840,
+    "tokens_out": 3120,
+    "cost_usd": 0.031,
+    "duration_ms": 38250
+  }
+}

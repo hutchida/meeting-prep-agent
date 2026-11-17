@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/Email",
+  "$defs": {
+    "Email": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "email"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^E[0-9]{1,9}$"
+        },
+        "thread_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "sender": {
+          "type": "string",
+          "maxLength": 200,
+          "pattern": "^[^@\\s]+@[^@\\s]+$"
+        },
+        "to": {
+          "maxItems": 30,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^@\\s]+@[^@\\s]+$"
+          }
+        },
+        "cc": {
+          "maxItems": 30,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^@\\s]+@[^@\\s]+$"
+          }
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+          "description": "ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 6144
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "synthetic",
+            "enron"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "thread_id",
+        "sender",
+        "to",
+        "cc",
+        "date",
+        "subject",
+        "body"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

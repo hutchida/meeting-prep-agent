@@ -1,0 +1,29 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 8,
+  "ts": "2026-03-09T09:00:08.100Z",
+  "type": "draft",
+  "sections": [
+    {
+      "id": "meeting_at_a_glance",
+      "title": "Meeting at a glance",
+      "sentences": [
+        {
+          "text": "Thursday 12 March 2026, 14:00 UTC: PPA board pre-read with Maya Okafor and Jonas Lindqvist.",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M2"
+            },
+            {
+              "type": "contact",
+              "id": "P5"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    }
+  ],
+  "complete": false
+}

@@ -1,0 +1,10 @@
+{
+  "type": "contact",
+  "id": "P1",
+  "name": "Sam Reyes",
+  "email": "sam.reyes@northwind.example.test",
+  "organization": "Northwind Advisory",
+  "role": "Senior Consultant",
+  "notes": "The user running the briefing.",
+  "is_user": true
+}
