@@ -38,3 +38,8 @@
 7. **Generated `models.py` is formatted with the repo's ruff settings and carries `# ruff: noqa`**; regenerate with `uv run python scripts/gen_models.py`. Union-only schemas (`Citation`, `SearchHit`, `SourceItem`) are added as `RootModel` classes by the script.
 8. **Dataset generation:** LLM cache key excludes the model name (so `--offline` works in CI without `.env`), uses `temperature=0`, `seed`, `reasoning_effort=minimal`; the Enron sample is re-sampled from `data/raw` when present, otherwise re-used from `data/emails.jsonl`.
 9. **New dev dependencies:** `datamodel-code-generator` (agent), `tsx` and `ajv` (contract package).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e172a93b5ffe4vcRBZdVuaHjEh)
+- Model: github-copilot/claude-sonnet-5.5; wall 31.2 min
+- Tokens: input 2,062 (uncached) / output 109,625 / reasoning 60,808 / cache read 12,268,062 / cache write 253,710
+- Cost: US$2.9506 (harness-reported) + dataset-generation proxy calls US$0.07
