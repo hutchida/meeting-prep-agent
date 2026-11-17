@@ -585,6 +585,14 @@ class PlanEvent(BaseModel):
     type: Literal["plan"]
     client: Annotated[str, Field(max_length=100, min_length=1)]
     meeting_id: Annotated[str, Field(pattern="^M[0-9]{1,9}$")]
+    meeting_title: Annotated[str | None, Field(max_length=200, min_length=1)] = None
+    meeting_start: Annotated[
+        str | None,
+        Field(
+            description="ISO-8601 UTC timestamp: YYYY-MM-DDTHH:MM:SS[.sss]Z",
+            pattern="^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{3})?Z$",
+        ),
+    ] = None
     tasks: Annotated[list[PlanTask], Field(max_length=8)]
 
 

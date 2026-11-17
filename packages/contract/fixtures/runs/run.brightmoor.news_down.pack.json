@@ -1,0 +1,288 @@
+{
+  "run_id": "run_20260309_0905",
+  "client": "Brightmoor Renewables",
+  "meeting": {
+    "cal_id": "M2",
+    "title": "Brightmoor Renewables - PPA board pre-read",
+    "start": "2026-03-12T14:00:00Z"
+  },
+  "partial": true,
+  "gaps": [
+    {
+      "source": "news",
+      "reason": "fault_injected",
+      "detail": "news source unavailable (injected fault)"
+    }
+  ],
+  "verifier": {
+    "sentences_total": 19,
+    "sentences_kept": 19,
+    "sentences_dropped": 0
+  },
+  "stats": {
+    "steps": 19,
+    "tokens_in": 19870,
+    "tokens_out": 2910,
+    "cost_usd": 0.0187,
+    "duration_ms": 10070
+  },
+  "model": "vertex-ai-gemini-3-flash-preview",
+  "sections": [
+    {
+      "id": "meeting_at_a_glance",
+      "title": "Meeting at a glance",
+      "sentences": [
+        {
+          "text": "Thursday 12 March 2026, 14:00-15:00 UTC: Brightmoor Renewables PPA board pre-read, a walk through the revised PPA pricing and the board pre-read ahead of the board meeting.",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M2"
+            }
+          ]
+        },
+        {
+          "text": "Attending: Sam Reyes and Hannah Voss (Northwind), Maya Okafor and Jonas Lindqvist (Brightmoor).",
+          "citations": [
+            {
+              "type": "cal",
+              "id": "M2"
+            },
+            {
+              "type": "contact",
+              "id": "P4"
+            },
+            {
+              "type": "contact",
+              "id": "P8"
+            },
+            {
+              "type": "contact",
+              "id": "P9"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "client_snapshot",
+      "title": "Client snapshot",
+      "sentences": [
+        {
+          "text": "Northwind advises Brightmoor Renewables on the PPA for the Fenmoor wind farm under a fixed fee of £48,000.",
+          "citations": [
+            {
+              "type": "doc",
+              "id": "D7"
+            }
+          ]
+        },
+        {
+          "text": "The offtaker is Tarn Valley Utilities.",
+          "citations": [
+            {
+              "type": "doc",
+              "id": "D3"
+            },
+            {
+              "type": "doc",
+              "id": "D8"
+            }
+          ]
+        },
+        {
+          "text": "Lender Ashgrove Bank requires 70% contracted revenue and the PPA signed before financial close, which is targeted for 30 June 2026.",
+          "citations": [
+            {
+              "type": "doc",
+              "id": "D8"
+            },
+            {
+              "type": "email",
+              "id": "E41"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "recent_news",
+      "title": "Recent news",
+      "sentences": [
+        {
+          "text": "News could not be reached; no recent news is included in this briefing.",
+          "citations": [],
+          "kind": "note"
+        }
+      ],
+      "empty": true
+    },
+    {
+      "id": "where_we_left_off",
+      "title": "Where we left off",
+      "sentences": [
+        {
+          "text": "On 24 February Maya accepted the 12 year PPA term, but the 74/MWh floor sits above the 71/MWh that finance signed off; she asked for a reworked sensitivity table.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E51"
+            }
+          ]
+        },
+        {
+          "text": "On 27 February Jonas asked that the board pre-read figures for Fenmoor stay consistent with the latest lender model.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E56"
+            }
+          ]
+        },
+        {
+          "text": "On 6 March Hannah asked to lead Thursday's pre-read with the pricing floor logic.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E65"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "open_items",
+      "title": "Open items",
+      "sentences": [
+        {
+          "text": "Maya promised the grid-connection study by 6 March; it is still outstanding (Sam was still waiting on 4 March).",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E51"
+            },
+            {
+              "type": "chat",
+              "id": "C26"
+            }
+          ]
+        },
+        {
+          "text": "Northwind owes Maya a reworked sensitivity table at the 74/MWh and 71/MWh levels before the board pre-read circulates.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E51"
+            }
+          ]
+        },
+        {
+          "text": "The final board paper is due on 20 March 2026; the board meets on 24 March.",
+          "citations": [
+            {
+              "type": "doc",
+              "id": "D7"
+            },
+            {
+              "type": "email",
+              "id": "E38"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "attendees",
+      "title": "Attendees",
+      "sentences": [
+        {
+          "text": "Maya Okafor, Head of Commercial, leads the PPA negotiation and prefers short bullet updates.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P8"
+            }
+          ]
+        },
+        {
+          "text": "Jonas Lindqvist, Chief Financial Officer, owns lender relations and the board paper.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P9"
+            }
+          ]
+        },
+        {
+          "text": "Hannah Voss, Partner, is the senior sponsor of the Brightmoor relationship.",
+          "citations": [
+            {
+              "type": "contact",
+              "id": "P4"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "talking_points_and_risks",
+      "title": "Talking points and risks",
+      "sentences": [
+        {
+          "text": "Fenmoor capacity is quoted inconsistently: Maya and Jonas use 180 MW, while Elena says the revised turbine layout makes it 165 MW; settle one figure before the board paper.",
+          "citations": [
+            {
+              "type": "doc",
+              "id": "D8"
+            },
+            {
+              "type": "email",
+              "id": "E56"
+            },
+            {
+              "type": "chat",
+              "id": "C18"
+            }
+          ]
+        },
+        {
+          "text": "Risk: the 74/MWh price floor is above finance's 71/MWh and is the main friction in the PPA.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E51"
+            }
+          ]
+        },
+        {
+          "text": "Risk: Ashgrove Bank needs the PPA signed before financial close on 30 June 2026, so slippage in the pricing work is costly.",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E41"
+            }
+          ]
+        },
+        {
+          "text": "Press Maya for the overdue grid-connection study; the PPA cannot be finalised without it.",
+          "citations": [
+            {
+              "type": "chat",
+              "id": "C26"
+            },
+            {
+              "type": "email",
+              "id": "E65"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    }
+  ]
+}

@@ -1,0 +1,848 @@
+[
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 0,
+    "ts": "2026-03-09T09:05:00.100Z",
+    "type": "run_started",
+    "message": "Prep me for my Thursday meeting with Brightmoor Renewables",
+    "model": "vertex-ai-gemini-3-flash-preview"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 1,
+    "ts": "2026-03-09T09:05:00.500Z",
+    "type": "plan",
+    "client": "Brightmoor Renewables",
+    "meeting_id": "M2",
+    "meeting_title": "Brightmoor Renewables - PPA board pre-read",
+    "meeting_start": "2026-03-12T14:00:00Z",
+    "tasks": [
+      {
+        "agent": "correspondence",
+        "goal": "Summarise recent email and chat with Brightmoor Renewables"
+      },
+      {
+        "agent": "documents",
+        "goal": "Find the SOW, kickoff notes and board paper material"
+      },
+      {
+        "agent": "news",
+        "goal": "Find recent news about Brightmoor Renewables"
+      },
+      {
+        "agent": "attendees",
+        "goal": "Profile the attendees of the Brightmoor PPA board pre-read"
+      }
+    ]
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 2,
+    "ts": "2026-03-09T09:05:00.520Z",
+    "type": "subagent_started",
+    "agent": "attendees",
+    "goal": "Profile the attendees of the Brightmoor PPA board pre-read"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 3,
+    "ts": "2026-03-09T09:05:00.540Z",
+    "type": "subagent_started",
+    "agent": "news",
+    "goal": "Find recent news about Brightmoor Renewables"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 4,
+    "ts": "2026-03-09T09:05:00.560Z",
+    "type": "subagent_started",
+    "agent": "correspondence",
+    "goal": "Summarise recent email and chat with Brightmoor Renewables"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 5,
+    "ts": "2026-03-09T09:05:00.580Z",
+    "type": "subagent_started",
+    "agent": "documents",
+    "goal": "Find the SOW, kickoff notes and board paper material"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 6,
+    "ts": "2026-03-09T09:05:00.830Z",
+    "type": "tool_call",
+    "agent": "attendees",
+    "call_id": "atte_1",
+    "tool": "get_calendar",
+    "args": {
+      "query": "Brightmoor",
+      "start": "2026-03-12T00:00:00Z"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 7,
+    "ts": "2026-03-09T09:05:01.080Z",
+    "type": "tool_call",
+    "agent": "news",
+    "call_id": "news_1",
+    "tool": "search_news",
+    "args": {
+      "query": "Brightmoor Renewables",
+      "limit": 5
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 8,
+    "ts": "2026-03-09T09:05:01.330Z",
+    "type": "tool_call",
+    "agent": "correspondence",
+    "call_id": "corr_1",
+    "tool": "search_email",
+    "args": {
+      "query": "Brightmoor Renewables PPA",
+      "limit": 10
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 9,
+    "ts": "2026-03-09T09:05:01.580Z",
+    "type": "tool_call",
+    "agent": "documents",
+    "call_id": "docu_1",
+    "tool": "search_docs",
+    "args": {
+      "query": "Brightmoor SOW kickoff board paper",
+      "limit": 10
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 10,
+    "ts": "2026-03-09T09:05:01.830Z",
+    "type": "tool_result",
+    "agent": "attendees",
+    "call_id": "atte_1",
+    "tool": "get_calendar",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "M2"
+    ],
+    "summary": "1 meeting: M2 Brightmoor Renewables - PPA board pre-read",
+    "duration_ms": 150
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 11,
+    "ts": "2026-03-09T09:05:02.080Z",
+    "type": "retry",
+    "agent": "news",
+    "attempt": 1,
+    "backoff_ms": 500,
+    "error": "news source unavailable (injected fault)"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 12,
+    "ts": "2026-03-09T09:05:02.330Z",
+    "type": "tool_result",
+    "agent": "correspondence",
+    "call_id": "corr_1",
+    "tool": "search_email",
+    "ok": true,
+    "item_count": 6,
+    "ids": [
+      "E51",
+      "E56",
+      "E59",
+      "E41",
+      "E38",
+      "E65"
+    ],
+    "summary": "6 emails: E51, E56, E59, E41, E38, E65",
+    "duration_ms": 256
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 13,
+    "ts": "2026-03-09T09:05:02.580Z",
+    "type": "retry",
+    "agent": "documents",
+    "attempt": 1,
+    "backoff_ms": 500,
+    "error": "document index timed out after 5000 ms"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 14,
+    "ts": "2026-03-09T09:05:02.830Z",
+    "type": "tool_call",
+    "agent": "attendees",
+    "call_id": "atte_2",
+    "tool": "get_contact",
+    "args": {
+      "id": "P8"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 15,
+    "ts": "2026-03-09T09:05:03.080Z",
+    "type": "tool_call",
+    "agent": "news",
+    "call_id": "news_2",
+    "tool": "search_news",
+    "args": {
+      "query": "Brightmoor Renewables",
+      "limit": 5
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 16,
+    "ts": "2026-03-09T09:05:03.330Z",
+    "type": "tool_call",
+    "agent": "correspondence",
+    "call_id": "corr_2",
+    "tool": "get_email",
+    "args": {
+      "id": "E51"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 17,
+    "ts": "2026-03-09T09:05:03.580Z",
+    "type": "tool_call",
+    "agent": "documents",
+    "call_id": "docu_2",
+    "tool": "search_docs",
+    "args": {
+      "query": "Brightmoor SOW kickoff board paper",
+      "limit": 10
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 18,
+    "ts": "2026-03-09T09:05:03.830Z",
+    "type": "tool_result",
+    "agent": "attendees",
+    "call_id": "atte_2",
+    "tool": "get_contact",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "P8"
+    ],
+    "summary": "contact P8 Maya Okafor",
+    "duration_ms": 314
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 19,
+    "ts": "2026-03-09T09:05:04.080Z",
+    "type": "tool_result",
+    "agent": "news",
+    "call_id": "news_2",
+    "tool": "search_news",
+    "ok": false,
+    "item_count": 0,
+    "ids": [],
+    "summary": "news source unavailable after 2 attempts",
+    "duration_ms": 367
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 20,
+    "ts": "2026-03-09T09:05:04.330Z",
+    "type": "tool_result",
+    "agent": "correspondence",
+    "call_id": "corr_2",
+    "tool": "get_email",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "E51"
+    ],
+    "summary": "email E51 from Maya Okafor",
+    "duration_ms": 160
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 21,
+    "ts": "2026-03-09T09:05:04.580Z",
+    "type": "tool_result",
+    "agent": "documents",
+    "call_id": "docu_2",
+    "tool": "search_docs",
+    "ok": true,
+    "item_count": 4,
+    "ids": [
+      "D7",
+      "D8",
+      "D3",
+      "D20"
+    ],
+    "summary": "4 docs: D7, D8, D3, D20",
+    "duration_ms": 213
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 22,
+    "ts": "2026-03-09T09:05:04.830Z",
+    "type": "tool_call",
+    "agent": "attendees",
+    "call_id": "atte_3",
+    "tool": "get_contact",
+    "args": {
+      "id": "P9"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 23,
+    "ts": "2026-03-09T09:05:05.080Z",
+    "type": "subagent_failed",
+    "agent": "news",
+    "reason": "fault_injected",
+    "error": "news source unavailable (injected fault)"
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 24,
+    "ts": "2026-03-09T09:05:05.330Z",
+    "type": "tool_call",
+    "agent": "correspondence",
+    "call_id": "corr_3",
+    "tool": "search_chat",
+    "args": {
+      "query": "Brightmoor grid study capacity",
+      "limit": 5
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 25,
+    "ts": "2026-03-09T09:05:05.580Z",
+    "type": "tool_call",
+    "agent": "documents",
+    "call_id": "docu_3",
+    "tool": "get_doc",
+    "args": {
+      "id": "D8"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 26,
+    "ts": "2026-03-09T09:05:05.830Z",
+    "type": "tool_result",
+    "agent": "attendees",
+    "call_id": "atte_3",
+    "tool": "get_contact",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "P9"
+    ],
+    "summary": "contact P9 Jonas Lindqvist",
+    "duration_ms": 218
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 27,
+    "ts": "2026-03-09T09:05:06.080Z",
+    "type": "tool_result",
+    "agent": "correspondence",
+    "call_id": "corr_3",
+    "tool": "search_chat",
+    "ok": true,
+    "item_count": 2,
+    "ids": [
+      "C26",
+      "C18"
+    ],
+    "summary": "2 chat messages: C26, C18",
+    "duration_ms": 271
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 28,
+    "ts": "2026-03-09T09:05:06.330Z",
+    "type": "tool_result",
+    "agent": "documents",
+    "call_id": "docu_3",
+    "tool": "get_doc",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "D8"
+    ],
+    "summary": "doc D8 kickoff meeting notes",
+    "duration_ms": 324
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 29,
+    "ts": "2026-03-09T09:05:06.580Z",
+    "type": "tool_call",
+    "agent": "attendees",
+    "call_id": "atte_4",
+    "tool": "get_contact",
+    "args": {
+      "id": "P4"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 30,
+    "ts": "2026-03-09T09:05:06.830Z",
+    "type": "tool_call",
+    "agent": "correspondence",
+    "call_id": "corr_4",
+    "tool": "get_chat",
+    "args": {
+      "id": "C18"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 31,
+    "ts": "2026-03-09T09:05:07.080Z",
+    "type": "tool_call",
+    "agent": "documents",
+    "call_id": "docu_4",
+    "tool": "get_doc",
+    "args": {
+      "id": "D7"
+    }
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 32,
+    "ts": "2026-03-09T09:05:07.330Z",
+    "type": "tool_result",
+    "agent": "attendees",
+    "call_id": "atte_4",
+    "tool": "get_contact",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "P4"
+    ],
+    "summary": "contact P4 Hannah Voss",
+    "duration_ms": 276
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 33,
+    "ts": "2026-03-09T09:05:07.580Z",
+    "type": "tool_result",
+    "agent": "correspondence",
+    "call_id": "corr_4",
+    "tool": "get_chat",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "C18"
+    ],
+    "summary": "chat C18 from Elena Marchetti",
+    "duration_ms": 329
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 34,
+    "ts": "2026-03-09T09:05:07.830Z",
+    "type": "tool_result",
+    "agent": "documents",
+    "call_id": "docu_4",
+    "tool": "get_doc",
+    "ok": true,
+    "item_count": 1,
+    "ids": [
+      "D7"
+    ],
+    "summary": "doc D7 statement of work v2",
+    "duration_ms": 382
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 35,
+    "ts": "2026-03-09T09:05:08.080Z",
+    "type": "subagent_done",
+    "agent": "attendees",
+    "findings_count": 4,
+    "gaps": [],
+    "duration_ms": 7560
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 36,
+    "ts": "2026-03-09T09:05:08.330Z",
+    "type": "subagent_done",
+    "agent": "correspondence",
+    "findings_count": 9,
+    "gaps": [],
+    "duration_ms": 7770
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 37,
+    "ts": "2026-03-09T09:05:08.580Z",
+    "type": "subagent_done",
+    "agent": "documents",
+    "findings_count": 6,
+    "gaps": [],
+    "duration_ms": 8000
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 38,
+    "ts": "2026-03-09T09:05:09.180Z",
+    "type": "verifier_result",
+    "verifier": {
+      "sentences_total": 19,
+      "sentences_kept": 19,
+      "sentences_dropped": 0
+    },
+    "dropped": []
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 39,
+    "ts": "2026-03-09T09:05:09.300Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "meeting_at_a_glance",
+        "title": "Meeting at a glance",
+        "sentences": [
+          {
+            "text": "Thursday 12 March 2026, 14:00-15:00 UTC: Brightmoor Renewables PPA board pre-read, a walk through the revised PPA pricing and the board pre-read ahead of the board meeting.",
+            "citations": [
+              {
+                "type": "cal",
+                "id": "M2"
+              }
+            ]
+          },
+          {
+            "text": "Attending: Sam Reyes and Hannah Voss (Northwind), Maya Okafor and Jonas Lindqvist (Brightmoor).",
+            "citations": [
+              {
+                "type": "cal",
+                "id": "M2"
+              },
+              {
+                "type": "contact",
+                "id": "P4"
+              },
+              {
+                "type": "contact",
+                "id": "P8"
+              },
+              {
+                "type": "contact",
+                "id": "P9"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 40,
+    "ts": "2026-03-09T09:05:09.420Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "client_snapshot",
+        "title": "Client snapshot",
+        "sentences": [
+          {
+            "text": "Northwind advises Brightmoor Renewables on the PPA for the Fenmoor wind farm under a fixed fee of £48,000.",
+            "citations": [
+              {
+                "type": "doc",
+                "id": "D7"
+              }
+            ]
+          },
+          {
+            "text": "The offtaker is Tarn Valley Utilities.",
+            "citations": [
+              {
+                "type": "doc",
+                "id": "D3"
+              },
+              {
+                "type": "doc",
+                "id": "D8"
+              }
+            ]
+          },
+          {
+            "text": "Lender Ashgrove Bank requires 70% contracted revenue and the PPA signed before financial close, which is targeted for 30 June 2026.",
+            "citations": [
+              {
+                "type": "doc",
+                "id": "D8"
+              },
+              {
+                "type": "email",
+                "id": "E41"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 41,
+    "ts": "2026-03-09T09:05:09.540Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "recent_news",
+        "title": "Recent news",
+        "sentences": [
+          {
+            "text": "News could not be reached; no recent news is included in this briefing.",
+            "citations": [],
+            "kind": "note"
+          }
+        ],
+        "empty": true
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 42,
+    "ts": "2026-03-09T09:05:09.660Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "where_we_left_off",
+        "title": "Where we left off",
+        "sentences": [
+          {
+            "text": "On 24 February Maya accepted the 12 year PPA term, but the 74/MWh floor sits above the 71/MWh that finance signed off; she asked for a reworked sensitivity table.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E51"
+              }
+            ]
+          },
+          {
+            "text": "On 27 February Jonas asked that the board pre-read figures for Fenmoor stay consistent with the latest lender model.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E56"
+              }
+            ]
+          },
+          {
+            "text": "On 6 March Hannah asked to lead Thursday's pre-read with the pricing floor logic.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E65"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 43,
+    "ts": "2026-03-09T09:05:09.780Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "open_items",
+        "title": "Open items",
+        "sentences": [
+          {
+            "text": "Maya promised the grid-connection study by 6 March; it is still outstanding (Sam was still waiting on 4 March).",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E51"
+              },
+              {
+                "type": "chat",
+                "id": "C26"
+              }
+            ]
+          },
+          {
+            "text": "Northwind owes Maya a reworked sensitivity table at the 74/MWh and 71/MWh levels before the board pre-read circulates.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E51"
+              }
+            ]
+          },
+          {
+            "text": "The final board paper is due on 20 March 2026; the board meets on 24 March.",
+            "citations": [
+              {
+                "type": "doc",
+                "id": "D7"
+              },
+              {
+                "type": "email",
+                "id": "E38"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 44,
+    "ts": "2026-03-09T09:05:09.900Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "attendees",
+        "title": "Attendees",
+        "sentences": [
+          {
+            "text": "Maya Okafor, Head of Commercial, leads the PPA negotiation and prefers short bullet updates.",
+            "citations": [
+              {
+                "type": "contact",
+                "id": "P8"
+              }
+            ]
+          },
+          {
+            "text": "Jonas Lindqvist, Chief Financial Officer, owns lender relations and the board paper.",
+            "citations": [
+              {
+                "type": "contact",
+                "id": "P9"
+              }
+            ]
+          },
+          {
+            "text": "Hannah Voss, Partner, is the senior sponsor of the Brightmoor relationship.",
+            "citations": [
+              {
+                "type": "contact",
+                "id": "P4"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": false
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 45,
+    "ts": "2026-03-09T09:05:10.020Z",
+    "type": "draft",
+    "sections": [
+      {
+        "id": "talking_points_and_risks",
+        "title": "Talking points and risks",
+        "sentences": [
+          {
+            "text": "Fenmoor capacity is quoted inconsistently: Maya and Jonas use 180 MW, while Elena says the revised turbine layout makes it 165 MW; settle one figure before the board paper.",
+            "citations": [
+              {
+                "type": "doc",
+                "id": "D8"
+              },
+              {
+                "type": "email",
+                "id": "E56"
+              },
+              {
+                "type": "chat",
+                "id": "C18"
+              }
+            ]
+          },
+          {
+            "text": "Risk: the 74/MWh price floor is above finance's 71/MWh and is the main friction in the PPA.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E51"
+              }
+            ]
+          },
+          {
+            "text": "Risk: Ashgrove Bank needs the PPA signed before financial close on 30 June 2026, so slippage in the pricing work is costly.",
+            "citations": [
+              {
+                "type": "email",
+                "id": "E41"
+              }
+            ]
+          },
+          {
+            "text": "Press Maya for the overdue grid-connection study; the PPA cannot be finalised without it.",
+            "citations": [
+              {
+                "type": "chat",
+                "id": "C26"
+              },
+              {
+                "type": "email",
+                "id": "E65"
+              }
+            ]
+          }
+        ],
+        "empty": false
+      }
+    ],
+    "complete": true
+  },
+  {
+    "run_id": "run_20260309_0905",
+    "seq": 46,
+    "ts": "2026-03-09T09:05:10.170Z",
+    "type": "run_done",
+    "partial": true,
+    "stats": {
+      "steps": 19,
+      "tokens_in": 19870,
+      "tokens_out": 2910,
+      "cost_usd": 0.0187,
+      "duration_ms": 10070
+    }
+  }
+]
