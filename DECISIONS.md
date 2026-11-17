@@ -48,3 +48,8 @@ Each entry: decision, why, alternatives considered. Newest at the bottom.
 - **Decision:** The 8 KB event cap means a full `BriefingPack` can't travel in one event, and the contract had no way to deliver the final pack. A follow-up contract task (g0c) adds an `assemble_pack(events)` helper (TS + Python) and a fixed event order: `… verifier_result`, then one `draft` event per section (seven, canonical order, only the last has `complete=true`), then `run_done`. Only verified sentences are ever emitted. Full-run event-stream fixtures are added for UI/API/eval development.
 - **Why:** Keeps the API to the three specified routes, keeps the UI honest (it never shows unverified text) and gives every consumer one tested assembly function.
 - **Alternatives:** `GET /briefings/{run_id}` with server-side storage (extra route and state, evals can't use it); raising the event cap (violates the spec).
+
+## D10. Gate summaries go in the session transcript and docs/orchestration/gate-summaries.md
+- **Decision:** No Slack/email/other third-party message is sent for gate summaries; they are printed in the orchestrator session and appended to `docs/orchestration/gate-summaries.md`.
+- **Why:** Writing to a real third-party account is on the "ask before" list and no destination was specified.
+- **Alternatives:** Slack DM or Mail.app message (needs the user's confirmation of the target).
