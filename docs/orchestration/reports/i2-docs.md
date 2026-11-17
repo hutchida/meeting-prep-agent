@@ -1,0 +1,27 @@
+# Merge report: i2-docs
+- Model(s): github-copilot/claude-sonnet-5.5 (opencode worker). No LLM calls were made through the proxy; replay-only API runs.
+- Wall time start→ready: 2026-11-17 11:20:15 UTC → 2026-11-17 11:28 UTC (about 8 minutes by the sandbox clock, which looks coarse); active time: unavailable
+- Tokens in/out: unavailable
+- Cost: unavailable
+- Bottlenecks: none blocking. `apps/web` on this branch is still the placeholder page (i1-web is running in parallel), so the UI parts of the README and `docs/architecture.md` follow the i1-web task spec, not merged code (marked with a TODO comment in the README and a pointer in the architecture table). `docs/demo.md` does not exist yet (the master writes it), so the README link to it is intentionally dangling. `data/README.md` still says `recordings/` is empty (it now holds 47 files); I do not own that file.
+- Checks run + results:
+  - `pnpm install`, `cd agent && uv sync` → ok
+  - `pnpm check` → exit 0 (633 pytest passed, 2 skipped; eslint, ruff, tsc, mypy, vitest green)
+  - `cd agent && uv run python -m mpa.evals --fake --scenario all` → 7 runs pass (offline, writes to a temp dir)
+  - API in replay (`LLM_MODE=replay`, port 8011, `uvicorn mpa.api.app:app`): `/health` ok; the three starter prompts each stream a complete briefing in 1.1 to 1.9 s with 7 drafts and `partial=false`; `fail_source: news` for Brightmoor and Halden gives `subagent_failed` (fault_injected), `partial=true`; `GET /sources/email/E1` returns the item. Server stopped afterwards.
+  - Script: every relative markdown link in README/docs resolves except `docs/demo.md` (expected); every backticked repo path and every test name cited in `docs/guardrails.md` exists
+  - Mermaid: both diagrams (README flowchart, `docs/architecture.md` sequence) pass `mermaid.parse` (mermaid + jsdom, installed in a temp dir, not in the repo)
+  - README results tables compared line by line with `evals/results/latest.md`: all rows identical
+  - `git diff --cached | grep -i -E "sk-|proxy-host|Bearer "` → one hit, the words "bearer tokens" in prose describing the redaction code; no secrets or URLs
+- What was built:
+  - `README.md` (13 sections in the requested order; `<!-- MEDIA:demo-gif -->` and `<!-- MEDIA:screenshots -->` placeholders; CI badge as a TODO comment; real eval numbers copied from `latest.md`; cost and latency with the no-Haiku caveat)
+  - `docs/architecture.md` (components, interfaces, data flow sequence diagram, event order, failure behaviour table, serving)
+  - `docs/guardrails.md` (eight guardrails: where they live, behaviour, offline tests that cover them)
+  - `docs/evals.md` (method, scenarios, how to run, how to read the numbers, how to add a client)
+  - `DECISIONS.md`: D1 to D10 untouched; added D11 to D16 (no framework, BM25 retrieval, deterministic verifier, record/replay keys, rule-based meeting resolution, Langfuse v2) taken from the task reports
+- Known gaps / follow-ups:
+  - Master: after merging i1-web, check the UI wording in the README (the `TODO(master)` comment and the Known limitations bullet), replace both media placeholders, write `docs/demo.md`, and remove the "built in a separate task" sentence in `docs/architecture.md`.
+  - Master: the recorded Brightmoor run has an empty "Talking points and risks" section (noted as a limitation in the README); re-recording after the final merge may change that, in which case update the bullet. Re-check the README numbers if `evals/results/latest.*` is regenerated.
+  - Master: the recorded set covers the three normal runs and the Brightmoor news outage; Halden with `fail_source: news` also replayed in my check, but the README only claims the first four.
+  - Cost in the README is the proxy-reported cost, which is lower than tokens times the derived per-million rates (for example about US$0.047 against US$0.039 for Halden Pay). I did not investigate why and said so in the README.
+  - `data/README.md` has a stale line about empty recordings (not my file).

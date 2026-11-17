@@ -53,3 +53,33 @@ Each entry: decision, why, alternatives considered. Newest at the bottom.
 - **Decision:** No Slack/email/other third-party message is sent for gate summaries; they are printed in the orchestrator session and appended to `docs/orchestration/gate-summaries.md`.
 - **Why:** Writing to a real third-party account is on the "ask before" list and no destination was specified.
 - **Alternatives:** Slack DM or Mail.app message (needs the user's confirmation of the target).
+
+## D11. Hand-written agent loop, no agent framework
+- **Decision:** The tool-use loop, parallel sub-agents, budgets, retries and event emission are plain Python with `asyncio` (`agent/src/mpa/loop`, `agent/src/mpa/agents`). All model calls go through the `LLMClient` interface; no LangChain, LangGraph, CrewAI or vendor agent SDK.
+- **Why:** The project exists to show the mechanics (what is retried, what is budgeted, what is cancelled, which event is emitted when). A framework would hide exactly that, and the loop is small (about 400 lines).
+- **Alternatives:** A framework graph (less code, less visible behaviour, harder to test offline).
+
+## D12. Retrieval is BM25 over the fake snapshot, behind `DataSource`
+- **Decision:** `FakeDataSource` indexes the JSONL files with `rank_bm25` (one index per type, built lazily). A fixed discount (x0.5) is applied to Enron noise and a boost (x1.5) to news items whose `about` field matches the query entity, so same-name companies rank below the client's own news.
+- **Why:** Deterministic, offline, millisecond search with no embedding model or vector store, so every test and replay is reproducible. The interface lets Microsoft Graph replace it later (`GraphDataSource` is a documented stub).
+- **Alternatives:** Embeddings (needs a model or an index to ship and makes runs less reproducible).
+
+## D13. Verifier: deterministic support check first, model check only for borderline sentences
+- **Decision:** A sentence is kept only if its citations exist and support it by a deterministic rule (figures, dates and codes must match exactly; at least half of the content words must appear). Borderline sentences get one batched model check when budget allows, otherwise they are dropped. Sub-agent findings run the same check before the Writer sees them.
+- **Why:** The check costs nothing, is reproducible and catches the typical hallucination (a changed figure or date). A model-only check would cost calls on every sentence and would be as non-deterministic as the writer.
+- **Alternatives:** Model-based entailment on every sentence (cost, latency, variance). Known cost of the choice: some true sentences that synthesise several sources are dropped, and a true sentence cited to the wrong item can pass.
+
+## D14. Record and replay of model calls, keyed by a hash of the request
+- **Decision:** `RecordingClient` stores each call under the SHA-256 of the canonical JSON of model, messages, tools, temperature and max tokens; `ReplayClient` serves it. Tool call ids are normalised (`corr_1`, ...) so provider ids do not change keys. A replay miss fails that agent with reason `error` instead of crashing.
+- **Why:** Gives an offline, key-free demo and tests that exercise the real prompts. The cost is that any change to a prompt, to the data or to `LLM_MODEL` invalidates recordings, so they are recorded last.
+- **Alternatives:** Canned fake responses (would not exercise the real prompts).
+
+## D15. Rule-based meeting resolution, no model
+- **Decision:** The request is mapped to one calendar meeting by client alias from calendar titles, weekday names and the next 14 days from `DEMO_NOW`. Unknown or ambiguous requests produce a short partial briefing that lists candidate meetings.
+- **Why:** Cheap, deterministic and testable; the fake dataset has three meetings. Relative words ("today", "tomorrow", "next week") are not interpreted.
+- **Alternatives:** A model call to extract the meeting (more flexible, adds a step and variance before any work starts).
+
+## D16. Tracing is optional and self-hosted: Langfuse server v2
+- **Decision:** `TRACING=langfuse` sends traces to a local Langfuse v2 (one app container plus Postgres, `docker-compose.yml`, port 3100) through the 2.x Python SDK, installed as the optional extra `langfuse`. The tracer never raises or blocks; if Langfuse is unreachable the app falls back to the no-op tracer with one warning. Content is truncated and scrubbed before it is sent.
+- **Why:** v3 needs ClickHouse, Redis and S3-compatible storage; v2 is enough for a demo. Tracing must never be a reason a briefing fails.
+- **Alternatives:** Langfuse v3 or a hosted service (heavier or needs credentials); OpenTelemetry only (no LLM-specific UI).
