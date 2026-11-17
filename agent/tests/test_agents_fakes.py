@@ -260,6 +260,7 @@ class PolicyLLM:
         self.usage = usage
         self.writer_text = writer_text
         self.delay = delay
+        self.judge_text = '{"supported": []}'
         self.tags: list[str] = []
         self.inflight = 0
         self.peak = 0
@@ -284,7 +285,9 @@ class PolicyLLM:
             self.inflight -= 1
         self.tags.append(tag or "")
         names = {t.name for t in tools or []}
-        if "submit_findings" in names:
+        if tag == "verifier":
+            msg = LLMMessage(role="assistant", content=self.judge_text)
+        elif "submit_findings" in names:
             msg = self._agent_turn((tag or "x").split(":")[0], messages)
         else:
             msg = self._writer(messages)

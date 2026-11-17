@@ -17,7 +17,7 @@ from mpa.agents.context import (
 from mpa.agents.prompts import goal
 from mpa.agents.resolve import Resolution, resolve_meeting
 from mpa.agents.subagents import AgentReport, run_subagent
-from mpa.agents.writer import collect_findings, write_briefing
+from mpa.agents.writer import collect_findings, with_meeting_line, write_briefing
 from mpa.contract import AgentEvent, BriefingRequest, RunDeps, json_bytes
 from mpa.contract.assemble import SECTION_IDS, SECTION_TITLES
 from mpa.contract.models import FactSentence, NoteSentence
@@ -215,7 +215,9 @@ async def _pipeline(
 
     allowed = {c for f in findings for c in f.citations}
     verify_span = deps.tracer.start_span(root, "verifier", kind="step")
-    vr = await Verifier(deps.data, flagged=flags, allowed=allowed).verify(written.sections)
+    vr = await Verifier(
+        deps.data, flagged=flags, allowed=allowed, llm=deps.llm, budget=budget, emit=emit
+    ).verify(with_meeting_line(written.sections, findings))
     verify_span.set(total=vr.total, kept=vr.kept)
     verify_span.end()
 

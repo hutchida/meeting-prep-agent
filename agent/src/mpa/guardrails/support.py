@@ -62,11 +62,19 @@ STOPWORDS = frozenset(
 )
 
 
+BORDERLINE_FLOOR = 0.2
+
+
 @dataclass
 class Support:
     supported: bool
     score: float
     missing: list[str] = field(default_factory=list)
+
+    @property
+    def borderline(self) -> bool:
+        """Every figure and date matches but the wording overlaps too little to be sure."""
+        return not self.supported and not self.missing and self.score >= BORDERLINE_FLOOR
 
 
 def _stem(word: str) -> str:

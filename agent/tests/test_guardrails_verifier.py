@@ -106,3 +106,60 @@ async def test_irrelevant_citations_are_pruned_but_sentence_kept() -> None:
     report = await Verifier(FakeData()).verify(sections(where_we_left_off=[s]))
     kept = report.sections[3].sentences[0]
     assert {c.id for c in kept.citations} == {"E47", "C22"}
+
+
+THIN = RawSentence(
+    "Halden Pay selected VeriTrace as the KYC vendor due to its superior verification speed "
+    "compared to competitors.",
+    (("email", "E37"),),
+)
+
+
+async def test_borderline_sentence_is_dropped_without_a_model() -> None:
+    report = await Verifier(FakeData()).verify(sections(where_we_left_off=[THIN]))
+    assert report.kept == 0 and report.dropped[0].reason == "unsupported"
+
+
+async def test_borderline_sentence_is_confirmed_by_one_batched_model_check() -> None:
+    from mpa.loop import Budget
+    from test_agents_fakes import ScriptedLLM, reply
+
+    budget = Budget(8, 10**6, 1.0)
+    v = Verifier(FakeData(), llm=llm, budget=budget)
+    report = await v.verify(sections(where_we_left_off=[THIN, OK]))
+    assert len(llm.requests) == 1 and llm.requests[0]["tag"] == "verifier"
+    prompt = llm.requests[0]["messages"][1].content
+    assert "Claim 1: Halden Pay selected VeriTrace" in prompt and "<untrusted_data>" in prompt
+    assert [s.text for s in report.sections[3].sentences][:1] == [THIN.text]
+    assert (report.total, report.kept) == (2, 2) and budget.total_steps == 1
+
+
+async def test_borderline_check_is_skipped_when_budget_is_gone_or_model_answers_badly() -> None:
+    from mpa.loop import Budget
+    from test_agents_fakes import ScriptedLLM, reply
+
+    spent = Budget(8, 10, 1.0)
+    spent.charge(__import__("mpa.contract", fromlist=["Usage"]).Usage(prompt_tokens=50))
+    llm = ScriptedLLM([reply(content='{"supported": [1]}')])
+    report = await Verifier(FakeData(), llm=llm, budget=spent).verify(sections(open_items=[THIN]))
+    assert llm.requests == [] and report.kept == 0
+    garbled = ScriptedLLM([reply(content="yes, all good")])
+    report2 = await Verifier(FakeData(), llm=garbled).verify(sections(open_items=[THIN]))
+    assert report2.kept == 0 and len(garbled.requests) == 1
+
+
+async def test_calendar_citation_is_supported_by_attendee_names() -> None:
+    s = RawSentence(
+        "Sam Reyes and Hannah Voss from Northwind Advisory meet Maya Okafor and Jonas Lindqvist.",
+        (("cal", "M2"),),
+    )
+    report = await Verifier(FakeData()).verify(sections(meeting_at_a_glance=[s]))
+    assert report.kept == 1
+
+
+async def test_model_can_reject_a_borderline_sentence() -> None:
+    from test_agents_fakes import ScriptedLLM, reply
+
+    llm = ScriptedLLM([reply(content='{"supported": []}')])
+    report = await Verifier(FakeData(), llm=llm).verify(sections(open_items=[THIN]))
+    assert report.kept == 0 and report.dropped[0].reason == "unsupported"

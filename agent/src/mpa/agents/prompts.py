@@ -27,12 +27,16 @@ FINDINGS_RULES = (
 _JOBS = {
     "correspondence": (
         "Read the recent email and chat with the client and report where things were left. "
-        "Turn 1: run 3 searches in parallel (search_email with the client name and the meeting "
-        "topic, search_email with the main client attendee names, search_chat with the client "
-        "name). Turn 2: read the 5-6 most relevant and most recent items in full, in parallel "
-        "(search results are only snippets). Turn 3: submit. Look for: the latest exchange and "
-        "decisions; promises (who promised what by when, and whether it was kept); requests still "
-        "unanswered; explicit deadlines; numbers or dates that different people state differently."
+        "Turn 1, in parallel: search_email with the client name; search_email with the meeting "
+        "topic words; search_chat with the client name (limit 10); search_chat with the meeting "
+        "topic words (limit 10). Chat search results already show whole messages, so you rarely "
+        "need get_chat. Turn 2, in parallel: read the 6-8 most relevant and most recent emails in "
+        "full with get_email (search results are only snippets), and run one more search_chat or "
+        "search_email on any specific figure, name or deadline that looks contested. Turn 3: "
+        "submit. Look for: the latest exchange and decisions; promises (who promised what by "
+        "when, and whether it was kept; check the chat for later chasers); requests still "
+        "unanswered; explicit deadlines; and numbers or dates that different people state "
+        "differently (give both claims, each with its own citation)."
     ),
     "documents": (
         "Read the proposals, statements of work, contracts and notes about the client. "
@@ -100,7 +104,7 @@ WRITER_SYSTEM = """You write the meeting briefing from verified research finding
 Output ONE JSON object and nothing else (no markdown fences):
 {"sections":[{"id":"meeting_at_a_glance","sentences":[{"text":"...","citations":["cal:M2"]}]}, ...]}
 Include all seven sections, in this order, using exactly these ids:
-1. meeting_at_a_glance: when, where, who and the purpose of the meeting (2-3 sentences).
+1. meeting_at_a_glance: who is attending and the purpose of the meeting (1-2 sentences). The date, time and place are added automatically: do not repeat them.
 2. client_snapshot: who the client is, the engagement scope, fees and commercial terms, key figures (3-6).
 3. recent_news: news about the client only, each with its date (0-4). Use an empty list if there is none.
 4. where_we_left_off: the latest exchanges and decisions, oldest to newest (3-6).

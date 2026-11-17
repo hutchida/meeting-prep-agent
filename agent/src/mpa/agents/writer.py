@@ -137,6 +137,20 @@ def parse_writer_json(raw: str) -> list[RawSection]:
     return [by_id[i] for i in SECTION_IDS]
 
 
+def with_meeting_line(sections: list[RawSection], findings: list[Finding]) -> list[RawSection]:
+    """Put the calendar sentence (built from the calendar item itself) first in the glance."""
+    line = next((f for f in findings if f.agent == "calendar"), None)
+    if line is None:
+        return sections
+    first = RawSentence(line.text, line.citations)
+    return [
+        RawSection(s.id, [first, *(x for x in s.sentences if x.text != first.text)])
+        if s.id == "meeting_at_a_glance"
+        else s
+        for s in sections
+    ]
+
+
 def fallback_sections(findings: list[Finding]) -> list[RawSection]:
     """Render findings into sections without a model: grouped by agent, split by simple cues."""
 
