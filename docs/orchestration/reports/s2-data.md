@@ -32,3 +32,8 @@
   - The stemmer is intentionally crude (strips a trailing `s`); "renewal" and "renewable" do not conflate.
   - Search results do not support date filters or sorting by recency; callers can post-filter via `get_email`.
   - `GraphDataSource` is a documented stub only.
+
+## Harness metrics (added by master from `opencode session export`, session ses_e17048c4bffewlMwKxlGW2J8en)
+- Model: github-copilot/claude-sonnet-5.5; wall 4.7 min
+- Tokens: input 1,966 (uncached) / output 25,958 / reasoning 7,562 / cache read 1,419,010 / cache write 80,810
+- Cost: US$0.4967 (harness-reported)
