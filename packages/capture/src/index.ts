@@ -1,2 +1,10 @@
-// Skeleton only. Task c1-capture implements the shared Playwright capture helper.
 export const CAPTURE_PACKAGE = "@mpa/capture";
+
+export * from "./steps";
+export * from "./capture";
+export * from "./gif";
+export * from "./redact";
+export * from "./script";
+export * from "./targets";
+export * from "./paths";
+export { startFixtureServer, type FixtureOptions, type FixtureServer } from "./fixture";

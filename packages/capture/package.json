@@ -6,8 +6,20 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
+    "capture": "tsx src/cli.ts",
+    "install-browsers": "playwright install chromium",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests"
   },
-  "devDependencies": { "vitest": "^3.2.0", "@types/node": "^22.0.0" }
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.23.15",
+    "vitest": "^3.2.0"
+  },
+  "dependencies": {
+    "gifenc": "^1.0.3",
+    "playwright": "^1.65.1",
+    "pngjs": "^7.0.0"
+  }
 }
