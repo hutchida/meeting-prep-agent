@@ -8,7 +8,7 @@
   - `pnpm check` → green (304 passed, 1 skipped, offline, ~3.3 s of pytest)
   - `uv run pytest tests/test_data_source*.py` → 58 passed in ~0.4 s
   - `uv run ruff check`, `ruff format --check`, `mypy --strict src tests scripts` → clean
-  - Pre-commit secret grep on the staged diff → empty
+  - Pre-commit secret grep on the staged diff → only a false positive ("risk-scoring" contains "sk-"); no secrets
 - What was built:
   - `agent/src/mpa/data/fake.py`: `FakeDataSource(data_dir)` with all 12 `DataSource` methods (async, `KeyError` on unknown ids, `limit` clamped to 0..10, hits validated as `SearchHit`, snippet ≤ 240 chars around the densest cluster of query terms, title ≤ 200).
   - `text.py` (tokeniser, snippet), `index.py` (`rank_bm25.BM25Okapi` wrapper), `loader.py` (strict JSONL loader), `graph.py` (`GraphDataSource` stub with the Graph mapping), `__init__.py` (`build_data_source`, exports).
