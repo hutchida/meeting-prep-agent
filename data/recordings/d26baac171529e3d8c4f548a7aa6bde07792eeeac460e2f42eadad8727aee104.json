@@ -219,7 +219,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2092,
+  "latency_ms": 2141,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -265,7 +265,7 @@
       ],
       "gaps": []
      },
-     "id": "call_14485838227554344318__thought__AY89a185hPws8g/mRJpdUQHdlRhr9RTsfgRFhI7ViPeyMBft57G+ROR5ziTNbWOszawpchfzTLNHxQ/6qCmVGhU/c7hYtL93B+S9kSmHfQfriGsZs+dmEW57LhTEHgjAmfvEePME+J3lq2v0Gj18NhYUvwvPZgvk27OmQscbtTnjvpC6",
+     "id": "call_2560529084306453526__thought__AY89a19IyCayz/4KiBHkcT0SzKV1b/IzwEjoBRlNDJqSr2RaGHS+JBAcsAbk2eJUfSfzIdPic+CIMIY0xHIstbk8ccus9QjJH1SAmOIvJCs/hYM6C2EqNEd4B/IJ78rpsjx9tVGfeTeZnoJ7emFGEpA5cvzk8RtZ47A/3chxGn5Gb8Y/",
      "name": "submit_findings"
     }
    ]

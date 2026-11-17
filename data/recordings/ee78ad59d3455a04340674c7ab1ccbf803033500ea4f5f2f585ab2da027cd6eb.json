@@ -165,7 +165,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1494,
+  "latency_ms": 2111,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -173,35 +173,35 @@
      "arguments": {
       "id": "P1"
      },
-     "id": "call_11302443253933313568__thought__AY89a197qddsvZsijwEQFHvrXBcRPzPkDy/w3wDEyhKW5qvjGxEB8R8+iT3hVmNoFe4Kjrrv0BAUewe55Kh6tn8xB92JB6MLiWkotSnDCloXtoSbCT0Vun8ZrNsXzJFLGQd9cYH31oo6xYdFt1EhDZgNX9EMy0ZSnc1/BxiMNZf57eds",
+     "id": "call_5158786495125757929__thought__AY89a19qNkbgAw+zwcLqw61y0EXTdbkyCGN1gKWqv8/AhfiLunVKSEF21EoveBSXMIOTRqmnkLtE2fpNjUPkITEpuNk8NVmCBKvnrZ4173OYCoulAcrQXS7mgG4zyFlnwFjIX/QGlP3M94Y3Zgq/qf0UEC/wtH13sGfhpmIamiwPsyIL",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P2"
      },
-     "id": "call_11302443253933312525",
+     "id": "call_5158786495125754110",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P5"
      },
-     "id": "call_11302443253933311482",
+     "id": "call_5158786495125754387",
      "name": "get_contact"
     },
     {
      "arguments": {
       "id": "P6"
      },
-     "id": "call_11302443253933310439",
+     "id": "call_5158786495125754664",
      "name": "get_contact"
     },
     {
      "arguments": {
       "query": "Halden Pay"
      },
-     "id": "call_11302443253933313492",
+     "id": "call_5158786495125754941",
      "name": "get_calendar"
     }
    ]

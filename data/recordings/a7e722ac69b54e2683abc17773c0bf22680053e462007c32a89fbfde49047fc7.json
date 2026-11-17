@@ -57,14 +57,14 @@
      },
      {
       "arguments": {
-       "query": "Maya Okafor"
+       "query": "\"Maya Okafor\""
       },
       "id": "corr_7",
       "name": "search_email"
      },
      {
       "arguments": {
-       "query": "Jonas Lindqvist"
+       "query": "\"Jonas Lindqvist\""
       },
       "id": "corr_8",
       "name": "search_email"
@@ -341,7 +341,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2161,
+  "latency_ms": 2033,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -349,91 +349,91 @@
      "arguments": {
       "id": "E65"
      },
-     "id": "call_6361728309540157716__thought__AY89a18Ry9hUj2syI4yiXWPGugyUqbXWcmbtHm+8OE3cANSoVEtwaI+TPZdTXr6m/1GIoCWQlp60uTu3HounlrNtnHf959U1ymbreibqtSaztXJO/pXKg5rv59Hz/iZAtSpoouvClsiiGMombuzl3hpGK4QxMqi/eGF5IA1XjHvSUaBC",
+     "id": "call_7855437550831134954__thought__AY89a19i8C4f9iqTDSbZVjIFn3t/oa+jhifW3GVLF1Uk7je+hmwLZZhUBXHGQAqZm33BzM0cDUral4yreFwTPfEHzI92+WjQNWJIQSUHMHeen3yU4H8aOBwjzA29qPcLACD/3Z+80OHjgkR+UbbciDG8zMsNIVopw5PANKNFD377giqo",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E51"
      },
-     "id": "call_6361728309540155753",
+     "id": "call_7855437550831132959",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E56"
      },
-     "id": "call_6361728309540157886",
+     "id": "call_7855437550831135060",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E41"
      },
-     "id": "call_6361728309540155923",
+     "id": "call_7855437550831133065",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E38"
      },
-     "id": "call_6361728309540158056",
+     "id": "call_7855437550831135166",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E59"
      },
-     "id": "call_6361728309540156093",
+     "id": "call_7855437550831133171",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "E63"
      },
-     "id": "call_6361728309540158226",
+     "id": "call_7855437550831135272",
      "name": "get_email"
     },
     {
      "arguments": {
       "id": "C26"
      },
-     "id": "call_6361728309540156263",
+     "id": "call_7855437550831133277",
      "name": "get_chat"
     },
     {
      "arguments": {
       "id": "C18"
      },
-     "id": "call_6361728309540158396",
+     "id": "call_7855437550831135378",
      "name": "get_chat"
     },
     {
      "arguments": {
       "id": "C11"
      },
-     "id": "call_6361728309540156433",
+     "id": "call_7855437550831133383",
      "name": "get_chat"
     },
     {
      "arguments": {
       "id": "C3"
      },
-     "id": "call_6361728309540158566",
+     "id": "call_7855437550831135484",
      "name": "get_chat"
     },
     {
      "arguments": {
       "id": "C6"
      },
-     "id": "call_6361728309540156603",
+     "id": "call_7855437550831133489",
      "name": "get_chat"
     },
     {
      "arguments": {
       "id": "C23"
      },
-     "id": "call_6361728309540158736",
+     "id": "call_7855437550831135590",
      "name": "get_chat"
     }
    ]
@@ -441,8 +441,8 @@
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
    "completion_tokens": 232,
-   "cost_usd": 0.0024518499999999998,
-   "prompt_tokens": 6929
+   "cost_usd": 0.0041624999999999995,
+   "prompt_tokens": 6933
   }
  }
 }

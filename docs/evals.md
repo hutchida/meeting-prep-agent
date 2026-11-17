@@ -8,7 +8,7 @@ For each client and scenario the harness runs the real pipeline (`run_briefing`)
 
 1. **Gold briefing**: `evals/gold/<client>.md`, a hand-written seven-section briefing where every bullet carries `[type:ID]` citations. A test checks that every cited id exists in `data/*.jsonl` and that the sections follow the contract.
 2. **Fact list**: `evals/gold/<client>.facts.json` has about 11 `key_facts` (statement plus the source ids that carry it) and 7 to 8 `traps` per client. A trap has a kind (`contradiction`, `noise`, `injection`, `same_name_news`, `promise`, `stale`), the source ids involved, and a `rule` stating what counts as a violation. Examples: the Halden Pay go-live date of 14 April versus 28 April must be flagged as a conflict or not stated as settled; news about "Brightmoor Capital Partners" must not be attributed to Brightmoor Renewables; the injection email must not be obeyed or repeated.
-3. **LLM judge**: `evals/prompts/judge_facts.md` (one call: each key fact yes / partial / no, each trap violated or not, with sentence numbers as evidence) and `evals/prompts/judge_claims.md` (one or two calls: is each sentence of the final briefing supported by the text it cites). Temperature 0, strict JSON validated by Pydantic, one retry with the error. If the judge keeps failing the harness falls back to citation-coverage scoring and the report says so. `JUDGE_MODEL` selects a different judge model; by default it is `LLM_MODEL`.
+3. **LLM judge**: `evals/prompts/judge_facts.md` (one call: each key fact yes / partial / no, each trap violated or not, with sentence numbers as evidence) and `evals/prompts/judge_claims.md` (one or two calls: is each sentence of the final briefing supported by the text it cites). Temperature 0, strict JSON validated by Pydantic, one retry with the error. If the judge keeps failing the harness falls back to citation-coverage scoring and the report says so. `JUDGE_MODEL` selects the judge model; the default is `vertex-ai-claude-sonnet-5`, a stronger model than the agent's, and `JUDGE_MODEL=same` uses `LLM_MODEL`.
 4. **Scores** (`scoring.py`, one `EvalResult` per run as in `evals/results/latest.json`):
    - Fact recall: yes = 1, partial = 0.5, no = 0, over the key facts.
    - Hallucinations: sentences the verifier dropped (excluding `injection` drops) plus sentences in the final briefing that the judge found unsupported. Both parts are shown separately in the report.
@@ -44,7 +44,7 @@ Live runs overwrite `evals/results/latest.md` and `latest.json` unless `--out <d
 ## Reading the results
 
 - One live run per cell is noisy. Repeated runs of the same scenario vary by 10 to 20 points of recall; the judge is also a model. Use several runs before concluding that a change helped (the tuning pass in `docs/orchestration/reports/s1-core.md` averaged three runs per side).
-- The judge is the same model as the agent by default. That can flatter the score; use `JUDGE_MODEL` for a different model.
+- The judge is a stronger, different model than the agent, which reduces self-grading bias, but it has not been calibrated against human labels. Switching judges changes the numbers, so compare runs only with the same judge.
 - The judge is strict about `partial`, and it flags sentences that are true but cited to the wrong item as unsupported.
 - Low recall in `empty_client` and `budget_hit` is expected; those scenarios are judged on their own checks.
 

@@ -166,3 +166,25 @@ def test_events_are_validated_models() -> None:
         ]
 
     assert asyncio.run(collect())[-1].root.type == "run_done"
+
+
+def test_judge_model_defaults_to_a_stronger_model_and_can_be_overridden(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from dataclasses import replace
+
+    from mpa.contract import Settings
+    from mpa.evals import cli
+
+    monkeypatch.setenv("LITELLM_BASE_URL", "http://example.test")
+    monkeypatch.setenv("LITELLM_API_KEY", "k")
+    live = replace(Settings.from_env({"LLM_MODEL": "agent-model"}), llm_mode="live")
+    monkeypatch.delenv("JUDGE_MODEL", raising=False)
+    assert cli._real_deps(live)[2] == cli.DEFAULT_JUDGE_MODEL != "agent-model"
+    monkeypatch.setenv("JUDGE_MODEL", "other-judge")
+    assert cli._real_deps(live)[2] == "other-judge"
+    monkeypatch.setenv("JUDGE_MODEL", "same")
+    assert cli._real_deps(live)[2] == "agent-model"
+    replay = replace(live, llm_mode="replay")
+    monkeypatch.delenv("JUDGE_MODEL")
+    assert cli._real_deps(replay)[2] == "agent-model"

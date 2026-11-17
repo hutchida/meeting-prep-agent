@@ -175,7 +175,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1104,
+  "latency_ms": 1258,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -183,21 +183,21 @@
      "arguments": {
       "id": "N1"
      },
-     "id": "call_14658763441866880817__thought__AY89a1/PoLJCfNt18Umbi+cDCyif6t8OaBYn/owFnd1H0Se3AFFTLlEZ2iPCFj2vn7iSATCkr6JPMsGOA/JNB6M6kJ+UNWulZgR1a2gUZG1KIYl4hny5qbUMKVIcOPrrayGBHOKumvI1gOS/46iPlcfdK719dyCvoMnWwPWaou+X0Q6M",
+     "id": "call_2813761724898072463__thought__AY89a19dUwmxP62xmJFxXv6r5NODMFKPQ/gdbMrDRcjaD15xICluxrBmoe6VgcRZc7wYADUXBTBOvJ/423aiy/lmFWD83ZdhtMvNUxH0IbFSU5lDodrfGDGQxEwjECiV0CBmiHsqbRLbVRXChqamXF7Lpjdr37J7LR+WUFyKwdpO6/FF",
      "name": "get_news"
     },
     {
      "arguments": {
       "id": "N26"
      },
-     "id": "call_14658763441866882382",
+     "id": "call_2813761724898073640",
      "name": "get_news"
     },
     {
      "arguments": {
       "id": "N10"
      },
-     "id": "call_14658763441866879851",
+     "id": "call_2813761724898070721",
      "name": "get_news"
     }
    ]

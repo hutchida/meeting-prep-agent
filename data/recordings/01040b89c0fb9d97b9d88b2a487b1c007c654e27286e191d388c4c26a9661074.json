@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1307,
+  "latency_ms": 1574,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,14 +152,14 @@
      "arguments": {
       "query": "Brightmoor Renewables"
      },
-     "id": "call_2948277360741319591__thought__AY89a19hL6RoeA3YJtzWGvgSO/IuNkGKVN2HbrS7AuXu+dYoSRKgsOxx91v6oyAdqMi9VtBlivhEsw88ZuFOTaDu9mlkRJh59Kl07crWI/VAmnlZKs3qCEkoSEEGn2Xe5se2s2eprQQdIHkJtHKAd++haeMxHNkbkQ3N0DNv25ALpkK4",
+     "id": "call_8622457666013908749__thought__AY89a189FJqvnbknbDktoQa6t5Tc9vNAnioPzrI6xdBy9EjkzzEoAndmNmQvLTfOxottdjkOFVxTTG3sKei8MzR9D+QvfTtUCDg3SaY4YXRDrmAAmYnCB89Vp6UsYGE5G3ggdbl4JO0m6Xu5+/IObluoPpBOrkciMFYd4bp2jX0rtFIk",
      "name": "search_news"
     },
     {
      "arguments": {
       "query": "Brightmoor Renewables renewable energy sector"
      },
-     "id": "call_2948277360741320754",
+     "id": "call_8622457666013907386",
      "name": "search_news"
     }
    ]

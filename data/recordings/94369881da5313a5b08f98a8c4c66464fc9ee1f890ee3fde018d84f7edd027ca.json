@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1692,
+  "latency_ms": 2317,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,28 +152,28 @@
      "arguments": {
       "query": "Brightmoor Renewables"
      },
-     "id": "call_15863461561813554641__thought__AY89a1+XHqJ5jwl1P2c9FlIa88mHO4XfoXuQlVb0Zu624GaFyIuBSsDNnY3+TLWSZEnGQJN+EuC4Ovji2jGr0AiWUr5JVdr1gkrd91ihfoAUmvrNfegfA1YUvjFa+7dhgMS48cvMM7DjGw94OHmyeg1/DbyU2JJCisiqmEK1xnQ86W/+",
+     "id": "call_1430103774990287410__thought__AY89a1+lZuxwCWfolIZEg71yM0M/+/Uq4E1OKOhQY2byv6C/UMWuY6cSefpS8UIq2wI+9mz7bLv4yg/283rAQOngQRz0+VUa6vIenZWdr4cZ3jOJvSRsAlXXu48bHHDFE3zOniFPG+gY6ERabdduBMOUb6PImVb9+VIZrgxvUKO3hGPR",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Brightmoor Renewables PPA board pre-read"
      },
-     "id": "call_15863461561813554074",
+     "id": "call_1430103774990289125",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Brightmoor Renewables fee payment instalment invoice schedule"
      },
-     "id": "call_15863461561813553507",
+     "id": "call_1430103774990290840",
      "name": "search_docs"
     },
     {
      "arguments": {
       "query": "Brightmoor Renewables decision minutes action items steering"
      },
-     "id": "call_15863461561813557036",
+     "id": "call_1430103774990288459",
      "name": "search_docs"
     }
    ]

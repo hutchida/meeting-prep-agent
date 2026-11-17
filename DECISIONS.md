@@ -83,3 +83,19 @@ Each entry: decision, why, alternatives considered. Newest at the bottom.
 - **Decision:** `TRACING=langfuse` sends traces to a local Langfuse v2 (one app container plus Postgres, `docker-compose.yml`, port 3100) through the 2.x Python SDK, installed as the optional extra `langfuse`. The tracer never raises or blocks; if Langfuse is unreachable the app falls back to the no-op tracer with one warning. Content is truncated and scrubbed before it is sent.
 - **Why:** v3 needs ClickHouse, Redis and S3-compatible storage; v2 is enough for a demo. Tracing must never be a reason a briefing fails.
 - **Alternatives:** Langfuse v3 or a hosted service (heavier or needs credentials); OpenTelemetry only (no LLM-specific UI).
+
+## D17. Conflicting dates: carry unreported chat messages into the findings
+- **Decision:** After the Correspondence agent finishes and its findings pass the support check, any chat message it retrieved that states a date or figure, belongs to the client's channel and is cited by no finding is added as a near-verbatim finding ("<author> wrote in <channel> on <date>: <text>", with the author and date taken from the chat record). Capped at 4. The Verifier's rules are unchanged.
+- **Why:** Diagnosis of the one-sided Halden Pay go-live date: the chat message with the later date (28 April) was retrieved in every run, but it reached the briefing in 0 of 6 live runs. The agent either left it out or paraphrased it with a month for "the 14th", which the strict date check rightly dropped. The Writer cannot flag a conflict it never sees. After the fix it was cited in 6 of 6 and the disagreement was flagged in 5 of 6, then in 10 of 10 further runs.
+- **Alternatives:** loosening the Verifier's date matching (rejected: a changed date is the typical hallucination); a prompt-only change (the prompt already asked for every dated chat message; the small model ignores it); a second pass asking the model to look for conflicts (extra cost and latency).
+- **Limits:** the client filter is the first word of the client name in the channel name, which fits this dataset but is a heuristic; a Graph source would need a real thread-to-client mapping.
+
+## D18. The eval judge is a stronger model than the agent
+- **Decision:** `make eval` judges with `vertex-ai-claude-sonnet-5` by default (`JUDGE_MODEL` overrides, `JUDGE_MODEL=same` restores the agent's model). Replay-mode evals keep using `LLM_MODEL`.
+- **Why:** The first judge was the agent's own model, which can flatter its own output. Sonnet-5 is a different model that handles the strict JSON judge prompts and costs about US$0.48 per full eval run (14 calls), against US$0.04 before.
+- **Alternatives:** `vertex-ai-claude-opus-4.8` (about 2.5x the cost); `vertex-ai-claude-sonnet-4.6` (similar, older). The judge is still uncalibrated against human labels; scores before and after the switch are not comparable (average recall 82% with the old judge, 80% with the new one on different runs).
+
+## D19. `make record` regenerates the demo recordings with a quality gate
+- **Decision:** `agent/scripts/record_demo.py` records the four demo runs live, replaying anything already accepted so runs sharing a request prefix stay consistent, retries each run up to 6 times until it passes a quality check (all sections filled, at least 3 talking points, at most 2 verifier drops, `partial` only for the outage run, and a flagged conflict where the gold data has one), and replaces `data/recordings/` only if all four pass.
+- **Why:** At rehearsal the Brightmoor normal run replayed with an empty "Talking points" section, because the outage run recorded different model text for the same request keys and overwrote the first. This turns that manual fix into a tested command.
+- **Alternatives:** `RECORD=1` alone (kept, but unsafe for sets of runs); committing a fixed seed (the provider is not deterministic).

@@ -54,3 +54,6 @@ Tokens in: workers read almost entirely from cache (cache reads 1.4 M to 27.7 M 
 - Ask the workers to report harness session ids so metrics are not reconstructed.
 - State the web production-build requirement for screenshots (the Next dev badge appears in dev mode).
 - The user's brief assumed a Haiku alias; verify model aliases in the prompt-writing step.
+
+## Follow-up pass (after the first report)
+Requested by the user and done by the master session directly (no workers): repo moved to `~/GIT/meeting-prep-agent`, the nine merged worktrees and their `.env` copies removed, then three changes: the conflicting-dates fix (D17), a stronger eval judge (D18) and `make record` (D19). Checks re-run: `pnpm check` green (645 pytest, 249 vitest), `make eval` live with all four failure scenarios passing, demo capture twice in replay and once live. Lessons: the first diagnosis ("the Writer misses conflicts") was wrong; tracing a single run showed the evidence was dropped earlier by the sub-agent's own support check, so measure where a fact disappears before changing prompts. Moving a repo breaks the `.venv` console scripts (rebuild it) and the capture CLI resolves `--out` from the repo root, not the package directory.

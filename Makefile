@@ -1,4 +1,4 @@
-.PHONY: setup dev dev-api dev-web dev-web-prod demo test eval data check
+.PHONY: setup dev dev-api dev-web dev-web-prod demo record test eval data check
 
 setup:
 	pnpm install
@@ -23,6 +23,10 @@ dev-web-prod:
 
 test check:
 	pnpm check
+
+# Re-record the demo replay set live (needs LITELLM_* in .env; replaces data/recordings/ only if every scenario passes the quality gate)
+record:
+	cd agent && uv run python scripts/record_demo.py
 
 eval:
 	cd agent && uv run python -m mpa.evals

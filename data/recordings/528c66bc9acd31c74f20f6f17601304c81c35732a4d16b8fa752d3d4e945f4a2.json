@@ -180,7 +180,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2470,
+  "latency_ms": 2408,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -188,92 +188,92 @@
      "arguments": {
       "query": "Brightmoor Renewables"
      },
-     "id": "call_16568105513671237607__thought__AY89a18je8hwHiOlePPwd5Tr6LHfCj0BPXr6tnoYxn/svDepMci1/WzO03ptO9K7PWWhbvRcSMj+rbCIoGFZQkvMT/vgiqwjfvVjC0iQb2e0qsYqqKVZiP153ze2HlvY4EfSaFWLaZ6FZLfAVLyxugXpP1X98rbMnZiJIv6TwRPQZQkz",
+     "id": "call_3762421147531324296__thought__AY89a1/qHm30E4ZsZk/iYXUahTPHmW2YXjM0flETovhkIxttuEOKBkXtx2p6ZMcgMj7h0dL8pD5Y9FDmIVwbnIx1OabQ5kMO1/nicrAk3gF6VFJb9LvxyMh69l5uo3UKg3lanodz8OkySe3IQg4TSbNBoGqom1ElXgXbYPdBBKjCFiRi",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "PPA board pre-read pricing"
      },
-     "id": "call_16568105513671235758",
+     "id": "call_3762421147531324001",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "budget price fee cost deadline Brightmoor Renewables"
      },
-     "id": "call_16568105513671233909",
+     "id": "call_3762421147531323706",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "launch plan campaign timeline Brightmoor Renewables"
      },
-     "id": "call_16568105513671236156",
+     "id": "call_3762421147531323411",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "decision agreed approved chosen Brightmoor Renewables"
      },
-     "id": "call_16568105513671234307",
+     "id": "call_3762421147531323116",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "promise confident deliver send over deadline waiting chase outstanding overdue delayed"
      },
-     "id": "call_16568105513671236554",
+     "id": "call_3762421147531322821",
      "name": "search_email"
     },
     {
      "arguments": {
-      "query": "Maya Okafor"
+      "query": "\"Maya Okafor\""
      },
-     "id": "call_16568105513671234705",
+     "id": "call_3762421147531322526",
      "name": "search_email"
     },
     {
      "arguments": {
-      "query": "Jonas Lindqvist"
+      "query": "\"Jonas Lindqvist\""
      },
-     "id": "call_16568105513671236952",
+     "id": "call_3762421147531322231",
      "name": "search_email"
     },
     {
      "arguments": {
       "query": "Brightmoor Renewables"
      },
-     "id": "call_16568105513671235103",
+     "id": "call_3762421147531321936",
      "name": "search_chat"
     },
     {
      "arguments": {
       "query": "PPA board pre-read pricing"
      },
-     "id": "call_16568105513671237350",
+     "id": "call_3762421147531321641",
      "name": "search_chat"
     },
     {
      "arguments": {
       "query": "waiting chase update ready landed delayed"
      },
-     "id": "call_16568105513671235501",
+     "id": "call_3762421147531321346",
      "name": "search_chat"
     },
     {
      "arguments": {
       "query": "date deadline delay slip moved realistic timeline"
      },
-     "id": "call_16568105513671233652",
+     "id": "call_3762421147531325147",
      "name": "search_chat"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 258,
-   "cost_usd": 0.001515,
+   "completion_tokens": 262,
+   "cost_usd": 0.0015270000000000001,
    "prompt_tokens": 1482
   }
  }

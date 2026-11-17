@@ -15,9 +15,9 @@ Run it: `make setup && make demo` (offline replay), `make dev` (live with `.env`
 See `DECISIONS.md` (D1–D16). The ones that matter most: no Haiku alias exists on the proxy so the default is `vertex-ai-gemini-3-flash-preview` (D2, D7); the final pack is rebuilt from events (D9); replay keys are request hashes (D14).
 
 ## What's weak
-- Fact recall is 73–86 % on the live eval; "latest state" and informal-chat facts are often only partial, and one Halden run stated a disputed go-live date without flagging the conflict. The judge is the same small model as the agent.
+- Fact recall is 77–86 % on the live eval (one run per client, plus or minus about 10 points); "latest state" and informal-chat facts are often only partial, and a planted conflict is occasionally stated one-sidedly (one of the five eval runs involving it; 0 of 10 in a later dedicated check after the D17 fix). The judge is now a stronger model (Sonnet-5, D18) but has not been calibrated against human labels.
 - The Verifier's support check is a deterministic heuristic (content words, numbers, dates) with a model check for borderline sentences; it can drop good synthesis sentences and can pass loosely paraphrased ones.
-- The model is non-deterministic: live runs differ, and replay is exact only for recorded requests. Re-recording needs care (two runs sharing a prefix can overwrite each other); there is no `make record` target yet.
+- The model is non-deterministic: live runs differ, and replay is exact only for recorded requests. `make record` handles the prefix-sharing problem and gates quality (D19), but recordings still break on any prompt, data or model change.
 - Meeting resolution is rule-based (client alias, weekday, next 14 days), no free-form dates like "tomorrow".
 - Fake data only, English only, single user, no auth; the Microsoft Graph source is a stub.
 - `Stats.steps` counts model calls, not tool calls. The Langfuse stack was verified by a worker but is not part of CI. Docker, the web UI in a real browser at other sizes and accessibility were only lightly checked.
@@ -27,5 +27,5 @@ See `DECISIONS.md` (D1–D16). The ones that matter most: no Haiku alias exists 
 1. `GraphDataSource` (read-only Mail/Calendar/Files/Chat scopes) behind the existing interface.
 2. Self-hosted model via vLLM behind `LLMClient`.
 3. An MCP server exposing "prepare briefing" and source lookup.
-4. `make record` with replay-first fallback and a quality gate; larger gold set and a stronger judge model; multi-turn follow-ups.
+4. A larger gold set, several runs per eval cell with confidence intervals, and human labels to calibrate the judge; multi-turn follow-ups.
 5. Streaming Writer and per-section regeneration; calendar parsing for relative dates.

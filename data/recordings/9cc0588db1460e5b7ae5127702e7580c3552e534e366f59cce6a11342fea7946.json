@@ -57,14 +57,14 @@
      },
      {
       "arguments": {
-       "query": "Maya Okafor"
+       "query": "\"Maya Okafor\""
       },
       "id": "corr_7",
       "name": "search_email"
      },
      {
       "arguments": {
-       "query": "Jonas Lindqvist"
+       "query": "\"Jonas Lindqvist\""
       },
       "id": "corr_8",
       "name": "search_email"
@@ -515,125 +515,45 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 3826,
+  "latency_ms": 1481,
   "message": {
    "role": "assistant",
    "tool_calls": [
     {
      "arguments": {
-      "findings": [
-       {
-        "citations": [
-         {
-          "id": "E38",
-          "type": "email"
-         }
-        ],
-        "text": "On 10 February 2026, Hannah Voss stated the final board paper for Brightmoor Renewables must be ready by 20 March 2026 for internal review before the board meets on 24 March."
-       },
-       {
-        "citations": [
-         {
-          "id": "E41",
-          "type": "email"
-         }
-        ],
-        "text": "On 12 February 2026, Jonas Lindqvist noted that Ashgrove Bank requires the PPA to be fully signed off before financial close, which is targeted for 30 June 2026."
-       },
-       {
-        "citations": [
-         {
-          "id": "C18",
-          "type": "chat"
-         }
-        ],
-        "text": "On 19 February 2026, Elena Marchetti reported that the Fenmoor project capacity has been revised from 180 MW to 165 MW due to a new turbine layout."
-       },
-       {
-        "citations": [
-         {
-          "id": "E51",
-          "type": "email"
-         }
-        ],
-        "text": "Commitment: On 24 February 2026, Maya Okafor promised to send the grid-connection study by 6 March 2026 at the latest."
-       },
-       {
-        "citations": [
-         {
-          "id": "C26",
-          "type": "chat"
-         }
-        ],
-        "text": "On 4 March 2026, Sam Reyes noted that Maya Okafor had still not sent the grid-connection study and planned to nudge her on Monday 9 March."
-       },
-       {
-        "citations": [
-         {
-          "id": "E51",
-          "type": "email"
-         }
-        ],
-        "text": "On 24 February 2026, Maya Okafor indicated that Brightmoor is happy with a 12-year PPA duration but the proposed 74/MWh pricing floor is above the 71/MWh limit approved by finance."
-       },
-       {
-        "citations": [
-         {
-          "id": "E51",
-          "type": "email"
-         }
-        ],
-        "text": "Commitment: On 24 February 2026, Maya Okafor requested a reworked sensitivity table reflecting the pricing floor friction before the board pre-read is circulated."
-       },
-       {
-        "citations": [
-         {
-          "id": "E56",
-          "type": "email"
-         }
-        ],
-        "text": "On 27 February 2026, Jonas Lindqvist requested that all figures in the board pre-read remain consistent with the lender model shared the previous week."
-       },
-       {
-        "citations": [
-         {
-          "id": "E59",
-          "type": "email"
-         }
-        ],
-        "text": "On 2 March 2026, Elena Marchetti announced that the grid connection agreement for Fenmoor was signed on 2 March, with a target energisation date of late 2027."
-       },
-       {
-        "citations": [
-         {
-          "id": "E63",
-          "type": "email"
-         }
-        ],
-        "text": "On 5 March 2026, Jonas Lindqvist reported he was unable to access the shared project folder for the PPA work due to permission errors."
-       },
-       {
-        "citations": [
-         {
-          "id": "E65",
-          "type": "email"
-         }
-        ],
-        "text": "On 6 March 2026, Hannah Voss advised leading the Thursday pre-read with the pricing floor logic and pressing the client for technical study results."
-       }
-      ],
-      "gaps": []
+      "query": "\"grid-connection study\" Brightmoor"
      },
-     "id": "call_7979006965710043794__thought__AY89a1/WXaOXTNeFdJs8zQ/oGhl4PloB72bT4TVKqOb4jtC85jKYyGxgQeYFBSuya/21qqJZLg4EQUQe5SVHCm5/X9LXY2xy2W0IP8hsGgJshvIAd4b05nFcK+6+kAPYKwEXt1uIYc+Eim/Ao2ahxmsSr8gydC3a5OTiC/vWJtSfe/88",
-     "name": "submit_findings"
+     "id": "call_1496518762758433621__thought__AY89a1+ZPgpdOs9Z0gYVOGLhbCJdFGe7e84giuEDVlUz0ptvkgEXpxkbjPG4ZTbpMqTIdhzzE4p9yq3doD9oJTlWlQrit7o3Q4B3pW6lsoGl92YDeHRCW8/fJG6jq7bB51HQPY/nI2TVZt96yLGuDjqR+/aZIl91xTwmzcvBCt9krqhr",
+     "name": "search_email"
+    },
+    {
+     "arguments": {
+      "query": "\"grid-connection study\" Brightmoor"
+     },
+     "id": "call_1496518762758431120",
+     "name": "search_chat"
+    },
+    {
+     "arguments": {
+      "query": "\"sensitivity table\" Brightmoor"
+     },
+     "id": "call_1496518762758432715",
+     "name": "search_email"
+    },
+    {
+     "arguments": {
+      "query": "\"sensitivity table\" Brightmoor"
+     },
+     "id": "call_1496518762758434310",
+     "name": "search_chat"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 707,
-   "cost_usd": 0.0036562,
-   "prompt_tokens": 9905
+   "completion_tokens": 88,
+   "cost_usd": 0.0035098499999999997,
+   "prompt_tokens": 9909
   }
  }
 }

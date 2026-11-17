@@ -7,7 +7,7 @@
     "role": "system"
    },
    {
-    "content": "Claim 1: The other source says the capacity was revised to 165 MW on 19 February 2026.\n<untrusted_data>\n#brightmoor-ppa\nElena Marchetti\n2026-02-19T15:12:00Z\nThe turbine layout has been revised, meaning Fenmoor is now 165 MW rather than 180 MW. Please ensure all board materials are updated immediately to reflect this change before the final review.\n</untrusted_data>",
+    "content": "Claim 1: The other source, a chat from 19 February 2026, reports the capacity has been revised to 165 MW due to a new turbine layout.\n<untrusted_data>\n#brightmoor-ppa\nElena Marchetti\n2026-02-19T15:12:00Z\nThe turbine layout has been revised, meaning Fenmoor is now 165 MW rather than 180 MW. Please ensure all board materials are updated immediately to reflect this change before the final review.\n</untrusted_data>",
     "role": "user"
    }
   ],
@@ -17,16 +17,16 @@
  },
  "response": {
   "finish_reason": "stop",
-  "latency_ms": 854,
+  "latency_ms": 798,
   "message": {
-   "content": "{\"supported\": [1]}",
+   "content": "{\"supported\":[1]}",
    "role": "assistant"
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 6,
-   "cost_usd": 0.000113,
-   "prompt_tokens": 190
+   "completion_tokens": 5,
+   "cost_usd": 0.00011549999999999999,
+   "prompt_tokens": 201
   }
  }
 }

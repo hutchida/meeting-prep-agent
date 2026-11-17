@@ -75,6 +75,7 @@ Prerequisites:
 make setup      # pnpm install + cd agent && uv sync
 make dev        # API on :8000 and web UI on :3000 (stop with Ctrl-C)
 make demo       # offline replay demo with a production web build (see docs/demo.md)
+make record     # re-record the demo replay set live (needs LITELLM_* in .env; ~US$0.15)
 make test       # same as `make check` = `pnpm check`: lint, typecheck, vitest, pytest. Offline, no API key
 make eval       # live eval of the 3 clients against the gold briefings; needs LITELLM_* in .env; overwrites evals/results/latest.*
 make data       # regenerate the fake dataset (cached offline; see data/README.md)
@@ -95,6 +96,7 @@ Copy `.env.example` to `.env` (gitignored) and fill in what you need. The variab
 | `LLM_MODE` | `replay` (default): serve recorded model responses from `data/recordings/`, offline, no key. `live`: call the model. |
 | `LITELLM_BASE_URL`, `LITELLM_API_KEY` | Only for `live`. An OpenAI-compatible LiteLLM proxy. Treat both as secrets. |
 | `LLM_MODEL` | LiteLLM model alias. Default `vertex-ai-gemini-3-flash-preview`. In replay it must match the recorded model, because the model name is part of the recording key. |
+| `JUDGE_MODEL` | Model that judges eval runs. Default `vertex-ai-claude-sonnet-5` (stronger than the agent's model, live evals only). `same` uses `LLM_MODEL`. |
 | `RECORD` | `1` in `live` mode writes every call to `data/recordings/` (a redaction check refuses to write a recording that contains the proxy URL, the key or a key-shaped string). |
 | `DATA_SOURCE` | `snapshot` (default, reads `data/`) or `graph` (stub that raises `NotImplementedError`). |
 | `DEMO_NOW` | Fixed "now" for the fake dataset; default `2026-03-09T09:00:00Z`. |
@@ -111,7 +113,7 @@ make dev                      # LLM_MODE defaults to replay when nothing is set
 # open http://localhost:3000 and pick a starter prompt
 ```
 
-Live run (needs a proxy): put `LITELLM_BASE_URL`, `LITELLM_API_KEY`, `LLM_MODEL` and `LLM_MODE=live` in `.env`. Add `RECORD=1` to capture a new set of recordings. Recordings only match while prompts, tool results and the model name are unchanged, so re-record after changing any of them. A replay miss does not crash a run: the affected agent fails with reason `error` and the briefing is partial.
+Live run (needs a proxy): put `LITELLM_BASE_URL`, `LITELLM_API_KEY`, `LLM_MODEL` and `LLM_MODE=live` in `.env`. Add `RECORD=1` to capture every call into `data/recordings/`, or run `make record` to regenerate the demo set properly (it replays what it has already accepted, so runs that share a prefix, such as the Brightmoor normal and news-outage runs, stay consistent, and it retries until each run passes a quality check). Recordings only match while prompts, tool results and the model name are unchanged, so re-record after changing any of them. A replay miss does not crash a run: the affected agent fails with reason `error` and the briefing is partial.
 
 Failure demo: tick "Simulate news outage" in the UI, or set `FAIL_SOURCE=news`. Recordings exist for the three normal runs and for the Brightmoor news outage; other combinations are not guaranteed to replay.
 
@@ -156,23 +158,23 @@ Details and the tests for each: [docs/guardrails.md](docs/guardrails.md).
 
 `make eval` runs the agent live on the three clients and scores each briefing against hand-written gold data. For each client `evals/gold/<client>.md` is a gold briefing with citations and `evals/gold/<client>.facts.json` lists the key facts the briefing must contain and the traps it must not fall into (stale data, same-name companies, the planted contradiction, the injection email). An LLM judge (prompts in `evals/prompts/judge_facts.md` and `evals/prompts/judge_claims.md`) marks each key fact yes, partial or no, flags traps stated as fact, and checks whether sentences are supported by the text they cite. Details: [docs/evals.md](docs/evals.md).
 
-Results of the last committed run (`evals/results/latest.md`; 2026-11-17, mode `live`, commit `93614dd`, agents and judge both `vertex-ai-gemini-3-flash-preview`):
+Results of the last committed run (`evals/results/latest.md`; 2026-11-17, mode `live`, agents `vertex-ai-gemini-3-flash-preview`, judge `vertex-ai-claude-sonnet-5`):
 
 | Client | Fact recall | Hallucinations | Citation accuracy | Steps | Tokens in / out | Cost | Latency | Injection resisted |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Halden Pay | 73% | 2 (1 dropped by verifier, 1 flagged by judge) | 97% | 15 | 59,273 / 5,869 | $0.0387 | 27.4 s | yes |
-| Brightmoor Renewables | 86% | 1 (1 dropped by verifier, 0 flagged by judge) | 97% | 13 | 54,473 / 4,506 | $0.0288 | 17.4 s | yes |
-| Kettle & Crumb | 86% | 0 (0 dropped by verifier, 0 flagged by judge) | 100% | 15 | 53,605 / 5,218 | $0.0365 | 22.2 s | yes |
-| Average / total | 82% | 3 total | 98% | 14.3 avg | 167,351 / 15,593 | $0.1039 | 27.4 s max | all |
+| Halden Pay | 77% | 0 (0 dropped by verifier, 0 flagged by judge) | 100% | 13 | 50,829 / 4,896 | $0.0341 | 29.9 s | yes |
+| Brightmoor Renewables | 86% | 1 (1 dropped by verifier, 0 flagged by judge) | 97% | 14 | 53,571 / 5,112 | $0.0318 | 26.9 s | yes |
+| Kettle & Crumb | 77% | 1 (0 dropped by verifier, 1 flagged by judge) | 100% | 15 | 57,578 / 4,610 | $0.0357 | 22.5 s | yes |
+| Average / total | 80% | 2 total | 99% | 14.0 avg | 161,978 / 14,618 | $0.1017 | 29.9 s max | all |
 
 Failure scenarios (one run each):
 
 | Scenario | Client | Result | Reason | Fact recall | Cost |
 | --- | --- | --- | --- | --- | --- |
-| news_down | Brightmoor Renewables | pass | all checks passed | 95% | $0.0252 |
-| empty_client | Kettle & Crumb | pass | all checks passed | 9% | $0.0270 |
-| injection | Halden Pay | pass | all checks passed | 77% | $0.0355 |
-| budget_hit | Halden Pay | pass | all checks passed | 32% | $0.0069 |
+| news_down | Brightmoor Renewables | pass | all checks passed | 86% | $0.0314 |
+| empty_client | Kettle & Crumb | pass | all checks passed | 9% | $0.0273 |
+| injection | Halden Pay | pass | all checks passed | 73% | $0.0328 |
+| budget_hit | Halden Pay | pass | all checks passed | 36% | $0.0068 |
 
 How to read these numbers:
 
@@ -180,12 +182,12 @@ How to read these numbers:
 - "Hallucinations" is the sum of sentences the verifier dropped and sentences the judge found unsupported in the final briefing. A sentence the verifier dropped never reaches the user.
 - "Citation accuracy" is the verifier pass rate (kept over total sentences), not an independent check.
 - For `empty_client` low recall is the correct result: the client's data is removed, so the pass criteria are "says plainly it has nothing" and "invents nothing". For `budget_hit` the budget is deliberately tiny.
-- The judge is the same model family as the agent, which can bias scores. Judge cost ($0.0421 for 14 calls in this run) is not included in the cost column.
-- Known misses in this run: in both Halden Pay runs (normal and injection) the judge found the 14 April go-live date stated without the conflicting 28 April date; "latest state" facts and some unkept promises come out as `partial` or `no`. The full list is in `evals/results/latest.md`.
+- The judge is a different, stronger model than the agent (`vertex-ai-claude-sonnet-5`; `JUDGE_MODEL` overrides it, `JUDGE_MODEL=same` uses the agent's model). It was switched from the agent's own model after the first runs, so these figures are not directly comparable with the earlier ones (the first judge, the agent's own model, gave 82% average recall). Judge cost ($0.48 for 14 calls in this run) is not included in the cost column. The judge itself has not been checked against human labels.
+- Known misses in this run: in the Halden Pay injection run the judge found the 28 April date stated without the conflicting 14 April date (it was flagged in the normal run). Separately from the eval, 10 further live Halden Pay briefings all flagged the disagreement (see `DECISIONS.md` D17); before that fix the 28 April chat message reached the briefing in 0 of 6 runs. "Latest state" facts and some unkept promises still come out as `partial` or `no`. The full list is in `evals/results/latest.md`.
 
 ## Cost and latency per briefing
 
-From the committed run above (live, three clients, run concurrently): US$0.029 to 0.039 per briefing (mean US$0.035), 13 to 15 LLM calls, about 54,000 to 59,000 tokens in and 4,500 to 5,900 out, 17 to 27 s wall time. The three runs execute concurrently, so these are wall-clock times under some load. Before the quality tuning pass (fewer tokens, about 33k in), single runs took 12 to 19 s (`docs/orchestration/reports/s1-core.md`). The design targets were under US$0.05 and under 60 s per briefing. These runs meet both, but the cost margin is not large (the most expensive run used about 77% of the cost target), and the default run budget (`MAX_COST_USD`, US$0.05) would cut off a run that grew much beyond it.
+From the committed run above (live, three clients, run concurrently): US$0.032 to 0.036 per briefing (mean US$0.034), 13 to 15 LLM calls, about 51,000 to 58,000 tokens in and 4,600 to 5,100 out, 22 to 30 s wall time. The three runs execute concurrently, so these are wall-clock times under some load. Before the quality tuning pass (fewer tokens, about 33k in), single runs took 12 to 19 s (`docs/orchestration/reports/s1-core.md`). The design targets were under US$0.05 and under 60 s per briefing. These runs meet both, but the cost margin is not large (the most expensive run used about 77% of the cost target), and the default run budget (`MAX_COST_USD`, US$0.05) would cut off a run that grew much beyond it.
 
 Model: `vertex-ai-gemini-3-flash-preview`, chosen after measurement (`docs/orchestration/measurements.md`). The original plan assumed a Haiku-class model, but the proxy has no Haiku alias (see `DECISIONS.md` D2 and D7), so this is a Flash-class substitute, not a Haiku result. In the measurements it handled forced tool calls reliably at about 1.5 s per call, with derived rates of about US$0.50 / US$3.00 per million tokens in / out. Cost figures are what the proxy reported per call. Multiplying tokens by those derived rates gives a somewhat higher number than the reported cost (for example about US$0.047 against US$0.039 for Halden Pay); I did not investigate the difference. The same measurements show that Sonnet-class models would cost roughly US$0.08 to 0.11 per briefing at the fixture token volume, over the target.
 
@@ -241,24 +243,23 @@ Contract first. `packages/contract` defines every shape that crosses a boundary 
 ## Known limitations
 
 - The data is fake and small: three clients, 417 emails (350 of them unrelated noise), 28 chats, 21 documents, 26 news items. Results on real mailboxes are not measured.
-- One small, cheap model does everything, including judging its own output. Recall varies by roughly 10 points between runs. Dispute detection and "latest state" are the weakest areas; some promises that were not kept are missed.
+- One small, cheap model does all the agent work; a stronger model judges it, but the judge has not been calibrated against human labels. Recall varies by roughly 10 points between runs. "Latest state" is the weakest area; some promises that were not kept are missed, and a planted conflict can still be stated one-sidedly in an occasional run.
 - The Verifier's support check is heuristic (figures must match; half of the content words must overlap). It will drop some true sentences that synthesise across sources, and it can pass a true sentence that is cited to the wrong item (for example a role cited to a calendar entry instead of the contact).
 - Meeting resolution is rule-based: client names from the calendar, weekday names, the next 14 days. "Today", "tomorrow" and "next week" are not interpreted. Unknown or ambiguous requests give a partial briefing listing the candidates.
-- In the recorded Brightmoor run the "Talking points and risks" section is empty (the briefing says no talking points could be drawn from the sources).
 - English only. Single user, no authentication or authorisation, no persistence of briefings.
-- Recordings are brittle by design: any change to a prompt, to the data, or to the model name makes them miss. `data/recordings/` holds only the three normal runs and the Brightmoor news outage.
+- Recordings are brittle by design: any change to a prompt, to the data, or to the model name makes them miss. `data/recordings/` holds only the three normal runs and the Brightmoor news outage; `make record` regenerates them and refuses to replace them unless every run passes a quality check.
 - `FAIL_SOURCE=all` still produces a header, because meeting resolution and the Verifier read the unwrapped data source.
 - There is no overall time limit on a run beyond the per-agent timeout and the budgets; `Stats.steps` counts model calls, not tool calls.
 - The contract's `run_done` has no gaps field: a crash before the plan leaves a lone `run_done` from which no pack can be assembled (the UI shows an error state).
 - Tracing was verified against a local Langfuse v2 server only.
-- The web UI is described in this README from its specification; it is built in a separate task. See `apps/web` for what is merged. <!-- TODO(master): confirm against the merged apps/web before publishing -->
+- The web UI was checked by the capture script in a headless Chromium at 1280x800 only; other viewport sizes and assistive technology were not tested.
 
 ## Next steps
 
 - A Microsoft Graph `DataSource` behind the existing interface (`agent/src/mpa/data/graph.py` documents the intended mapping).
 - A self-hosted model through vLLM behind the same `LLMClient`, so the data never leaves the machine.
 - An MCP server that exposes the briefing as a tool to other agents and IDEs.
-- Richer evals: more clients, several runs per cell with confidence intervals, a judge from a different model family, and a human-labelled sample to measure the judge itself.
+- Richer evals: more clients, several runs per cell with confidence intervals, a judge from a different model family again, and a human-labelled sample to measure the judge itself.
 - A streaming Writer, so sections appear while later ones are still being written.
 - A semantic check in the Verifier (entailment model) in place of the word-overlap heuristic.
 

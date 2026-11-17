@@ -144,7 +144,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 1483,
+  "latency_ms": 2148,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -152,14 +152,14 @@
      "arguments": {
       "query": "\"Kettle & Crumb\""
      },
-     "id": "call_6711896351621328146__thought__AY89a190wpyaCajhnDMuDRDfHVgFTi2usexI0/vjRlyvnXyDQNCv2cYFIcp9gl4Pgn/MiZPoWapL5hZaurRgb1I9j6MzbXFT4enNS4AujZVGNYTVW/V2yZSxO1UpT/nae8mpqrbdcB7TuYkwJZW0QBNDrbddDnbuWxUGDJbgVWF305Tz",
+     "id": "call_1406912750601464650__thought__AY89a180T4i36TPv9DaDid36+PwB4ePPti7B9l1kC+MyaHlRhN8bjQXbWrIn0PIi1vK2++wBlVyHhlPJ94J6GTw4N6CsLh5fhiRMvxi3w+qrSKT9bR/iaaTkfqzRfvK9QsZGHt8wvY02Qoc8mcvcmVgfeIqGLf9L2vsL+Ax7daTY9wVc",
      "name": "search_news"
     },
     {
      "arguments": {
       "query": "\"Kettle & Crumb\" bakery retail"
      },
-     "id": "call_6711896351621325799",
+     "id": "call_1406912750601463837",
      "name": "search_news"
     }
    ]

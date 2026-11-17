@@ -151,3 +151,27 @@ async def test_subagent_drops_unsupported_findings_and_no_data_gaps() -> None:
 
 def doc(i: str) -> dict[str, str]:
     return {"type": "doc", "id": i}
+
+
+async def test_backfill_adds_uncited_dated_client_chat_only() -> None:
+    from mpa.agents.subagents import _backfill_chat
+    from mpa.contract.models import FactSentence
+    from mpa.loop.runner import SeenItem
+
+    ctx = await _ctx()
+    deps = make_deps(ScriptedLLM([]))
+    data = FakeData()
+    # C18: figure, this client; C6: no figure; C27: figure, other client; C26: already cited
+    seen = {
+        ("chat", i): SeenItem("chat", i, "", data.chats[i].text)
+        for i in ("C18", "C6", "C27", "C26")
+    }
+    already = FactSentence.model_validate(
+        {"text": "x", "citations": [{"type": "chat", "id": "C26"}]}
+    )
+    out = await _backfill_chat([already], seen, ctx, deps)
+    added = out[1:]
+    assert [f.citations[0].id for f in added if isinstance(f, FactSentence)] == ["C18"]
+    first = added[0]
+    assert isinstance(first, FactSentence)
+    assert "165 MW" in first.text and "#brightmoor-ppa" in first.text and "2026-" in first.text

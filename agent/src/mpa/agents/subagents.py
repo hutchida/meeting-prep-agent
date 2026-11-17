@@ -23,6 +23,7 @@ __all__ = ["AGENT_NAMES", "AgentReport", "run_subagent"]
 
 Reason = Literal["timeout", "fault_injected", "budget", "error"]
 MAX_SALVAGE = 6
+MAX_BACKFILL = 4
 _NO_DATA = re.compile(
     r"not found|no (?:such |matching )?(?:record|data|result|match|item|contact|entry)|no data"
     r"|does(?:n't| not) exist|could not be found|couldn't be found|nothing found",
@@ -73,6 +74,45 @@ def _salvage(seen: dict[tuple[str, str], SeenItem]) -> list[FactSentence | NoteS
         if len(out) >= MAX_SALVAGE:
             break
     return out
+
+
+async def _backfill_chat(
+    findings: list[FactSentence | NoteSentence],
+    seen: dict[tuple[str, str], SeenItem],
+    ctx: MeetingContext,
+    deps: RunDeps,
+) -> list[FactSentence | NoteSentence]:
+    """Add the client's chat messages that state a date or figure but that no finding cites.
+
+    Chat is informal and often holds the newest value ("engineering says 28 April"). A small
+    model sometimes reads such a message and leaves it out, or paraphrases it with a date the
+    message does not give, and the support check rightly drops that finding. The Writer needs the
+    message to notice when chat disagrees with a document, so it is carried over near-verbatim,
+    with the author and date from the chat record.
+    """
+    from mpa.agents.writer import _figures
+
+    cited = {(c.type, c.id) for f in findings if isinstance(f, FactSentence) for c in f.citations}
+    client_word = ctx.client.split()[0].lower() if ctx.client.split() else ""
+    extra: list[FactSentence | NoteSentence] = []
+    for item in sorted(seen.values(), key=lambda s: (len(s.id), s.id)):
+        if item.type != "chat" or (item.type, item.id) in cited or not _figures(item.text)[0]:
+            continue
+        try:
+            msg = await deps.data.get_chat(item.id)
+        except Exception:
+            continue
+        if client_word not in msg.channel.lower() or not _figures(msg.text)[0]:
+            continue
+        text = clip(f"{msg.author} wrote in {msg.channel} on {msg.ts[:10]}: {msg.text}", 400)
+        extra.append(
+            FactSentence.model_validate(
+                {"text": text, "citations": [{"type": "chat", "id": item.id}]}
+            )
+        )
+        if len(extra) >= MAX_BACKFILL:
+            break
+    return findings + extra
 
 
 def _ground(
@@ -170,6 +210,8 @@ async def run_subagent(
     else:
         findings, dropped = _ground(result, extra)
         findings = await _drop_unsupported(findings, deps)
+        if agent == "correspondence":
+            findings = await _backfill_chat(findings, result.seen, ctx, deps)
         assert result.output is not None
         gaps = [g for g in result.output.gaps if not is_no_data_gap(g)]
         if dropped:

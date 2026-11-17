@@ -47,10 +47,10 @@ pnpm --filter @mpa/capture run capture -- demo    # replay: must finish in < 60 
 pnpm --filter @mpa/capture run capture -- demo --live --out docs/media/live   # against the live model (needs LITELLM_* set)
 ```
 
-Last rehearsal (2026-11-17): replay twice, 14.3 s and 13.8 s for all 42 steps, briefing visible 5.5 s and 5.4 s after the click; live once, 37.5 s total, briefing after 18 s. Media: [docs/media/demo.gif](media/demo.gif), [docs/media/live/demo.gif](media/live/demo.gif).
+Last rehearsal (2026-11-17, after the re-recording): replay twice, 14.3 s and 13.8 s for all 42 steps, briefing visible 5.6 s and 5.4 s after the click; live once, 47.5 s total, briefing after 22.7 s. Media: [docs/media/demo.gif](media/demo.gif), [docs/media/live/demo.gif](media/live/demo.gif).
 
 ## If something goes wrong
 
 - Blank timeline or error toast: check http://localhost:8000/health returns `ok`.
-- A replay miss means a prompt or the data changed after recording. `agent/tests/test_demo_replay.py` guards this in CI; re-record with `LLM_MODE=live RECORD=1` (see README).
+- A replay miss means a prompt or the data changed after recording. `agent/tests/test_demo_replay.py` guards this in CI; re-record with `make record` (see README).
 - Outage run still shows news: confirm the toggle is ticked before pressing Send.

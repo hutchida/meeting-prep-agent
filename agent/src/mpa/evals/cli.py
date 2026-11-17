@@ -85,6 +85,11 @@ def git_commit() -> str:
         return "unknown"
 
 
+# A stronger model than the agent's, so the judge does not grade its own work. JUDGE_MODEL
+# overrides it; JUDGE_MODEL=same uses LLM_MODEL. Replay runs always use LLM_MODEL (recordings).
+DEFAULT_JUDGE_MODEL = "vertex-ai-claude-sonnet-5"
+
+
 def _real_deps(settings: Settings) -> tuple[RunDeps, Callable[[], LLMClient | None], str]:
     build_data_source = importlib.import_module("mpa.data").build_data_source
     build_llm_client = importlib.import_module("mpa.llm").build_llm_client
@@ -94,8 +99,10 @@ def _real_deps(settings: Settings) -> tuple[RunDeps, Callable[[], LLMClient | No
     deps = RunDeps(
         llm=llm, data=build_data_source(settings), tracer=build_tracer(settings), settings=settings
     )
-    judge_model = os.environ.get("JUDGE_MODEL", "").strip()
-    if judge_model and judge_model != settings.llm_model:
+    judge_model = os.environ.get("JUDGE_MODEL", "").strip() or DEFAULT_JUDGE_MODEL
+    if judge_model == "same" or settings.llm_mode != "live":
+        judge_model = settings.llm_model
+    if judge_model != settings.llm_model:
         judge_llm = build_llm_client(replace(settings, llm_model=judge_model))
         return deps, lambda: judge_llm, judge_model
     return deps, lambda: llm, settings.llm_model

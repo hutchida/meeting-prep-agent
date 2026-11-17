@@ -206,7 +206,7 @@
  },
  "response": {
   "finish_reason": "tool_calls",
-  "latency_ms": 2597,
+  "latency_ms": 2120,
   "message": {
    "role": "assistant",
    "tool_calls": [
@@ -216,11 +216,20 @@
        {
         "citations": [
          {
+          "id": "N15",
+          "type": "news"
+         }
+        ],
+        "text": "On 9 February 2026, it was reported that Kettle & Crumb's oat-and-honey crumble bar secured the top position in the monthly supermarket new-product chart."
+       },
+       {
+        "citations": [
+         {
           "id": "N19",
           "type": "news"
          }
         ],
-        "text": "On 20 February 2026, Kettle & Crumb was named the Regional Snack Brand of the Year at an annual industry gala, with judges praising its commitment to local sourcing and innovative flavour profiles."
+        "text": "On 20 February 2026, Kettle & Crumb was officially named the Regional Snack Brand of the Year at an annual industry gala."
        },
        {
         "citations": [
@@ -229,29 +238,20 @@
           "type": "news"
          }
         ],
-        "text": "On 9 February 2026, it was reported that Kettle & Crumb's oat-and-honey crumble bar secured the top position in the monthly supermarket new-product chart, exceeding initial projections for the quarter."
-       },
-       {
-        "citations": [
-         {
-          "id": "N15",
-          "type": "news"
-         }
-        ],
-        "text": "Following the strong debut of its crumble bar, Kettle & Crumb plans to expand distribution across additional regional territories as of 9 February 2026."
+        "text": "Following the strong debut of its crumble bar, Kettle & Crumb plans to expand distribution across additional regional territories."
        }
       ],
       "gaps": []
      },
-     "id": "call_740275117104402073__thought__AY89a1+g3ohD+T4FGQvtjRXWIGAsiPc7vbfzs1SNMr5pXFiKik3iY9TDY1l4nx8Ag6sSgFLN5GJj4abRhIOAr1xkHeI0FsG38EWUrZoASViE0AnSlk+Tv0B7fA8icwbUOkRIZSzqVq4ClzfTRZs7pOokzjxy2r+alQsWENeo5uaiTEbi",
+     "id": "call_5349485328123661696__thought__AY89a18MYhqhN37Gux/tNm0BzUlB8TeNtJl1qWG8gDiuJrtyoevtZYXu666hHqDgGo3nL4mE+t8iIiNw0jntuOqjxmnpSrlHlL2MK38d4iBmphWm4WZgiwFLVbZ6UTBFpDLUdS4VZFtygpUT2C904y9hzEBuknJ8XQkdjS4fMpgzKgYi",
      "name": "submit_findings"
     }
    ]
   },
   "model": "vertex-ai-gemini-3-flash-preview",
   "usage": {
-   "completion_tokens": 205,
-   "cost_usd": 0.0017884999999999997,
+   "completion_tokens": 176,
+   "cost_usd": 0.0017014999999999999,
    "prompt_tokens": 2347
   }
  }
