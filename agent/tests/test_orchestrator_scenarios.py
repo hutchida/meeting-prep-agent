@@ -31,7 +31,7 @@ def texts(sec: Any) -> list[str]:
 
 @pytest.mark.parametrize("fail", ["news", "email", "docs", "all"])
 async def test_fault_injection_still_finishes_with_a_partial_briefing(fail: str) -> None:
-    request = BriefingRequest(message=BRIGHT.message, fail_source=fail)  # type: ignore[arg-type]
+    request = BriefingRequest(message=BRIGHT.message, fail_source=fail)
     events = await collect(request, make_deps(PolicyLLM()))
     assert check_event_order(events) == []
     assert events[-1].root.type == "run_done" and raw(events[-1])["partial"] is True
@@ -229,3 +229,63 @@ async def test_unknown_data_error_in_resolution_is_a_partial_briefing() -> None:
     events = await collect(BRIGHT, make_deps(PolicyLLM(), data=NoCalendar()))
     pack = assemble_pack(events)
     assert pack.partial and "calendar could not be reached" in " ".join(texts(pack.sections[0]))
+
+
+async def test_replay_with_the_default_delay_stays_well_under_ten_seconds(tmp_path: Path) -> None:
+    await collect(BRIGHT, make_deps(RecordingClient(PolicyLLM(), tmp_path, model="mock-model")))
+    loop = asyncio.get_running_loop()
+    started = loop.time()
+    events = await collect(BRIGHT, make_deps(ReplayClient(tmp_path, 250, model="mock-model")))
+    assert loop.time() - started < 10
+    assert raw(events[-1])["partial"] is False
+
+
+class SpyTracer:
+    def __init__(self) -> None:
+        self.runs: list[str] = []
+        self.spans: list[tuple[str, str]] = []
+        self.llm_calls = 0
+        self.ended = 0
+        self.flushed = 0
+
+    def _span(self) -> Any:
+        spy = self
+
+        class S:
+            def set(self, **attrs: Any) -> None:
+                return None
+
+            def end(self, *, error: str | None = None) -> None:
+                spy.ended += 1
+
+        return S()
+
+    def start_run(self, run_id: str, *, name: str, input: dict[str, Any]) -> Any:
+        self.runs.append(run_id)
+        return self._span()
+
+    def start_span(self, parent: Any, name: str, *, kind: str, input: Any = None) -> Any:
+        self.spans.append((kind, name))
+        return self._span()
+
+    def record_llm(self, parent: Any, **kw: Any) -> None:
+        self.llm_calls += 1
+
+    def flush(self) -> None:
+        self.flushed += 1
+
+
+async def test_tracer_sees_the_run_agents_tools_and_every_model_call() -> None:
+    from mpa.contract import RunDeps
+
+    tracer = SpyTracer()
+    llm = PolicyLLM()
+    deps = RunDeps(llm=llm, data=FakeData(), tracer=tracer, settings=make_deps(llm).settings)
+    events = await collect(BRIGHT, deps)
+    assert len(tracer.runs) == 1 and tracer.flushed == 1
+    kinds = [k for k, _ in tracer.spans]
+    assert kinds.count("agent") == 5 and kinds.count("tool") == sum(
+        1 for e in events if e.root.type == "tool_call"
+    )
+    assert tracer.llm_calls == len(llm.tags)
+    assert tracer.ended >= len(tracer.spans)

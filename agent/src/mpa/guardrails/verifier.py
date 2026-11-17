@@ -12,6 +12,7 @@ import asyncio
 import json
 from collections.abc import Iterable
 from dataclasses import dataclass, field
+from datetime import date
 from typing import Any
 
 from mpa.contract import (
@@ -111,7 +112,9 @@ class Verifier:
         llm: LLMClient | None = None,
         budget: Budget | None = None,
         emit: Emit | None = None,
+        today: date | None = None,
     ) -> None:
+        self._today = today
         self._data = data
         self._llm = llm
         self._budget = budget
@@ -257,7 +260,7 @@ class Verifier:
             if self._texts.get(c) is None:
                 return "invalid_citation", (), False
         combined = "\n".join(self._texts[c] or "" for c in sent.citations)
-        result = support(sent.text, combined)
+        result = support(sent.text, combined, self._today)
         if not result.supported:
             return "unsupported", (), result.borderline
         useful = tuple(

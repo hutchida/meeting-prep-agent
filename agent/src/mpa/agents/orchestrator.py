@@ -214,9 +214,16 @@ async def _pipeline(
     writer_span.end()
 
     allowed = {c for f in findings for c in f.citations}
+    allowed |= {("cal", ctx.meeting.id), *(("contact", p.id) for p in ctx.people)}
     verify_span = deps.tracer.start_span(root, "verifier", kind="step")
     vr = await Verifier(
-        deps.data, flagged=flags, allowed=allowed, llm=deps.llm, budget=budget, emit=emit
+        deps.data,
+        flagged=flags,
+        allowed=allowed,
+        llm=deps.llm,
+        budget=budget,
+        emit=emit,
+        today=settings.demo_now.date(),
     ).verify(with_meeting_line(written.sections, findings))
     verify_span.set(total=vr.total, kept=vr.kept)
     verify_span.end()
