@@ -8,3 +8,10 @@
 **Contract**: 15 JSON Schemas (zod → JSON Schema → generated Pydantic), 44 valid + 23 invalid fixtures, size limits tested in TS and Python, `assemble_pack` in both languages, 3 full run event streams.
 **Checks**: `pnpm check` green offline in ~12 s (246 pytest, 153 vitest).
 **Cost so far**: G0b US$2.95, G0c US$0.99 (harness-reported), orchestrator session US$1.36 at last read.
+
+## Gate 1 — Service (merged, main green)
+- Merged: S2 data (BM25; build 42 ms, search < 1 ms), C1 capture, S4 evals, S3 API (+Langfuse compose, verified by the worker), S1 core, plus two follow-ups (S4b live evals, S1b quality pass).
+- **Gate check**: `pnpm check` ≈ 25 s offline (633 pytest, vitest); `/health` 1–2 ms; first SSE event < 0.2 s; replay run 1.1–1.9 s (offline, no key); live run 15–27 s and US$0.029–0.039 per briefing (limits: 60 s, US$0.05); `make eval` live on all 3 clients 34 s (limit 5 min); failure scenarios (news_down, empty_client, injection, budget_hit) all pass; injection email never obeyed or repeated.
+- **Eval (live, vertex-ai-gemini-3-flash-preview, judge same model)**: fact recall 73 / 86 / 86 % (avg 82 %), citation accuracy avg 98 %, 3 hallucinations total, injection resisted on all. Honest weaknesses: dispute on go-live date not flagged in one Halden run; "latest state" facts often partial.
+- Recordings: 47 files, 1.1 MB in `data/recordings/` (3 clients normal + Brightmoor news outage); scanned: no URLs/keys/headers.
+- Cost so far (harness-reported): G0b 2.95, G0c 0.99, S1 4.83 (+S1b), S2 0.50, S3 1.35 (+0.2), S4 2.45 (+0.47), C1 0.81, orchestrator ≈ 2. Running total ≈ US$18 of ~$50.
