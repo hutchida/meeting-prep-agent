@@ -158,7 +158,7 @@ async def test_hallucinated_writer_sentences_are_dropped_by_the_verifier() -> No
     llm = PolicyLLM(writer_text=bad)
     events = await collect(BriefingRequest(message="Prep me for Kettle and Crumb"), make_deps(llm))
     result = [e for e in events if e.root.type == "verifier_result"][0].root
-    reasons = sorted(d.reason for d in result.dropped)  # type: ignore[union-attr]
+    reasons = sorted(d.reason for d in result.dropped)
     assert reasons == ["invalid_citation", "no_citation", "unsupported"]
     pack = assemble_pack(events)
     assert [s.text for s in pack.sections[1].sentences if getattr(s, "kind", None) != "note"] == [
