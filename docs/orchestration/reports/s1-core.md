@@ -75,3 +75,8 @@ Failure scenarios (one run each, final code): `news_down` pass (recall 82%), `em
 - Putting both sides of a contradiction in one sentence with two citations was dropped by the verifier as `unsupported` (framing words dilute the content-word overlap); the two-sentence form fixes it.
 - The Verifier already accepted contact records as support (and the calendar item together with its attendees' contact text); the mis-cited role facts were fixed on the producing side only, no verifier change.
 - Not fixed: "latest state" facts stay `partial` (the Writer summarises the last exchange but not both messages); a small share of facts is still missed when only an informal chat message holds them (the agent sees the message but does not always report it). A hint can raise a false alarm (a "The other source says ..." sentence about an unrelated pair was seen once); `empty_client` still shows a few removed or flagged sentences (not investigated for lack of budget).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e16d6eef9ffeRRS85A76vZbF68)
+- Model: github-copilot/claude-sonnet-5.5; wall 16.5 min
+- Tokens: input 2,020 (uncached) / output 30,260 / reasoning 17,703 / cache read 5,507,408 / cache write 146,904
+- Cost: US$1.0502 (harness-reported)
