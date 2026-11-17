@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass, field
 from typing import Literal, cast
 
@@ -12,6 +13,7 @@ from mpa.agents.tools import build_registry
 from mpa.contract import RunDeps, Span
 from mpa.contract.models import FactSentence, Gap, NoteSentence
 from mpa.guardrails.injection import InjectionFlag
+from mpa.guardrails.verifier import RawSentence, Verifier
 from mpa.loop import Budget, run_agent_loop
 from mpa.loop.budget import Emit
 from mpa.loop.events import clip
@@ -21,6 +23,16 @@ __all__ = ["AGENT_NAMES", "AgentReport", "run_subagent"]
 
 Reason = Literal["timeout", "fault_injected", "budget", "error"]
 MAX_SALVAGE = 6
+_NO_DATA = re.compile(
+    r"not found|no (?:such |matching )?(?:record|data|result|match|item|contact|entry)|no data"
+    r"|does(?:n't| not) exist|could not be found|couldn't be found|nothing found",
+    re.I,
+)
+_OUTAGE = re.compile(
+    r"unavailable|unreachable|not reach|could not (?:reach|connect)|timed? ?out|timeout|"
+    r"connection|failed|fault|5\d\d",
+    re.I,
+)
 
 
 @dataclass
@@ -33,6 +45,11 @@ class AgentReport:
     error: str | None = None
     flags: list[InjectionFlag] = field(default_factory=list)
     budget_cut: bool = False
+
+
+def is_no_data_gap(gap: Gap) -> bool:
+    """A missing item is "no data", not a failure: only outages stay as gaps."""
+    return bool(_NO_DATA.search(gap.detail)) and not _OUTAGE.search(gap.detail)
 
 
 def _salvage(seen: dict[tuple[str, str], SeenItem]) -> list[FactSentence | NoteSentence]:
@@ -77,6 +94,20 @@ def _ground(
                 continue
         kept.append(f)
     return kept, dropped
+
+
+async def _drop_unsupported(
+    findings: list[FactSentence | NoteSentence], deps: RunDeps
+) -> list[FactSentence | NoteSentence]:
+    """Remove findings whose cited sources clearly do not say what the finding says."""
+    facts = [f for f in findings if isinstance(f, FactSentence)]
+    raw = [RawSentence(f.text, tuple((c.type, c.id) for c in f.citations)) for f in facts]
+    try:
+        bad = await Verifier(deps.data).unsupported(raw)
+    except Exception:
+        return findings
+    dropped = {id(f) for f, b in zip(facts, bad, strict=True) if b}
+    return [f for f in findings if id(f) not in dropped]
 
 
 async def run_subagent(
@@ -138,8 +169,9 @@ async def run_subagent(
         ]
     else:
         findings, dropped = _ground(result, extra)
+        findings = await _drop_unsupported(findings, deps)
         assert result.output is not None
-        gaps = list(result.output.gaps)
+        gaps = [g for g in result.output.gaps if not is_no_data_gap(g)]
         if dropped:
             gaps.append(
                 Gap(
