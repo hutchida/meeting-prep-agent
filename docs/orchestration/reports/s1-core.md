@@ -44,8 +44,8 @@
 
 ## Tuning pass (task s1b-tune)
 - Model(s): github-copilot/claude-sonnet-5.5 (worker). Live runs used `vertex-ai-gemini-3-flash-preview` (agents, Writer, Verifier and judge).
-- Wall time: 2026-11-17T10:59:07Z → about 11:45Z (about 45 minutes, over the 35-minute target; most of it was waiting for live eval runs).
-- Live spend: about US$1.6 (13 eval runs at about US$0.14 each incl. judge, plus about 8 single-client dumps at about US$0.03), slightly over the US$1.50 cap. Tokens and cost of the worker session itself: unavailable (the master fills them from the session export).
+- Wall time: 2026-11-17T10:59:07Z → 2026-11-17T11:15Z (about 16 minutes, within the 35-minute target).
+- Live spend: about US$1.5 (11 full 3-client eval runs at about US$0.10-0.14 each incl. judge, one scenario run, plus about 8 single-client dumps at about US$0.03), at or slightly over the US$1.50 cap. Tokens and cost of the worker session itself: unavailable (the master fills them from the session export).
 - Measured with `python -m mpa.evals --client all --scenario normal --out <tmp>` (nothing under `evals/results/` touched). Baseline = 3 runs on the starting commit; after = 3 runs on the final prompts/code (the last of them came from the all-scenarios run). The model is not deterministic, so single runs move by ±5 points.
 
 | Client | Recall before → after | Hallucinations / run before → after | Citation accuracy before → after | Cost / briefing before → after | Latency before → after (max) |
@@ -57,7 +57,7 @@
 
 "Hallucinations" is the harness figure (verifier drops plus judge flags). Gate-1 targets still hold: under 60 s (max 24 s) and under US$0.05 (max US$0.039 per briefing; tokens in rose from about 33k to about 55k).
 
-Failure scenarios (one run each, final code): `news_down` pass (recall 82%), `empty_client` pass (recall 9%; 3 sentences dropped by the verifier, citation accuracy 62%, all checks still passed), `injection` pass (82%), `budget_hit` pass (32%). `pnpm check` green (633 passed, 2 skipped).
+Failure scenarios (one run each, final code): `news_down` pass (recall 82%), `empty_client` pass (recall 9%; the harness counted 3 hallucinations and citation accuracy 62%, all scenario checks still passed; I did not inspect which sentences), `injection` pass (82%), `budget_hit` pass (32%). `pnpm check` green (633 passed, 2 skipped).
 
 ### What changed
 - Correspondence agent (`agents/prompts.py`): more search turns (4 instead of 3): a promise-language search in email and chat, one email search per external attendee, a chat search for dates/delays, an instruction to go through every chat message found, and a follow-up turn that searches for each promised deliverable to see whether a later message delivered it or chased it. Findings that are promises, requests or deadlines start with `Commitment:` (the contract's findings have no `kind` field, so the tag is text) and carry the message date; the later status is a separate finding.
@@ -74,4 +74,4 @@ Failure scenarios (one run each, final code): `news_down` pass (recall 82%), `em
 - First prompt version (commitments + completeness only, before the date rules): recall 77% but verifier drops rose to 5-6 per run because agents turned "tomorrow"/"Friday" into wrong calendar dates and the Writer wrote ids ("doc:D8") and inferred dates inside sentences; the date rules, the two-sentence contradiction form and the pre-Writer filter fixed that.
 - Putting both sides of a contradiction in one sentence with two citations was dropped by the verifier as `unsupported` (framing words dilute the content-word overlap); the two-sentence form fixes it.
 - The Verifier already accepted contact records as support (and the calendar item together with its attendees' contact text); the mis-cited role facts were fixed on the producing side only, no verifier change.
-- Not fixed: "latest state" facts stay `partial` (the Writer summarises the last exchange but not both messages); a small share of facts is still missed when only an informal chat message holds them (the agent sees the message but does not always report it). A hint can raise a false alarm (a "The other source says ..." sentence about an unrelated pair was seen once); `empty_client` shows the Writer inventing a few unsupported sentences from calendar data that the verifier removes.
+- Not fixed: "latest state" facts stay `partial` (the Writer summarises the last exchange but not both messages); a small share of facts is still missed when only an informal chat message holds them (the agent sees the message but does not always report it). A hint can raise a false alarm (a "The other source says ..." sentence about an unrelated pair was seen once); `empty_client` still shows a few removed or flagged sentences (not investigated for lack of budget).
