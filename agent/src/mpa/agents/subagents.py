@@ -13,6 +13,7 @@ from mpa.agents.tools import build_registry
 from mpa.contract import RunDeps, Span
 from mpa.contract.models import FactSentence, Gap, NoteSentence
 from mpa.guardrails.injection import InjectionFlag
+from mpa.guardrails.verifier import RawSentence, Verifier
 from mpa.loop import Budget, run_agent_loop
 from mpa.loop.budget import Emit
 from mpa.loop.events import clip
@@ -95,6 +96,20 @@ def _ground(
     return kept, dropped
 
 
+async def _drop_unsupported(
+    findings: list[FactSentence | NoteSentence], deps: RunDeps
+) -> list[FactSentence | NoteSentence]:
+    """Remove findings whose cited sources clearly do not say what the finding says."""
+    facts = [f for f in findings if isinstance(f, FactSentence)]
+    raw = [RawSentence(f.text, tuple((c.type, c.id) for c in f.citations)) for f in facts]
+    try:
+        bad = await Verifier(deps.data).unsupported(raw)
+    except Exception:
+        return findings
+    dropped = {id(f) for f, b in zip(facts, bad, strict=True) if b}
+    return [f for f in findings if id(f) not in dropped]
+
+
 async def run_subagent(
     agent: str,
     ctx: MeetingContext,
@@ -154,6 +169,7 @@ async def run_subagent(
         ]
     else:
         findings, dropped = _ground(result, extra)
+        findings = await _drop_unsupported(findings, deps)
         assert result.output is not None
         gaps = [g for g in result.output.gaps if not is_no_data_gap(g)]
         if dropped:

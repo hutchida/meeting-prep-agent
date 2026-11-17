@@ -20,7 +20,7 @@ from mpa.loop.budget import Budget, BudgetExceeded, Emit, report_budget_hit
 from mpa.loop.events import clip
 
 WRITER_MAX_TOKENS = 4000
-MAX_SENTENCES = 10
+MAX_SENTENCES = 12
 _PREFIX = {"E": "email", "C": "chat", "D": "doc", "N": "news", "P": "contact", "M": "cal"}
 _REF = re.compile(r"^(?:(email|chat|doc|news|contact|cal)\s*:\s*)?([ECDNPM]\d{1,9})$")
 _TOKEN = re.compile(CITATION_TOKEN_PATTERN)

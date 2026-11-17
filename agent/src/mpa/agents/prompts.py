@@ -55,8 +55,12 @@ _JOBS = {
         "deadline waiting chase outstanding overdue delayed'; search_email with the full name of "
         "each external attendee (one search per person); search_chat with the client name; "
         "search_chat with the meeting topic words; search_chat with 'waiting chase update ready "
-        "landed delayed'. Chat search results already show whole messages, so you rarely need "
-        "get_chat. "
+        "landed delayed'; search_chat with 'date deadline delay slip moved realistic timeline'. Chat "
+        "search results already show whole messages, so you rarely need get_chat. Chat is "
+        "informal and often holds the newest facts (delays, new dates, chasers, disagreements "
+        "with what an email or document says): go through every chat message found for the "
+        "client and report each one that states a date, figure, decision, delay or request, with "
+        "its date and author. "
         "Turn 2, in parallel: read up to 16 of the most relevant emails about this client or "
         "between the attendees in full with get_email (search results are only snippets; prefer "
         "the last three months and skip unrelated mail; always read emails that contain a "
@@ -148,17 +152,18 @@ Output ONE JSON object and nothing else (no markdown fences):
 {"sections":[{"id":"meeting_at_a_glance","sentences":[{"text":"...","citations":["cal:M2"]}]}, ...]}
 Include all seven sections, in this order, using exactly these ids:
 1. meeting_at_a_glance: who is attending and the purpose of the meeting (1-2 sentences). The date, time and place are added automatically: do not repeat them.
-2. client_snapshot: who the client is, the engagement scope, fees and payment instalments, key dates and deadlines, key figures (4-8). Always include fees, each instalment amount and every deadline or target date the findings give.
+2. client_snapshot: who the client is, the engagement scope, fees and payment instalments, key dates and deadlines, key figures (4-9). Always include fees, each instalment amount and every deadline or target date the findings give.
 3. recent_news: news about the client only, each with its date (0-4). Use an empty list if there is none.
 4. where_we_left_off: the latest exchanges and decisions from email and chat, oldest to newest, each with its date; end with the most recent state of play (3-7). Earlier meetings only if there is no correspondence.
-5. open_items: every open commitment (who promised what to whom, the promised date, and what the latest message says about it), unanswered requests and deadlines with dates (4-8). Do not leave out a "Commitment:" finding.
+5. open_items: every open commitment (who promised what to whom, the promised date, and what the latest message says about it), unanswered requests and deadlines with dates (4-9). Do not leave out a "Commitment:" finding.
 6. attendees: one sentence per attendee: role, what they are responsible for or care about, anything to watch (one per person). Cite the contact record ("contact:P8") for role and responsibility; add other ids only for extra facts such as a request.
 7. talking_points_and_risks: concrete things to raise, every contradiction between sources, risks and deadlines at stake (3-7).
 
 Rules:
+- Be complete: use every finding that carries a figure, a date, a deadline, a decision, a named counterparty, vendor or product, or a commitment; leave out only duplicates and trivia (social chatter, feedback forms, room bookings). Spread them over the sections, one claim per sentence.
 - Use ONLY the findings below. Do not add facts, numbers or dates that are not in them. Copy names, amounts, dates and figures exactly as the findings write them; do not round, convert, infer or paraphrase a date ("late February" for a specific date is wrong) and do not work out dates from weekdays.
-- Keep the findings' own wording where you can: a sentence is checked against the text of the sources it cites, so every claim and figure in it must be in those sources. One claim per sentence; each sentence cites every id its claim comes from, and no id that does not support it.
-- Contradictions: when findings give different figures, dates or facts for the same subject (the CONFLICT HINTS below list likely cases; findings starting "Sources disagree:" are already known), never state one side as settled. In talking_points_and_risks write two consecutive sentences: first "Sources disagree on <subject>: <claim A>" citing only the source of claim A, then "The other source says <claim B>" citing only the source of claim B. Keep each claim as the findings word it. Wherever either figure is used elsewhere (client_snapshot, where_we_left_off), say which source says what instead of picking one.
+- Keep the findings' own wording where you can: a sentence is checked against the text of the sources it cites, so every claim and figure in it must be in those sources. One claim per sentence; each sentence cites every id its claim comes from, and no id that does not support it. Do not add context from another finding to a sentence (for example a meeting name, a period or a person's title) unless the cited sources say it; do not calculate, compare or characterise ("nearly double", "overdue", "delayed", "at risk") unless a finding says so: put the facts and their dates side by side and let the reader draw the conclusion.
+- Contradictions: when findings give different figures, dates or facts for the same subject (the CONFLICT HINTS below list likely cases; findings starting "Sources disagree:" are already known), never state one side as settled. Only report a contradiction when two findings really give different values for the same subject; a hint may be a false alarm, and a revision that one source states itself ("changed from X to Y") is a change, not a contradiction, unless another source still gives the old value. In talking_points_and_risks write two consecutive sentences: first "Sources disagree on <subject>: <claim A>" citing only the source of claim A, then "The other source says <claim B>" citing only the source of claim B. Keep each claim as the findings word it. Wherever either figure is used elsewhere (client_snapshot, where_we_left_off), say which source says what instead of picking one.
 - Never write ids, brackets or "doc:D8"-style tokens inside the text; refer to a source as "the statement of work", "the email of 3 March" and so on, only with dates the findings give.
 - Every sentence is one factual statement of at most 300 characters and must cite at least one id, written "type:ID" (for example "email:E51", "doc:D7", "chat:C26", "news:N26", "contact:P8", "cal:M2"). Cite only ids that appear in the findings. Put the ids in "citations", not in the text.
 - If a section has no supporting findings, give it an empty "sentences" list; do not invent content.

@@ -155,6 +155,23 @@ class Verifier:
             parts.append(source_text(contact))
         return "\n" + "\n".join(parts) if parts else ""
 
+    async def unsupported(self, sentences: list[RawSentence]) -> list[bool]:
+        """Per sentence: does it clearly fail the deterministic support check (not borderline)?
+
+        Used on sub-agent findings so that claims the sources do not carry never reach the
+        Writer. Sources that cannot be read count as "not clearly unsupported".
+        """
+        keys = {c for s in sentences for c in s.citations if c not in self._flagged}
+        await asyncio.gather(*(self._fetch(k) for k in sorted(keys)))
+        out: list[bool] = []
+        for sent in sentences:
+            if not sent.citations or any(self._texts.get(c) is None for c in sent.citations):
+                out.append(False)
+                continue
+            reason, _, borderline = self._check(sent)
+            out.append(reason == "unsupported" and not borderline)
+        return out
+
     async def verify(self, sections: list[RawSection]) -> VerifierReport:
         keys = {
             c
