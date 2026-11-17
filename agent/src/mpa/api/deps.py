@@ -73,7 +73,7 @@ class DepsProvider:
                 return self._data
             settings = self._require_settings()
             try:
-                from mpa.data import build_data_source  # type: ignore[attr-defined]
+                from mpa.data import build_data_source
 
                 data: DataSource = build_data_source(settings)
             except Exception as exc:
