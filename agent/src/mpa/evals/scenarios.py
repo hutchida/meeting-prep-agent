@@ -87,6 +87,12 @@ def _cites(sentence: Any) -> list[tuple[str, str]]:
     return [(getattr(c, "root", c).type, getattr(c, "root", c).id) for c in sentence.citations]
 
 
+def _calendar_only(sentence: Any) -> bool:
+    """The empty-client run keeps the calendar, so calendar-cited facts are real, not invented."""
+    cites = _cites(sentence)
+    return bool(cites) and all(ctype == "cal" for ctype, _ in cites)
+
+
 def _base_checks(events: Sequence[EventLike], pack: BriefingPack | None) -> list[Failure]:
     if pack is None:
         return [Failure(check="no_briefing", detail="the run produced no briefing pack", hard=True)]
@@ -184,14 +190,17 @@ def _check_empty_client(client: ClientKey) -> CheckFn:
                         check="states_empty", detail=f"{section.id} does not say it has no content"
                     )
                 )
-            elif facts and section.id in (
+            elif section.id in (
                 "client_snapshot",
                 "recent_news",
                 "where_we_left_off",
                 "open_items",
-            ):
+            ) and any(not _calendar_only(s) for s in facts):
                 failures.append(
-                    Failure(check="section_empty", detail=f"{section.id} has fact sentences")
+                    Failure(
+                        check="section_empty",
+                        detail=f"{section.id} has fact sentences not grounded in the calendar",
+                    )
                 )
         gaps_ok = pack.partial == bool(
             pack.gaps

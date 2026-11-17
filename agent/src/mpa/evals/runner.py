@@ -54,14 +54,45 @@ async def load_sources(deps: RunDeps, pack: BriefingPack) -> dict[str, str]:
     """Texts of every cited item, keyed `type:id`, fetched through the data source."""
     keys = sorted({c for s in numbered_sentences(pack) for c in s.citations})
 
-    async def one(key: str) -> tuple[str, str]:
+    async def fetch(key: str) -> tuple[str, Any]:
         ctype, cid = key.split(":", 1)
         try:
-            return key, render_source(await deps.data.get_source(ctype, cid))  # type: ignore[arg-type]
+            return key, await deps.data.get_source(ctype, cid)  # type: ignore[arg-type]
         except Exception:
-            return key, "(source unavailable)"
+            return key, None
 
-    return dict(await asyncio.gather(*(one(k) for k in keys)))
+    items = dict(await asyncio.gather(*(fetch(k) for k in keys)))
+    attendee_ids = sorted(
+        {
+            a
+            for k, item in items.items()
+            if k.startswith("cal:") and item is not None
+            for a in _raw(item).get("attendees", [])
+        }
+    )
+    people = await _people(deps, attendee_ids)
+    return {
+        k: "(source unavailable)" if item is None else render_source(item, people)
+        for k, item in items.items()
+    }
+
+
+def _raw(item: Any) -> dict[str, Any]:
+    if isinstance(item, dict):
+        return item
+    data: dict[str, Any] = getattr(item, "root", item).model_dump(mode="json", exclude_none=True)
+    return data
+
+
+async def _people(deps: RunDeps, ids: Sequence[str]) -> dict[str, str]:
+    async def one(pid: str) -> tuple[str, str]:
+        try:
+            c = _raw(await deps.data.get_source("contact", pid))
+            return pid, f"{c.get('name')} ({c.get('role')}, {c.get('organization')})"
+        except Exception:
+            return pid, pid
+
+    return dict(await asyncio.gather(*(one(p) for p in ids)))
 
 
 async def score_run(
@@ -92,7 +123,10 @@ async def score_run(
             violations = judge_trap_violations(judgement, sentences)
             mode = "llm"
         except (JudgeError, Exception) as err:
-            note = f"judge failed ({type(err).__name__}: {str(err)[:160]}); used citation coverage"
+            note = (
+                f"{scenario.client}/{scenario.name}: judge failed "
+                f"({type(err).__name__}: {str(err)[:160]}); used citation coverage"
+            )
             outcomes = citation_judge(pack, gold)
             violations = []
             unsupported = []
