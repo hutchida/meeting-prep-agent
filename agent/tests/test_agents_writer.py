@@ -201,3 +201,33 @@ async def test_resolution_rules() -> None:
     assert r.context is None and "Monday" in (r.problem or "")
     r = await ask("Prep me for Sunday")
     assert r.context is None
+
+
+async def test_unknown_client_is_named_in_the_explanation() -> None:
+    data = FakeData()
+    r = await resolve_meeting("Prep me for my meeting with Acme Corp", data, settings())
+    assert r.context is None and "No upcoming meeting with Acme Corp" in (r.problem or "")
+    assert len(r.candidates) == 3
+    r2 = await resolve_meeting("Prep me for my meeting with Kettle & Crumb", data, settings())
+    assert r2.context is not None and r2.context.meeting.id == "M3"
+    r3 = await resolve_meeting("Prep me for Thursday", data, settings())
+    assert r3.context is not None
+
+
+async def test_client_without_any_data_gets_plain_notes_in_every_section() -> None:
+    class Empty(FakeData):  # type: ignore[misc]
+        async def search_email(self, query: str, *, limit: int = 10) -> list[Any]:
+            return []
+
+        search_chat = search_docs = search_news = search_email
+
+    events = await collect(
+        BriefingRequest(message="Prep me for Halden Pay on Wednesday"),
+        make_deps(PolicyLLM(), data=Empty()),
+    )
+    pack = assemble_pack(events)
+    texts = {s.id: " ".join(x.text for x in s.sentences) for s in pack.sections}
+    assert "No recent news found about Halden Pay." in texts["recent_news"]
+    assert "No open items found." in texts["open_items"]
+    assert "No client background" in texts["client_snapshot"]
+    assert not pack.sections[0].empty

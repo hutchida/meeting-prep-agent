@@ -31,7 +31,7 @@ def texts(sec: Any) -> list[str]:
 
 @pytest.mark.parametrize("fail", ["news", "email", "docs", "all"])
 async def test_fault_injection_still_finishes_with_a_partial_briefing(fail: str) -> None:
-    request = BriefingRequest(message=BRIGHT.message, fail_source=fail)
+    request = BriefingRequest(message=BRIGHT.message, fail_source=fail)  # type: ignore[arg-type]
     events = await collect(request, make_deps(PolicyLLM()))
     assert check_event_order(events) == []
     assert events[-1].root.type == "run_done" and raw(events[-1])["partial"] is True
@@ -289,3 +289,18 @@ async def test_tracer_sees_the_run_agents_tools_and_every_model_call() -> None:
     )
     assert tracer.llm_calls == len(llm.tags)
     assert tracer.ended >= len(tracer.spans)
+
+
+async def test_an_unexpected_bug_still_ends_with_a_valid_stream() -> None:
+    class Broken(PolicyLLM):  # type: ignore[misc]
+        async def chat(self, messages: list[LLMMessage], **kw: Any) -> Any:
+            if kw.get("tag") == "writer":
+                raise RuntimeError("bug in the writer path")
+            return await super().chat(messages, **kw)
+
+    events = await collect(BRIGHT, make_deps(Broken()))
+    assert check_event_order(events) == []
+    assert events[-1].root.type == "run_done" and raw(events[-1])["partial"] is True
+    pack = assemble_pack(events)
+    assert "internal error" in " ".join(texts(pack.sections[1]))
+    assert "bug in the writer" not in json.dumps([raw(e) for e in events])

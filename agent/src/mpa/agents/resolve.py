@@ -42,6 +42,24 @@ def aliases(client: str, all_clients: list[str]) -> list[str]:
     return sorted(names, key=len, reverse=True)
 
 
+_NAME = re.compile(r"\b(?:with|for)\s+((?:[A-Z][\w&.'-]*(?:\s+|$)){1,4})")
+_NOT_NAMES = {
+    *("me", "my", "the", "a", "an", "our", "this", "next", "tomorrow", "today", "i", "us"),
+    *_WEEKDAYS,
+}
+
+
+def unknown_client(message: str) -> str | None:
+    """A capitalised name after 'with' or 'for' that is not a weekday or a pronoun."""
+    for m in _NAME.finditer(message):
+        words = m.group(1).split()
+        while words and words[-1].lower().strip(".,") in _NOT_NAMES:
+            words.pop()
+        if words and words[0].lower() not in _NOT_NAMES:
+            return " ".join(words).strip(".,")
+    return None
+
+
 def mentioned_weekday(message: str) -> int | None:
     text = norm(message).split()
     for w in text:
@@ -115,6 +133,11 @@ async def resolve_meeting(message: str, data: DataSource, settings: Settings) ->
         return Resolution(problem=f"No meeting on {day} was found in the next {WINDOW_DAYS} days.")
     if not matched and len({client_of(e) for e in pool}) > 1:
         listed = [f"{e.title} ({format_when(e.start, e.end)})" for e in pool]
+        if (name := unknown_client(message)) is not None:
+            return Resolution(
+                problem=f"No upcoming meeting with {name} was found in the calendar.",
+                candidates=listed,
+            )
         return Resolution(
             problem="The request does not say which client; several meetings fit.",
             candidates=listed,

@@ -339,6 +339,8 @@ class PolicyLLM:
             else:
                 full = [i for i in items if "body" in i or "text" in i]
                 return self._submit(agent, full)
+        if not calls:
+            return self._submit(agent, [])
         return LLMMessage(role="assistant", tool_calls=calls)
 
     def _submit(self, agent: str, items: list[dict[str, Any]]) -> LLMMessage:
