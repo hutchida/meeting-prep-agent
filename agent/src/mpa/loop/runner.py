@@ -232,7 +232,11 @@ async def run_agent_loop(
                 shaped = shape_result(call.name, value)
                 break
             except KeyError as exc:
-                outcome = _Outcome(f"ERROR: not found: {clip(str(exc), 120)}", False)
+                outcome = _Outcome(
+                    f"NO DATA: no item {clip(str(exc), 120)} exists. This is not a failure: say "
+                    "it has no data and do not list it as a gap.",
+                    False,
+                )
                 break
             except (ValueError, TypeError) as exc:
                 outcome = _Outcome(f"ERROR: invalid arguments: {clip(str(exc), 200)}", False)

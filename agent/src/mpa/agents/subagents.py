@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass, field
 from typing import Literal, cast
 
@@ -21,6 +22,16 @@ __all__ = ["AGENT_NAMES", "AgentReport", "run_subagent"]
 
 Reason = Literal["timeout", "fault_injected", "budget", "error"]
 MAX_SALVAGE = 6
+_NO_DATA = re.compile(
+    r"not found|no (?:such |matching )?(?:record|data|result|match|item|contact|entry)|no data"
+    r"|does(?:n't| not) exist|could not be found|couldn't be found|nothing found",
+    re.I,
+)
+_OUTAGE = re.compile(
+    r"unavailable|unreachable|not reach|could not (?:reach|connect)|timed? ?out|timeout|"
+    r"connection|failed|fault|5\d\d",
+    re.I,
+)
 
 
 @dataclass
@@ -33,6 +44,11 @@ class AgentReport:
     error: str | None = None
     flags: list[InjectionFlag] = field(default_factory=list)
     budget_cut: bool = False
+
+
+def is_no_data_gap(gap: Gap) -> bool:
+    """A missing item is "no data", not a failure: only outages stay as gaps."""
+    return bool(_NO_DATA.search(gap.detail)) and not _OUTAGE.search(gap.detail)
 
 
 def _salvage(seen: dict[tuple[str, str], SeenItem]) -> list[FactSentence | NoteSentence]:
@@ -139,7 +155,7 @@ async def run_subagent(
     else:
         findings, dropped = _ground(result, extra)
         assert result.output is not None
-        gaps = list(result.output.gaps)
+        gaps = [g for g in result.output.gaps if not is_no_data_gap(g)]
         if dropped:
             gaps.append(
                 Gap(

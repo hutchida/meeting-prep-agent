@@ -165,7 +165,7 @@ async def test_unknown_id_is_reported_to_the_model_without_retry() -> None:
     assert result.status == "done"
     assert "retry" not in env.types()
     tool_msg = env.llm.requests[1]["messages"][-1].content
-    assert "not found" in tool_msg and "E999" in tool_msg
+    assert "NO DATA" in tool_msg and "E999" in tool_msg
 
 
 async def test_unknown_tool_and_bad_arguments_are_tool_errors() -> None:

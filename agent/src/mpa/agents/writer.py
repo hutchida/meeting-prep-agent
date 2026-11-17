@@ -13,6 +13,7 @@ from mpa.contract import LLMClient, LLMMessage, Span, Tracer
 from mpa.contract.assemble import SECTION_IDS
 from mpa.contract.citations import CITATION_TOKEN_PATTERN
 from mpa.contract.models import FactSentence
+from mpa.guardrails.support import content_tokens
 from mpa.guardrails.verifier import Key, RawSection, RawSentence
 from mpa.llm.errors import LLMError
 from mpa.loop.budget import Budget, BudgetExceeded, Emit, report_budget_hit
@@ -32,6 +33,25 @@ _CONFLICT = re.compile(
     r"\b(but|whereas|however|versus|vs\.?|instead|conflict\w*|inconsisten\w*|differs?|disagree\w*)\b",
     re.I,
 )
+
+
+_MONTHS = (
+    "january february march april may june july august september october november december "
+    "jan feb mar apr jun jul aug sep sept oct nov dec monday tuesday wednesday thursday friday "
+    "saturday sunday"
+).split()
+_DATE = re.compile(
+    rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+(?:of\s+)?({'|'.join(_MONTHS)})\b(?:,?\s+(\d{{4}}))?"
+    rf"|\b({'|'.join(_MONTHS)})\.?\s+(\d{{1,2}})(?:st|nd|rd|th)?\b(?:,?\s+(\d{{4}}))?",
+    re.I,
+)
+_FIGURE = re.compile(
+    r"(?<![\w.])(?:(?P<cur>[£$€])\s?(?P<a>\d[\d,]*(?:\.\d+)?)\s?(?P<k>k|m|bn)?\b"
+    r"|(?P<b>\d[\d,]*(?:\.\d+)?)\s?(?P<unit>%|[A-Za-z]+))",
+    re.I,
+)
+MAX_HINTS = 6
+HINT_MIN_SHARED = 2
 
 
 @dataclass(frozen=True)
@@ -61,9 +81,70 @@ def meeting_findings(ctx: MeetingContext) -> list[Finding]:
     return out
 
 
+def _figures(text: str) -> tuple[dict[str, set[str]], str]:
+    """Figures grouped by kind (currency, unit word or date), and the text without them."""
+    out: dict[str, set[str]] = {}
+
+    def date(m: re.Match[str]) -> str:
+        day, month = (m[1], m[2]) if m[1] else (m[5], m[4])
+        out.setdefault("date", set()).add(f"{int(day)} {month.lower()[:3]}")
+        return " "
+
+    text = _DATE.sub(date, text)
+
+    def figure(m: re.Match[str]) -> str:
+        if m["cur"]:
+            value = m["a"].replace(",", "") + (m["k"] or "").lower()
+            out.setdefault(m["cur"], set()).add(value)
+        else:
+            unit = m["unit"].lower().rstrip("s") if m["unit"] != "%" else "%"
+            if unit in ("st", "nd", "rd", "th", "x", "q", "h"):
+                return " "
+            out.setdefault(unit, set()).add(m["b"].replace(",", ""))
+        return " "
+
+    return out, _FIGURE.sub(figure, text)
+
+
+def _cites(f: Finding) -> str:
+    return ", ".join(f"{t}:{i}" for t, i in f.citations)
+
+
+def conflict_hints(findings: list[Finding]) -> list[str]:
+    """Pairs of findings on the same subject that give different figures of the same kind."""
+    info = []
+    for f in findings:
+        if f.agent == "calendar":
+            continue
+        figs, rest = _figures(f.text)
+        info.append((f, figs, content_tokens(rest)))
+    hints: list[tuple[int, str]] = []
+    for i, (a, figs_a, words_a) in enumerate(info):
+        for b, figs_b, words_b in info[i + 1 :]:
+            if set(a.citations) == set(b.citations) or not (words_a and words_b):
+                continue
+            shared = len(words_a & words_b)
+            if shared < HINT_MIN_SHARED or shared < 0.25 * min(len(words_a), len(words_b)):
+                continue
+            for kind in sorted(figs_a.keys() & figs_b.keys()):
+                if figs_a[kind] == figs_b[kind]:
+                    continue
+                if kind == "date" and shared < 2 * HINT_MIN_SHARED:
+                    continue
+                hints.append(
+                    (
+                        shared,
+                        f'- "{clip(a.text, 130)}" ({_cites(a)}) vs "{clip(b.text, 130)}" '
+                        f"({_cites(b)}): different {kind} values",
+                    )
+                )
+                break
+    hints.sort(key=lambda h: -h[0])
+    return [h for _, h in hints[:MAX_HINTS]]
+
+
 def finding_line(f: Finding) -> str:
-    cites = ", ".join(f"{t}:{i}" for t, i in f.citations)
-    return f"[{f.agent}] {f.text} | cites: {cites}"
+    return f"[{f.agent}] {f.text} | cites: {_cites(f)}"
 
 
 def collect_findings(
@@ -190,7 +271,10 @@ async def write_briefing(
     messages = [
         LLMMessage(role="system", content=WRITER_SYSTEM),
         LLMMessage(
-            role="user", content=writer_user(ctx, [finding_line(f) for f in findings], unavailable)
+            role="user",
+            content=writer_user(
+                ctx, [finding_line(f) for f in findings], unavailable, conflict_hints(findings)
+            ),
         ),
     ]
     error = ""
