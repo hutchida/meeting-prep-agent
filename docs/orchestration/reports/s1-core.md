@@ -41,3 +41,37 @@
 - Model: github-copilot/claude-sonnet-5.5; wall 36.4 min
 - Tokens: input 2,157 (uncached) / output 125,098 / reasoning 78,396 / cache read 27,729,493 / cache write 327,717
 - Cost: US$4.8279 (harness-reported)
+
+## Tuning pass (task s1b-tune)
+- Model(s): github-copilot/claude-sonnet-5.5 (worker). Live runs used `vertex-ai-gemini-3-flash-preview` (agents, Writer, Verifier and judge).
+- Wall time: 2026-11-17T10:59:07Z → about 11:45Z (about 45 minutes, over the 35-minute target; most of it was waiting for live eval runs).
+- Live spend: about US$1.6 (13 eval runs at about US$0.14 each incl. judge, plus about 8 single-client dumps at about US$0.03), slightly over the US$1.50 cap. Tokens and cost of the worker session itself: unavailable (the master fills them from the session export).
+- Measured with `python -m mpa.evals --client all --scenario normal --out <tmp>` (nothing under `evals/results/` touched). Baseline = 3 runs on the starting commit; after = 3 runs on the final prompts/code (the last of them came from the all-scenarios run). The model is not deterministic, so single runs move by ±5 points.
+
+| Client | Recall before → after | Hallucinations / run before → after | Citation accuracy before → after | Cost / briefing before → after | Latency before → after (max) |
+|---|---|---|---|---|---|
+| Halden Pay | 72.7% → 77.3% | 1.33 → 0.33 | 98.7% → 99.0% | $0.0227 → $0.0322 | 16.9 s → 19.7 s (22.2) |
+| Brightmoor Renewables | 77.3% → 90.9% | 2.00 → 0.33 | 94.7% → 99.1% | $0.0254 → $0.0345 | 15.9 s → 21.2 s (23.7) |
+| Kettle & Crumb | 74.2% → 80.3% | 3.00 → 1.00 | 92.1% → 99.0% | $0.0247 → $0.0355 | 16.7 s → 23.0 s (24.0) |
+| Average | 74.7% → 82.8% | 2.11 → 0.56 | 95.2% → 99.0% | $0.0243 → $0.0340 | 16.5 s → 21.3 s |
+
+"Hallucinations" is the harness figure (verifier drops plus judge flags). Gate-1 targets still hold: under 60 s (max 24 s) and under US$0.05 (max US$0.039 per briefing; tokens in rose from about 33k to about 55k).
+
+Failure scenarios (one run each, final code): `news_down` pass (recall 82%), `empty_client` pass (recall 9%; 3 sentences dropped by the verifier, citation accuracy 62%, all checks still passed), `injection` pass (82%), `budget_hit` pass (32%). `pnpm check` green (633 passed, 2 skipped).
+
+### What changed
+- Correspondence agent (`agents/prompts.py`): more search turns (4 instead of 3): a promise-language search in email and chat, one email search per external attendee, a chat search for dates/delays, an instruction to go through every chat message found, and a follow-up turn that searches for each promised deliverable to see whether a later message delivered it or chased it. Findings that are promises, requests or deadlines start with `Commitment:` (the contract's findings have no `kind` field, so the tag is text) and carry the message date; the later status is a separate finding.
+- Documents agent: extra searches (fees/instalments/invoice schedule, decisions/minutes/action items), up to 10 documents read, explicit extraction of fees, each instalment and when it is due, payment terms, deadlines, milestones, decisions and commitments, `Sources disagree:` for differing figures.
+- Attendees agent: one finding per attendee including internal ones, role and responsibility cited to the contact record; at most two recent earlier meetings, dated.
+- All agents (`FINDINGS_RULES`): findings start with the item's own date (`date`/`ts`), relative dates are never turned into calendar dates, vague dates are never written for specific ones, a missing item is "no data" (not a gap), up to 20 findings.
+- Writer: seven-section prompt rewritten for completeness (use every finding with a figure, date, decision, counterparty or commitment), larger sections (up to 9 sentences, parser cap 12), open commitments with dates in `open_items`, the latest state at the end of `where_we_left_off`, fees/instalments/deadlines in `client_snapshot`, roles cited to `contact:`, no calculation or characterisation, no ids inside sentence text. Contradictions are written as two consecutive single-claim sentences ("Sources disagree on X: claim A" cited to A; "The other source says claim B" cited to B) so each half is verified on its own.
+- `writer.conflict_hints`: deterministic pairs of findings with a similar subject (shared content words) and different figures of the same kind (currency, percent, unit, date), passed to the Writer as `CONFLICT HINTS`; a prompt line tells it a hint may be a false alarm.
+- Pre-Writer support filter: `run_subagent` runs the verifier's deterministic support check (`Verifier.unsupported`) on each finding against its cited sources and removes findings that clearly fail (borderline ones stay). This is a producer-side fix for loose or wrongly dated findings; the Verifier's own rules are unchanged. Side effect: those claims no longer show up as `dropped` in `verifier_result`, so the drop count measures the Writer only.
+- Missing items: a `get_*` on a missing id now returns "NO DATA ... not a failure, do not list it as a gap", and gaps that say "not found"/"no record" without outage words are removed in `run_subagent` (`is_no_data_gap`); outages, timeouts and fault injection stay as gaps. The contract has no `no_data` gap reason, so a missing item simply produces no gap.
+- Tests: `tests/test_tuning.py` (conflict hints with invented data, prompts, no-data gaps, `Verifier.unsupported`, the pre-Writer filter end to end); one assertion in `test_loop_runner.py` updated to the new tool message.
+
+### Tried and found not to help or left alone
+- First prompt version (commitments + completeness only, before the date rules): recall 77% but verifier drops rose to 5-6 per run because agents turned "tomorrow"/"Friday" into wrong calendar dates and the Writer wrote ids ("doc:D8") and inferred dates inside sentences; the date rules, the two-sentence contradiction form and the pre-Writer filter fixed that.
+- Putting both sides of a contradiction in one sentence with two citations was dropped by the verifier as `unsupported` (framing words dilute the content-word overlap); the two-sentence form fixes it.
+- The Verifier already accepted contact records as support (and the calendar item together with its attendees' contact text); the mis-cited role facts were fixed on the producing side only, no verifier change.
+- Not fixed: "latest state" facts stay `partial` (the Writer summarises the last exchange but not both messages); a small share of facts is still missed when only an informal chat message holds them (the agent sees the message but does not always report it). A hint can raise a false alarm (a "The other source says ..." sentence about an unrelated pair was seen once); `empty_client` shows the Writer inventing a few unsupported sentences from calendar data that the verifier removes.
