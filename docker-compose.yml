@@ -1,0 +1,78 @@
+# OPTIONAL: self-hosted Langfuse for tracing agent runs. The app works without it.
+#
+#   docker compose up -d            # then open http://localhost:3100
+#   docker compose down             # stop (data is kept in the named volume)
+#   docker compose down -v          # stop and delete all traces
+#
+# To send traces, put these three names in your gitignored .env (values below are the
+# LOCAL-DEV-ONLY placeholders this file seeds; they are not real credentials):
+#   TRACING=langfuse
+#   LANGFUSE_HOST=http://localhost:3100
+#   LANGFUSE_PUBLIC_KEY=mpa-local-public-key
+#   LANGFUSE_SECRET_KEY=mpa-local-secret-key
+# and install the SDK: `cd agent && uv sync --extra langfuse`.
+#
+# The headless-init variables below create the user, organisation and project with those keys
+# on first start. UI login: mpa@example.com / mpa-local-password (local only). If you would
+# rather make your own keys: remove the LANGFUSE_INIT_* lines, sign up in the UI, create a
+# project and copy its API keys into .env.
+#
+# Langfuse server v2 is used on purpose: it needs only one app container plus Postgres
+# (v3 adds ClickHouse, Redis and S3-compatible storage). It pairs with the langfuse 2.x SDK.
+# The app listens on 127.0.0.1 only. The first start runs database migrations (about a minute).
+
+name: mpa-langfuse
+
+services:
+  langfuse-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: mpa-local-db-password # local dev only
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse -d langfuse"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  langfuse:
+    image: langfuse/langfuse:2
+    restart: unless-stopped
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3100:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:mpa-local-db-password@langfuse-db:5432/langfuse
+      NEXTAUTH_URL: http://localhost:3100
+      # Local dev only placeholders. Replace all of them if this is ever exposed beyond localhost.
+      NEXTAUTH_SECRET: mpa-local-nextauth-secret-not-for-production
+      SALT: mpa-local-salt-not-for-production
+      ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000"
+      TELEMETRY_ENABLED: "false"
+      LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "false"
+      AUTH_DISABLE_SIGNUP: "false"
+      LANGFUSE_INIT_ORG_ID: mpa-local-org
+      LANGFUSE_INIT_ORG_NAME: Meeting prep agent (local)
+      LANGFUSE_INIT_PROJECT_ID: mpa-local-project
+      LANGFUSE_INIT_PROJECT_NAME: meeting-prep-agent
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: mpa-local-public-key
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: mpa-local-secret-key
+      LANGFUSE_INIT_USER_EMAIL: mpa@example.com
+      LANGFUSE_INIT_USER_NAME: mpa-local
+      LANGFUSE_INIT_USER_PASSWORD: mpa-local-password
+    healthcheck:
+      # Next.js binds to the container hostname, not 127.0.0.1
+      test: ["CMD-SHELL", "wget -q --spider http://$$(hostname):3000/api/public/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+volumes:
+  langfuse_db_data:
