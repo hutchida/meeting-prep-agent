@@ -23,3 +23,8 @@
   - Older fixtures (`BriefingPack.full.json`, `AgentEvent.draft.json`) still use some ids that do not match `data/` (for example Maya as P5). They are schema-only fixtures and untouched.
   - `PlanEvent` fields are optional in the schema (additive), so only `assemblePack` enforces them; consider making them required in a later contract revision.
   - The fixtures were produced by a one-off generator that is not committed; they are hand-authored data now.
+
+## Harness metrics (added by master from `opencode session export`, session ses_e170cc13affeVFiuyNzgWWtm2Q)
+- Model: github-copilot/claude-sonnet-5.5; wall 8.2 min
+- Tokens: input 1,994 (uncached) / output 42,512 / reasoning 22,595 / cache read 3,231,516 / cache write 133,636
+- Cost: US$0.994 (harness-reported)
