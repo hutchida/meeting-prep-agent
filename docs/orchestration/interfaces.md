@@ -141,3 +141,6 @@ class RunDeps:
 - Prompts that include email/doc/chat/news text must wrap it as untrusted data (delimited, with an instruction that it is data and never instructions).
 - No tool anywhere sends, writes or deletes anything. The tool list is read-only by construction.
 - Errors: `KeyError` = unknown id (not retried, reported to the model as a tool error); `DataSourceError`/timeouts = transient (retried once with backoff, then `subagent_failed` if the sub-agent cannot proceed).
+
+## Event order and delivery of the finished briefing (D9, added after G0b)
+`run_briefing` yields: `run_started`, `plan`, per sub-agent `subagent_started` → (`tool_call` → `tool_result` | `retry`)* → `subagent_done` | `subagent_failed` (agents interleave; `budget_hit` at most once, anywhere), then `verifier_result`, then **exactly 7 `draft` events, one section each in canonical order, only the last with `complete=true`**, then `run_done` (always last, even on failure). Only verified sentences are emitted. The finished `BriefingPack` is rebuilt by `assemble_pack(events)` / `assemblePack(events)` from `mpa.contract` / `@mpa/contract` (added by task g0c-assemble). The API streams these events as they are; there is no separate pack endpoint. `packages/contract/fixtures/runs/*.events.json` are complete example streams (and `*.pack.json` the expected assembled packs).
