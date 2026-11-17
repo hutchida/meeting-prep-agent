@@ -20,3 +20,8 @@
   - The demo has not run against the real web app; I1 must implement the test ids exactly. Step 5 re-sends the prompt through `chat-input` + `chat-send` (not the starter button) and reads the last `section-*` element, so it works whether the UI replaces or appends briefings.
   - `run-stats` is not asserted by the demo (only visible in screenshots).
   - Marks are measured from the Playwright client, so they include client-side polling latency (about 100 ms).
+
+## Harness metrics (added by master from `opencode session export`, session ses_e17041cc2ffezGXO2DTr17THVY)
+- Model: github-copilot/claude-sonnet-5.5; wall 14.0 min
+- Tokens: input 76 (uncached) / output 42,303 / reasoning 15,330 / cache read 2,340,736 / cache write 87,152
+- Cost: US$0.8106 (harness-reported)
