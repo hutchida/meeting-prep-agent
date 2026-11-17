@@ -1,0 +1,25 @@
+# Merge report: s4-evals
+- Model(s): github-copilot/claude-sonnet-5.5 (worker harness); no LLM calls were made by the evals themselves
+- Wall time start→ready: 2026-11-17 10:09:40 UTC → 2026-11-17 10:25:03 UTC (16 minutes, including about 1 minute waiting for the coordinator's answer); active time: about 15 minutes
+- Tokens in/out: unavailable (not exposed to the worker)
+- Cost: US$0 live spend (offline fakes only; no live run was made, see follow-ups)
+- Bottlenecks: S1 (`mpa.agents.orchestrator`, `mpa.llm`) was not on `main`, so nothing could run live; the coordinator told me to settle and leave the live run as a follow-up. `check_event_order` requires every started agent to end in `subagent_done` or `subagent_failed`, so a budget cut is a `subagent_failed` with reason `budget`; the budget fake had to follow that. No contract gaps found.
+- Checks run + results:
+  - `pnpm check` (after `git merge main` and `pnpm install`) → green, 394 Python tests passed, 1 skipped, about 19 s
+  - `cd agent && uv run ruff check . && uv run ruff format --check .` → clean
+  - `cd agent && uv run mypy src tests scripts` → no issues (strict)
+  - `cd agent && uv run python -m mpa.evals --help` → prints usage
+  - `cd agent && uv run python -m mpa.evals --fake --scenario all --client all` → all 7 runs pass, writes `latest.md` and `latest.json` to a temp dir
+- What was built:
+  - Gold data in `evals/gold/`: `<client>.md` (7 sections, every sentence cited, checked against the items) and `<client>.facts.json` (11 key facts and 7 to 8 traps each) for `halden`, `brightmoor`, `kettle`
+  - Judge prompts `evals/prompts/judge_facts.md` (fact recall and traps in one call) and `judge_claims.md` (hallucination check, one or two calls); at most 3 calls per client, temperature 0, strict JSON validated by Pydantic, one retry with the error, the judge answers with sentence numbers so quotes are verifiable
+  - `agent/src/mpa/evals/`: `models` (gold and judge models, local), `gold` (loaders, PLOT parser, dataset index), `judge`, `scoring`, `scenarios` (`setup` and `check` for `normal`, `news_down`, `empty_client`, `injection`, `budget_hit`), `runner`, `report` (sanitised markdown and JSON), `cli` / `__main__` (`--client`, `--scenario`, `--live|--replay`, `--out`, `--judge llm|citations`, `--fake`, `--strict`), `fakes` (scripted `run_briefing` with injectable defects, scripted judge LLM)
+  - 84 offline tests in `agent/tests/test_evals_*.py`: gold validity and ids against the data and `PLOT.md`, judge parsing and retry, scoring math, good and bad fakes for every scenario check, report golden file (`evals/fixtures/report.golden.md`) and secret hygiene, CLI wiring with a fake runner and exit codes, the real `FakeDataSource` (source loading and the empty-client data dir)
+  - `evals/README.md`
+- Known gaps / follow-ups:
+  - Live run still to do once S1 is on `main`: `git merge main`, `make eval`, then `--scenario all` once (each failure scenario once), commit `evals/results/latest.md` and `latest.json`, and record what failed and why. The judge prompts have never been run against a real model; expect a prompt tweak or two on the first live run.
+  - The harness imports `mpa.agents.orchestrator.run_briefing`, `mpa.llm.build_llm_client` and `mpa.tracing.build_tracer` lazily with the names from `interfaces.md`; they are untested against the real modules.
+  - Definitions chosen where the task was open: `hallucinations` = verifier drops (excluding reason `injection`) + judge-flagged unsupported claims, shown separately in the report; `latency_ms` = harness wall clock; `EvalResult.client` = the client's display name. Failure scenarios default to one client each (news_down: Brightmoor, empty_client: Kettle, injection and budget_hit: Halden) unless `--client` is given.
+  - Hard failures (non-zero exit) are an obeyed or repeated injection and a scenario with no briefing; other failed checks show as FAIL in the report and only change the exit code with `--strict`.
+  - `JUDGE_MODEL` builds a second LLM client from `build_llm_client` with `llm_model` replaced; a judge that raises falls back to citation-coverage scoring and the report says so.
+  - The empty-client scenario removes the client's emails, chats, docs, news and contacts by the item lists in `data/PLOT.md` (evals only; the agent never sees it) and keeps the calendar, so the meeting's client-side attendee ids no longer resolve.
