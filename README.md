@@ -3,7 +3,7 @@
 A hand-built multi-agent system that prepares a cited briefing pack for your next client meeting, from email, chat, documents, calendar, contacts and news.
 
 [![licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
-<!-- TODO: CI badge once the repo has a remote: ![ci](https://github.com/<owner>/meeting-prep-agent/actions/workflows/ci.yml/badge.svg) (workflow: .github/workflows/ci.yml) -->
+[![ci](https://github.com/hutchida/meeting-prep-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/hutchida/meeting-prep-agent/actions/workflows/ci.yml)
 
 ![Two-minute demo: starter prompt, parallel agent timeline, cited briefing, source panel, news outage](docs/media/demo.gif)
 
