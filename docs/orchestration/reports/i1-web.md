@@ -1,0 +1,25 @@
+# Merge report: i1-web
+- Model(s): github-copilot/claude-sonnet-5.5 (opencode)
+- Wall time start→ready: 2026-11-17 11:20 UTC → 11:30 UTC (about 10 minutes); active time: unavailable
+- Tokens in/out: unavailable
+- Cost: unavailable
+- Bottlenecks: none blocking. One tool-call connection reset mid-task (resumed without loss). jsdom breaks `new URL(import.meta.url)` in tests, so fixture paths use `process.cwd()`. No contract gaps found: `assemblePack`, fixtures and `SourceItem` covered every need.
+- Checks run + results:
+  - `pnpm check` → green (eslint, tsc, vitest for contract + web: 61 web tests, pytest 633 passed / 2 skipped)
+  - `pnpm --filter @mpa/web build` → succeeds
+  - Smoke: built app served on :3000 with the required test ids; `tests/mock-server.mjs` streamed fixture SSE and sources on :8000 (no browser/screenshot tooling used, nothing recorded)
+- What was built:
+  - Chat UI (`apps/web/src`): header, three starters (`starter-halden|brightmoor|kettle`), `chat-input`/`chat-send`/`chat-stop`, `toggle-news-outage` (sends `fail_source: "news"`), user bubble + assistant card
+  - SSE reader (`lib/sse.ts` byte/UTF-8/CRLF-safe parser, `lib/stream.ts` fetch+validate with the contract zod `AgentEvent`; malformed events skipped with a notice)
+  - Pure reducers (`lib/run.ts`, `lib/chat.ts`): seq-ordered, duplicate- and foreign-run-safe; `deriveView` builds lanes, steps, sections, and the pack via `assemblePack`
+  - Step timeline (`step-timeline`, rows `timeline-event` with `data-type`/`data-agent`), four agent lanes with status, retries amber, failures red, budget and verifier rows; auto-collapses when the run is done (toggle `timeline-toggle`)
+  - Briefing (`briefing`, `section-<id>`, `citation` chips with `data-cite`, `partial-banner` with gaps, skeletons while drafts stream); inline markdown via react-markdown with raw HTML, images and links neutralised
+  - Source panel (`source-panel`, `source-panel-close`, Esc, loading/error/retry, per-type rendering as plain text), `run-stats` (steps, tokens, cost to 4 decimals, live elapsed), error states (API unreachable with retry, stream ended without `run_done`)
+  - Tests (`apps/web/tests`): SSE parser at every byte split, citation tokenisation against the shared contract cases, reducer/derive on all three run fixtures (shuffled order too), stream hook paths, Briefing/Timeline/SourcePanel rendering, ChatApp integration; `tests/mock-server.mjs` for manual checks
+  - Dependencies (web only): `react-markdown`; dev: `@testing-library/react`, `@testing-library/dom`, `@testing-library/user-event`, `jsdom`
+- Known gaps / follow-ups:
+  - Timeline auto-collapses on completion; capture should click `timeline-toggle` if it needs rows after the run ends
+  - Input is disabled during a run (per spec); it is re-enabled and focused afterwards
+  - Live tokens/cost show "…" until `run_done` (the contract has no live token events)
+  - Not clicked through in a real browser against `make dev` with `LLM_MODE=replay`; only the mock server and curl smoke checks were done
+  - `@testing-library/user-event` is installed but unused and can be dropped
