@@ -1,6 +1,6 @@
 # Merge report: s1-core
 - Model(s): github-copilot/claude-sonnet-5.5 (worker, via opencode). Live trials used the proxy's `vertex-ai-gemini-3-flash-preview` (the default `LLM_MODEL`).
-- Wall time start→ready: 2026-11-17T10:09:15Z → 2026-11-17T10:47Z (about 38 minutes); active time: unavailable
+- Wall time start→ready: 2026-11-17T10:09:15Z → 2026-11-17T10:45:30Z (about 36 minutes); active time: unavailable
 - Tokens in/out: unavailable (worker harness; the master fills it from the session export). Live trials alone: about 33k in / 3.4k out per briefing, 20-25 runs in total.
 - Cost: unavailable for the worker session. Live LLM spend was about US$0.50 in total (sum of the per-run `cost_usd`, about 20 runs of US$0.015-0.026), under the US$1.00 cap.
 - Bottlenecks: none blocking. S2 had landed before I started live trials (merged `main` once). The only tuning loop was prompts: the first live runs found 4-6 of 8 planted facts, mostly because the correspondence agent read too few emails; widening its search plan and reading up to 16 emails raised that to 6-8 of 8. One cross-task item: `agent/src/mpa/api/deps.py:91` (S3) had `# type: ignore[attr-defined]` on `from mpa.llm import build_llm_client`; it became an unused-ignore mypy error as soon as `mpa.llm` exists. The coordinator approved removing it in this branch (one line, outside my owned files).
