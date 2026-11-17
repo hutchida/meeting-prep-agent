@@ -1,0 +1,27 @@
+{
+  "client": "brightmoor",
+  "meeting_id": "M2",
+  "user_prompt": "Prep me for my meeting with Brightmoor on Thursday",
+  "key_facts": [
+    {"id": "b-meeting", "statement": "The meeting is the Brightmoor Renewables PPA board pre-read on Thursday 12 March 2026, 14:00-15:00 UTC, walking through the revised PPA pricing and the board pre-read.", "source_ids": ["M2"], "must_appear": true},
+    {"id": "b-attendees", "statement": "Attendees are Sam Reyes and Hannah Voss (Partner) from Northwind with Maya Okafor (Head of Commercial, leads the PPA negotiation) and Jonas Lindqvist (CFO, lender relations and board paper) from Brightmoor.", "source_ids": ["M2", "P1", "P4", "P8", "P9"], "must_appear": true},
+    {"id": "b-fee", "statement": "Fixed fee of £48,000 in two equal instalments (50% at commencement, 50% on delivery of the final board paper).", "source_ids": ["D7"], "must_appear": true},
+    {"id": "b-boardpaper", "statement": "The final board paper is due 20 March 2026 and the board meets on 24 March.", "source_ids": ["D7", "E38"], "must_appear": true},
+    {"id": "b-term-floor", "statement": "Maya accepts a 12 year PPA term, but the 74/MWh floor is above the 71/MWh finance signed off, and she wants a reworked sensitivity table.", "source_ids": ["E51"], "must_appear": true},
+    {"id": "b-capacity", "statement": "Fenmoor capacity is stated as 180 MW (Maya at kickoff, Jonas's pre-read note) but as 165 MW by Elena after a turbine layout change.", "source_ids": ["D8", "E56", "C18"], "must_appear": true},
+    {"id": "b-study", "statement": "Maya promised the grid-connection study by 6 March; it is still outstanding.", "source_ids": ["E51", "C26"], "must_appear": true},
+    {"id": "b-lender", "statement": "Lender Ashgrove Bank requires 70% contracted revenue and the PPA signed before financial close, targeted for 30 June 2026.", "source_ids": ["D8", "E41"], "must_appear": true},
+    {"id": "b-grid", "statement": "The Fenmoor grid-connection agreement was signed on 2 March, with energisation planned for late 2027.", "source_ids": ["E59", "N26"], "must_appear": true},
+    {"id": "b-offtaker", "statement": "The offtaker for the PPA is Tarn Valley Utilities.", "source_ids": ["D3", "D8"], "must_appear": true},
+    {"id": "b-latest", "statement": "Latest state: on 6 March Hannah asked to lead the pre-read with the pricing floor logic and to press for the study results.", "source_ids": ["E65"], "must_appear": true}
+  ],
+  "traps": [
+    {"id": "b-t-contradiction", "kind": "contradiction", "description": "Fenmoor capacity: 180 MW (kickoff notes, Jonas, news) versus 165 MW (Elena, revised turbine layout).", "source_ids": ["D8", "E56", "N26", "C18"], "rule": "Either flag the 180 MW versus 165 MW conflict explicitly, or state neither figure as the certain capacity. Stating one figure as settled without flagging the other is a violation."},
+    {"id": "b-t-promise", "kind": "promise", "description": "The grid-connection study promised by 6 March is not delivered.", "source_ids": ["E51", "C26"], "rule": "Must not say the study was delivered or is still due in the future; it must be presented as outstanding or overdue."},
+    {"id": "b-t-grid-confusion", "kind": "stale", "description": "The grid-connection agreement (signed 2 March) is not the grid-connection study that Maya owes.", "source_ids": ["E59", "E51"], "rule": "Must not say the grid-connection study was delivered because the grid-connection agreement was signed."},
+    {"id": "b-t-news-capital", "kind": "same_name_news", "description": "Brightmoor Capital Partners closed a $400m fund; an unrelated private equity firm.", "source_ids": ["N13"], "rule": "Must not attribute the fund close to Brightmoor Renewables. Mentioning it only as an explicitly unrelated look-alike is acceptable."},
+    {"id": "b-t-news-pty", "kind": "same_name_news", "description": "Brightmoor Renewables Pty Ltd (Australia) entered administration; an unrelated company.", "source_ids": ["N20"], "rule": "Must not state that Brightmoor Renewables is in administration. Mentioning it only as an explicitly unrelated look-alike is acceptable."},
+    {"id": "b-t-sector-news", "kind": "noise", "description": "Sector news that is not about Brightmoor Renewables.", "source_ids": ["N4", "N14", "N21"], "rule": "Must not present these items as news about Brightmoor Renewables or as facts about the client."},
+    {"id": "b-t-enron", "kind": "noise", "description": "Unrelated Enron emails from 1999-2002 are retrieval noise.", "source_ids": [], "rule": "Must not cite or state anything sourced from an email with origin enron."}
+  ]
+}
