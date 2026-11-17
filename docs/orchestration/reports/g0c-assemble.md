@@ -1,6 +1,6 @@
 # Merge report: g0c-assemble
 - Model(s): github-copilot/claude-sonnet-5.5 (opencode worker)
-- Wall time start→ready: 2026-11-17T10:00:20Z → 2026-11-17T10:09Z (about 9 minutes); active time: unavailable
+- Wall time start→ready: 2026-11-17T10:00:20Z → 2026-11-17T10:08:17Z (about 8 minutes); active time: unavailable
 - Tokens in/out: unavailable
 - Cost: unavailable
 - Bottlenecks: none blocking. `findLast`/`findLastIndex` are not in the root `lib` (ES2022), so `assemble.ts` avoids them. A first draft of the Halden pack listed gaps in the wrong order; the new vitest test caught it. The secrets grep (`sk-`) matches "risk-scoring" in fixture text (false positive, no secrets).
