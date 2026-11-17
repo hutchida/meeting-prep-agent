@@ -119,6 +119,8 @@ async function executeStep(state: RunState, step: Step, timeoutMs: number): Prom
     case "goto": {
       const url = new URL(step.url, state.baseUrl).toString();
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
+      // Let client bundles load and hydrate (cold Next dev compiles race with early clicks).
+      await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => undefined);
       return;
     }
     case "click":

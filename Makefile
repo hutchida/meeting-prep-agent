@@ -1,4 +1,4 @@
-.PHONY: setup dev dev-api dev-web test eval data check
+.PHONY: setup dev dev-api dev-web dev-web-prod demo test eval data check
 
 setup:
 	pnpm install
@@ -12,6 +12,14 @@ dev-api:
 
 dev-web:
 	pnpm --filter @mpa/web dev
+
+# Rehearsal/demo: offline replay, production web build (no Next dev overlay), watchable timeline
+demo:
+	pnpm --filter @mpa/web build
+	@LLM_MODE=replay REPLAY_DELAY_MS=$${REPLAY_DELAY_MS:-900} $(MAKE) -j2 dev-api dev-web-prod
+
+dev-web-prod:
+	pnpm --filter @mpa/web start
 
 test check:
 	pnpm check
