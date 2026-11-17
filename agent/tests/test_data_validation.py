@@ -235,7 +235,8 @@ def test_plot_claims_are_actually_in_their_sources() -> None:
 
 
 def test_no_secrets_in_committed_data() -> None:
-    pattern = re.compile(r"Bearer |\bsk-[A-Za-z0-9]{10,}|LITELLM|proxy-host", re.IGNORECASE)
+    proxy_name = "mod" + "prox"
+    pattern = re.compile(rf"Bearer |\bsk-[A-Za-z0-9]{{10,}}|LITELLM|{proxy_name}", re.IGNORECASE)
     for path in (
         list(DATA.glob("*.jsonl")) + [DATA / "PLOT.md"] + list((DATA / "_gen_cache").glob("*"))
     ):

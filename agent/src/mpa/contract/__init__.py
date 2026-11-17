@@ -2,6 +2,22 @@
 
 from mpa.contract import models
 from mpa.contract.citations import CitationRef, citation_token, parse_citations
+from mpa.contract.interfaces import (
+    CitationType,
+    DataSource,
+    DataSourceError,
+    LLMClient,
+    LLMMessage,
+    LLMResponse,
+    NoopTracer,
+    NullSpan,
+    RunDeps,
+    Span,
+    ToolCall,
+    ToolSpec,
+    Tracer,
+    Usage,
+)
 from mpa.contract.limits import LIMITS, LimitError, assert_within_limit, json_bytes
 from mpa.contract.models import (
     AgentEvent,
@@ -20,9 +36,9 @@ from mpa.contract.models import (
     SubAgentOutput,
     ToolResult,
 )
+from mpa.contract.settings import DEFAULT_LLM_MODEL, Settings
 
 __all__ = [
-    "LIMITS",
     "AgentEvent",
     "BriefingPack",
     "BriefingRequest",
@@ -30,16 +46,33 @@ __all__ = [
     "ChatMessage",
     "Citation",
     "CitationRef",
+    "CitationType",
     "Contact",
+    "DEFAULT_LLM_MODEL",
+    "DataSource",
+    "DataSourceError",
     "Doc",
     "Email",
     "EvalResult",
+    "LIMITS",
+    "LLMClient",
+    "LLMMessage",
+    "LLMResponse",
     "LimitError",
     "NewsItem",
+    "NoopTracer",
+    "NullSpan",
+    "RunDeps",
     "SearchHit",
+    "Settings",
     "SourceItem",
+    "Span",
     "SubAgentOutput",
+    "ToolCall",
     "ToolResult",
+    "ToolSpec",
+    "Tracer",
+    "Usage",
     "assert_within_limit",
     "citation_token",
     "json_bytes",
