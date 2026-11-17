@@ -39,7 +39,7 @@ _SHORT = {
 _MISSING = {
     "meeting_at_a_glance": "meeting details",
     "client_snapshot": "document background",
-    "recent_news": "no recent news",
+    "recent_news": "recent news",
     "where_we_left_off": "recent correspondence",
     "open_items": "open items from email and chat",
     "attendees": "attendee details",

@@ -144,15 +144,15 @@ class FakeData:
         )
 
     async def get_source(self, type: str, id: str) -> SourceItem:
-        store = {
+        stores: dict[str, dict[str, Any]] = {
             "email": self.emails,
             "chat": self.chats,
             "doc": self.docs,
             "news": self.news,
             "contact": self.contacts,
             "cal": self.cal,
-        }[type]
-        return SourceItem.model_validate(store[id].model_dump(mode="json"))
+        }
+        return SourceItem.model_validate(stores[type][id].model_dump(mode="json"))
 
 
 class FlakyData(FakeData):

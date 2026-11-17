@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import AsyncGenerator
 from pathlib import Path
 
 import pytest
@@ -89,7 +90,7 @@ async def test_writer_prompt_is_deterministic() -> None:
             _rec.append(json.dumps([m.model_dump(mode="json") for m in messages], sort_keys=True))
             return await _orig(messages, **kw)
 
-        llm.chat = spy  # type: ignore[method-assign]
+        llm.chat = spy
         await collect(REQUEST, make_deps(llm))
         seen.append(sorted(recorded))
     assert seen[0] == seen[1]
@@ -138,6 +139,7 @@ async def test_consumer_disconnect_cancels_everything() -> None:
     llm = PolicyLLM(delay=0.05)
     before = {t for t in asyncio.all_tasks()}
     gen = run_briefing(REQUEST, make_deps(llm))
+    assert isinstance(gen, AsyncGenerator)
     async for event in gen:
         if event.root.type == "tool_call":
             break
