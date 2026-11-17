@@ -30,7 +30,7 @@
 - Cost: US$2.4499 (harness-reported)
 
 ## Live runs (task s4b-eval-live)
-- Model: `vertex-ai-gemini-3-flash-preview` for agents and judge (from `LLM_MODEL`; no `JUDGE_MODEL`). Wall time 10:46 → about 11:02 UTC.
+- Model: `vertex-ai-gemini-3-flash-preview` for agents and judge (from `LLM_MODEL`; no `JUDGE_MODEL`). Wall time 10:46:56 → 10:58 UTC (about 11 minutes).
 - Wiring: the harness already imported `run_briefing`, `build_llm_client`, `build_data_source`, `build_tracer` by the `interfaces.md` names; no integration fix was needed. `pnpm check` green after the merge (623 passed, 2 skipped).
 - Commands: `make eval` (3 clients, normal, live) → 22 to 25 s wall clock (budget 5 minutes); `cd agent && uv run python -m mpa.evals --scenario all` → about 27 s; the four failure scenarios were also run one by one. `evals/results/latest.{md,json}` come from the last `--scenario all` run (commit `76382af` + these changes). No URLs, keys or headers appear in them (checked).
 
