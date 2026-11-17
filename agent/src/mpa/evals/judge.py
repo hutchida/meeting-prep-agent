@@ -59,7 +59,7 @@ def numbered_sentences(pack: BriefingPack) -> list[NumberedSentence]:
     return out
 
 
-def render_source(item: Any) -> str:
+def render_source(item: Any, people: dict[str, str] | None = None) -> str:
     """Plain text of a SourceItem (or its raw dict) for the hallucination judge."""
     data: dict[str, Any] = (
         item
@@ -93,9 +93,11 @@ def render_source(item: Any) -> str:
             f"{data.get('notes', '')}"
         )
     elif kind == "cal":
+        who = [(people or {}).get(a, a) for a in data.get("attendees", [])]
         text = (
             f"Calendar event '{data.get('title')}' {data.get('start')} to {data.get('end')}, "
-            f"attendees {', '.join(data.get('attendees', []))}. {data.get('description', '')}"
+            f"location {data.get('location', 'n/a')}, attendees {'; '.join(who)}. "
+            f"{data.get('description', '')}"
         )
     else:
         text = json.dumps(data, sort_keys=True)
@@ -150,7 +152,7 @@ class Judge:
                 check(parsed)
                 return parsed
             except (ValueError, ValidationError) as err:
-                last_error = str(err).splitlines()[0][:300] if str(err) else type(err).__name__
+                last_error = _describe(err)
                 if attempt == 0:
                     messages = [
                         *messages,
@@ -238,6 +240,13 @@ class Judge:
                 found[u.sentence_index] = u.reason
         by_index = {s.index: s for s in claims}
         return [(by_index[i], found[i]) for i in sorted(found)]
+
+
+def _describe(err: Exception) -> str:
+    if isinstance(err, ValidationError):
+        parts = [f"{'.'.join(str(p) for p in e['loc'])}: {e['msg']}" for e in err.errors()[:4]]
+        return f"{err.error_count()} schema errors ({'; '.join(parts)})"[:400]
+    return (str(err).splitlines() or [type(err).__name__])[0][:300]
 
 
 def _check_indexes(item_id: str, indexes: list[int], n: int, *, need: bool) -> None:

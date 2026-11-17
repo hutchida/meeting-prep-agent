@@ -52,7 +52,7 @@ async def test_fact_judgement_is_parsed_and_ordered_like_the_gold_file() -> None
     assert [v.id for v in result.traps] == [t.id for t in gold.traps]
     assert llm.temperatures == [0.0]
     system = llm.requests[0][0].content or ""
-    assert "judge_facts v1" in system
+    assert "judge_facts v2" in system
     user = llm.requests[0][1].content or ""
     assert "<BRIEFING>" in user and "<KEY_FACTS>" in user and "<TRAPS>" in user
 
@@ -161,3 +161,23 @@ def test_render_source_covers_every_type() -> None:
         text = render_source(index[kind][item_id])
         assert text and len(text) <= 2500
     assert "VeriTrace" in render_source(index["email"]["E37"])
+
+
+def test_render_source_shows_calendar_location_and_attendee_names() -> None:
+    from mpa.evals.judge import render_source
+
+    text = render_source(
+        {
+            "type": "cal",
+            "title": "Check-in",
+            "start": "s",
+            "end": "e",
+            "location": "Room 2",
+            "attendees": ["P1", "P9"],
+            "description": "d",
+        },
+        {"P1": "Sam Reyes (Senior Consultant, Northwind Advisory)"},
+    )
+    assert "location Room 2" in text
+    assert "Sam Reyes (Senior Consultant, Northwind Advisory)" in text
+    assert "P9" in text

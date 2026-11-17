@@ -163,3 +163,13 @@ def test_empty_client_setup_builds_a_stripped_data_dir(
     finally:
         scenarios.cleanup_temp_dirs()
     assert not tmp.exists()
+
+
+def test_calendar_only_sentences_are_not_invented_in_an_empty_client_run() -> None:
+    from types import SimpleNamespace as NS
+
+    cal = NS(type="cal", id="M5")
+    mail = NS(type="email", id="E1")
+    assert scenarios._calendar_only(NS(citations=[cal]))
+    assert not scenarios._calendar_only(NS(citations=[cal, mail]))
+    assert not scenarios._calendar_only(NS(citations=[]))
