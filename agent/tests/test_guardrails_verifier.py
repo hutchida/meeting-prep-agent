@@ -124,6 +124,7 @@ async def test_borderline_sentence_is_confirmed_by_one_batched_model_check() -> 
     from mpa.loop import Budget
     from test_agents_fakes import ScriptedLLM, reply
 
+    llm = ScriptedLLM([reply(content='{"supported": [1]}')])
     budget = Budget(8, 10**6, 1.0)
     v = Verifier(FakeData(), llm=llm, budget=budget)
     report = await v.verify(sections(where_we_left_off=[THIN, OK]))
