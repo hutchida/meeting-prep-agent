@@ -31,3 +31,6 @@
 - Model: github-copilot/claude-sonnet-5.5; wall 17.1 min
 - Tokens: input 118 (uncached) / output 56,888 / reasoning 22,378 / cache read 5,610,506 / cache write 146,544
 - Cost: US$1.3539 (harness-reported)
+
+Integration fix: removed the now-unused `# type: ignore[attr-defined]` on `from mpa.data import build_data_source` in agent/src/mpa/api/deps.py (mypy unused-ignore after S2 merged); the `mpa.llm` ignore remains needed.
+`git merge main` was already up to date; `pnpm check` is green (452 passed, 1 skipped).
