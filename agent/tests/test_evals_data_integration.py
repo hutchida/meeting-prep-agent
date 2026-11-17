@@ -1,4 +1,4 @@
-"""The harness against the real FakeDataSource (S2): source loading and the empty-client data dir."""
+"""The harness against the real FakeDataSource: source loading and the empty-client data dir."""
 
 from dataclasses import replace
 
