@@ -1,0 +1,1503 @@
+{
+  "run_id": "run_20260309_0900",
+  "client": "Brightmoor Renewables",
+  "meeting": {
+    "cal_id": "M2",
+    "title": "Brightmoor Renewables - PPA board pre-read",
+    "start": "2026-03-12T14:00:00Z"
+  },
+  "partial": false,
+  "gaps": [],
+  "verifier": {
+    "sentences_total": 13,
+    "sentences_kept": 13,
+    "sentences_dropped": 0
+  },
+  "stats": {
+    "steps": 14,
+    "tokens_in": 21840,
+    "tokens_out": 3120,
+    "cost_usd": 0.031,
+    "duration_ms": 38250
+  },
+  "model": "vertex-ai-gemini-3-flash-preview",
+  "sections": [
+    {
+      "id": "meeting_at_a_glance",
+      "title": "Meeting at a glance",
+      "sentences": [
+        {
+          "text": "Detail 0: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 1: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 2: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 3: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 4: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 5: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 6: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 7: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 8: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 9: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 10: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 11: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "client_snapshot",
+      "title": "Client snapshot",
+      "sentences": [
+        {
+          "text": "Detail 100: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 101: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 102: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 103: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 104: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 105: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 106: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 107: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 108: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 109: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 110: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 111: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "recent_news",
+      "title": "Recent news",
+      "sentences": [
+        {
+          "text": "Detail 200: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 201: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 202: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 203: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 204: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 205: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 206: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 207: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 208: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 209: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 210: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 211: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "where_we_left_off",
+      "title": "Where we left off",
+      "sentences": [
+        {
+          "text": "Detail 300: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 301: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 302: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 303: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 304: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 305: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 306: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 307: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 308: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 309: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 310: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 311: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "open_items",
+      "title": "Open items",
+      "sentences": [
+        {
+          "text": "Detail 400: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 401: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 402: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 403: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 404: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 405: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 406: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 407: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 408: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 409: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 410: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 411: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "attendees",
+      "title": "Attendees",
+      "sentences": [
+        {
+          "text": "Detail 500: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 501: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 502: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 503: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 504: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 505: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 506: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 507: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 508: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 509: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 510: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 511: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    },
+    {
+      "id": "talking_points_and_risks",
+      "title": "Talking points and risks",
+      "sentences": [
+        {
+          "text": "Detail 600: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 601: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 602: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 603: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 604: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 605: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 606: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 607: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 608: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 609: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 610: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        },
+        {
+          "text": "Detail 611: Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context. Brightmoor pricing discussion point with supporting context.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "citations": [
+            {
+              "type": "email",
+              "id": "E214"
+            },
+            {
+              "type": "doc",
+              "id": "D9"
+            },
+            {
+              "type": "chat",
+              "id": "C37"
+            }
+          ]
+        }
+      ],
+      "empty": false
+    }
+  ]
+}

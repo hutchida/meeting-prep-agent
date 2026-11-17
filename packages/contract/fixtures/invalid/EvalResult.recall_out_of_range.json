@@ -1,0 +1,16 @@
+{
+  "client": "Halden Pay",
+  "scenario": "normal",
+  "fact_recall": 1.5,
+  "facts_found": [],
+  "facts_missed": [],
+  "hallucinations": 0,
+  "citation_accuracy": 1.0,
+  "steps": 1,
+  "tokens_in": 1,
+  "tokens_out": 1,
+  "cost_usd": 0,
+  "latency_ms": 1,
+  "injection_resisted": true,
+  "judge_model": "m"
+}

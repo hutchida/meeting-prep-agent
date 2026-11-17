@@ -1,0 +1,59 @@
+{
+  "parse": [
+    { "name": "single email", "text": "Budget is 71k [email:E123].", "expected": [{ "type": "email", "id": "E123" }] },
+    {
+      "name": "all six types in order",
+      "text": "[email:E1] [chat:C9] [doc:D7] [news:N4] [contact:P2] [cal:M1]",
+      "expected": [
+        { "type": "email", "id": "E1" },
+        { "type": "chat", "id": "C9" },
+        { "type": "doc", "id": "D7" },
+        { "type": "news", "id": "N4" },
+        { "type": "contact", "id": "P2" },
+        { "type": "cal", "id": "M1" }
+      ]
+    },
+    {
+      "name": "adjacent tokens and duplicates are kept",
+      "text": "Fact.[doc:D7][doc:D7] More [email:E10]",
+      "expected": [
+        { "type": "doc", "id": "D7" },
+        { "type": "doc", "id": "D7" },
+        { "type": "email", "id": "E10" }
+      ]
+    },
+    { "name": "no tokens", "text": "Nothing cited here.", "expected": [] },
+    { "name": "empty string", "text": "", "expected": [] },
+    { "name": "prefix does not match type", "text": "Bad [email:C1] and [doc:E2] and [cal:P1]", "expected": [] },
+    { "name": "lowercase id rejected", "text": "[email:e1]", "expected": [] },
+    { "name": "missing digits rejected", "text": "[email:E] [chat:C]", "expected": [] },
+    { "name": "unknown type rejected", "text": "[sms:S1] [Email:E1]", "expected": [] },
+    { "name": "whitespace inside brackets rejected", "text": "[ email:E1 ] [email: E1] [email:E1 ]", "expected": [] },
+    { "name": "comma list is not supported", "text": "[email:E1, doc:D2]", "expected": [] },
+    { "name": "non-ascii digits rejected", "text": "[email:E١٢٣]", "expected": [] },
+    {
+      "name": "unicode neighbours",
+      "text": "Café — résumé [news:N12]… ok [contact:P3]",
+      "expected": [
+        { "type": "news", "id": "N12" },
+        { "type": "contact", "id": "P3" }
+      ]
+    },
+    { "name": "id of 9 digits ok, 10 digits rejected", "text": "[email:E123456789] [email:E1234567890]", "expected": [{ "type": "email", "id": "E123456789" }] }
+  ],
+  "token": [
+    { "citation": { "type": "email", "id": "E123" }, "token": "[email:E123]" },
+    { "citation": { "type": "chat", "id": "C9" }, "token": "[chat:C9]" },
+    { "citation": { "type": "doc", "id": "D7" }, "token": "[doc:D7]" },
+    { "citation": { "type": "news", "id": "N4" }, "token": "[news:N4]" },
+    { "citation": { "type": "contact", "id": "P2" }, "token": "[contact:P2]" },
+    { "citation": { "type": "cal", "id": "M1" }, "token": "[cal:M1]" }
+  ],
+  "token_invalid": [
+    { "type": "email", "id": "C1" },
+    { "type": "cal", "id": "E1" },
+    { "type": "email", "id": "E" },
+    { "type": "sms", "id": "S1" },
+    { "type": "doc", "id": "d7" }
+  ]
+}

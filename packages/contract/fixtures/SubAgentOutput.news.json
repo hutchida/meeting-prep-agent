@@ -1,0 +1,17 @@
+{
+  "agent": "news",
+  "findings": [
+    {
+      "text": "No recent news found about Brightmoor Renewables.",
+      "citations": [],
+      "kind": "note"
+    }
+  ],
+  "gaps": [
+    {
+      "source": "news",
+      "reason": "timeout",
+      "detail": "news source timed out after 2 attempts"
+    }
+  ]
+}

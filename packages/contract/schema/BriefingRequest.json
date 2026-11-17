@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/BriefingRequest",
+  "$defs": {
+    "BriefingRequest": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "fail_source": {
+          "type": "string",
+          "enum": [
+            "news",
+            "email",
+            "docs",
+            "all"
+          ]
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "additionalProperties": false,
+      "description": "Body of POST /briefings."
+    }
+  }
+}

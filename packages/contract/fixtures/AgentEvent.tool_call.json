@@ -1,0 +1,13 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 3,
+  "ts": "2026-03-09T09:00:03.100Z",
+  "type": "tool_call",
+  "agent": "news",
+  "call_id": "call_1",
+  "tool": "search_news",
+  "args": {
+    "query": "Brightmoor Renewables",
+    "limit": 5
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "cal",
+  "id": "M2",
+  "title": "Brightmoor Renewables - PPA board pre-read",
+  "start": "2026-03-12T14:00:00Z",
+  "end": "2026-03-12T15:00:00Z",
+  "attendees": [
+    "P1",
+    "P2",
+    "P5"
+  ],
+  "location": "https://meet.example.test/brm-ppa",
+  "description": "Walk through revised PPA pricing and the board pre-read."
+}

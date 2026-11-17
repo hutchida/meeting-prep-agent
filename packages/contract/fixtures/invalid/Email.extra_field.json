@@ -1,0 +1,17 @@
+{
+  "type": "email",
+  "id": "E214",
+  "thread_id": "T-brm-ppa-2026-02",
+  "sender": "maya.okafor@brightmoor.example.test",
+  "to": [
+    "sam.reyes@northwind.example.test"
+  ],
+  "cc": [
+    "jonas.lindqvist@brightmoor.example.test"
+  ],
+  "date": "2026-02-24T16:12:00Z",
+  "subject": "Re: PPA term sheet - revised pricing",
+  "origin": "synthetic",
+  "body": "Hi Sam,\n\nThanks for the quick turnaround. We can live with the 12 year term but the 74/MWh floor is still above what finance signed off on (they said 71). Can you rework the sensitivity table before Thursday's board pre-read?\n\nAlso, I said I'd send the grid-connection study last week - it's slipping, sorry. Will land by Mar 6.\n\nMaya\n\n> On Feb 24, Sam Reyes wrote:\n> Revised pricing attached, floor at 74/MWh.\n\n--\nMaya Okafor | Head of Commercial | Brightmoor Renewables\nThis email may contain confidential information.",
+  "attachments": []
+}

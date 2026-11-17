@@ -1,0 +1,9 @@
+{
+  "run_id": "run_20260309_0900",
+  "seq": 0,
+  "ts": "2026-03-09T09:00:00.100Z",
+  "type": "run_started",
+  "message": "x",
+  "model": "m",
+  "secret": "nope"
+}
